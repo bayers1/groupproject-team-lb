@@ -1,6 +1,6 @@
 package starter;
 
-public class GameObject {
+public abstract class GameObject {
 
 	private double x, y, velocityX, velocityY;
 	private int width, height;
@@ -18,49 +18,49 @@ public class GameObject {
 	/*
 	 * SETTERS
 	 * */
-	void setX(double x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	void setY(double y) {
+	public void setY(double y) {
 		this.y = y;
 	}
-	void setVelocityX(double velocityX) {
+	public void setVelocityX(double velocityX) {
 		this.velocityX = velocityX;
 	}
-	void setVelocityY(double velocityY) {
+	public void setVelocityY(double velocityY) {
 		this.velocityY = velocityY;
 	}
-	void setWidth(int width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
-	void setHeight(int height) {
+	public void setHeight(int height) {
 		this.height = height;
 	}
 	
 	/*
 	 * GETTERS
 	 * */
-	double getX() {
+	public double getX() {
 		return x;
 	}
-	double getY() {
+	public double getY() {
 		return y;
 	}
-	double getVelocityX() {
+	public double getVelocityX() {
 		return velocityX;
 	}
-	double getVelocityY() {
+	public double getVelocityY() {
 		return velocityY;
 	}
-	int getWidth() {
+	public int getWidth() {
 		return width;
 	}
-	int getHeight() {
+	public int getHeight() {
 		return height;
 	}
 	
-	
-	
+	public abstract boolean move();
+	public abstract void bounds();
 	
 	
 }
