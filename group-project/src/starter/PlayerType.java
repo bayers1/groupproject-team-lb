@@ -4,7 +4,6 @@ public enum PlayerType {
 	fire, water, earth, air;
 	
 	public String PlayerType() {
-		
 		switch(this) {
 			case fire: 
 				return "fireDragon";
