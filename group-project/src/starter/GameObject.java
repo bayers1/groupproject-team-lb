@@ -1,6 +1,6 @@
 package starter;
 
-public abstract class GameObject extends GraphicsGame{
+public abstract class GameObject{
 
 	private double x, y;
 	private int width, height;
