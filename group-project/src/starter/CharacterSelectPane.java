@@ -9,6 +9,8 @@ import acm.graphics.GObject;
 public class CharacterSelectPane extends GraphicsPane {
 	private MainApplication program;
 	
+	public static final int IMAGE_HEIGHT = 400;
+	
 	private GImage Fire;
 	private GImage Water;
 	private GImage Earth;
@@ -20,7 +22,7 @@ public class CharacterSelectPane extends GraphicsPane {
 	public CharacterSelectPane(MainApplication app) {
 		super();
 		program = app;
-		Fire = new GImage("fire1.jpg", 200, 300);
+		Fire = new GImage("fire1.jpg", 200, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 		Next = new GButton("Next", RIGHT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 		//Next.setFillColor(Color.yellow);
 		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
