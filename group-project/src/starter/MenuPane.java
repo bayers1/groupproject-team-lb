@@ -8,7 +8,9 @@ import acm.graphics.GObject;
 
 public class MenuPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
-										// all of the GraphicsProgram calls
+	public static final int MENU_BUTTON_HEIGHT = 60;
+	public static final int MENU_BUTTON_WIDTH = 120;
+	public static final int START_POS = 180;
 	private GButton play;
 	private GButton settings;
 	private GButton howToPlay;
@@ -16,13 +18,12 @@ public class MenuPane extends GraphicsPane {
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-		play = new GButton("Play", CENTER - 50, 150, 100, 80);
-		play.setFillColor(Color.RED);
-		settings = new GButton("Settings",CENTER - 50, 240, 100, 80);
-		settings.setFillColor(Color.green);
-		howToPlay = new GButton("How to Play",CENTER - 50, 330, 100, 80);
-		howToPlay.setFillColor(Color.yellow);
-		
+		play = new GButton("   Play   ", CENTER - (MENU_BUTTON_WIDTH/2), START_POS, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+		play.setFillColor(Color.GRAY);
+		settings = new GButton("Settings",CENTER - (MENU_BUTTON_WIDTH/2), START_POS+MENU_BUTTON_HEIGHT+REG_PADDING, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+		settings.setFillColor(Color.GRAY);
+		howToPlay = new GButton("How to Play",CENTER - (MENU_BUTTON_WIDTH/2), START_POS+(2*MENU_BUTTON_HEIGHT)+(2*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+		howToPlay.setFillColor(Color.GRAY);
 	}
 
 	@Override
