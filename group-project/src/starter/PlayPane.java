@@ -13,6 +13,10 @@ package starter;
 			this.program = app;
 
 		}
+		
+		public void createPlayer() {
+			
+		}
 
 		@Override
 		public void showContents() {

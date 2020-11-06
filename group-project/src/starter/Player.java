@@ -17,10 +17,6 @@ public class Player extends GameObject{
 	public void setType(PlayerType type) {
 		this.type = type;
 	}
-
-	public void createPlayer() {
-		
-	}
 	
 	public boolean move() {
 		return true;
