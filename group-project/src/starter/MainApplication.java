@@ -11,6 +11,7 @@ public class MainApplication extends GraphicsApplication {
 	private PlayPane playPane;
 	private MenuPane menu;
 	private CharacterSelectPane charPane;
+	private SettingsPane settingsPane;
 	private int count;
 	//private GImage img1;
 	public void init() {
@@ -27,6 +28,7 @@ public class MainApplication extends GraphicsApplication {
 		playPane = new PlayPane(this);
 		menu = new MenuPane(this);
 		charPane = new CharacterSelectPane(this);
+		settingsPane = new SettingsPane(this);
 		switchToMenu();
 	}
 
@@ -45,6 +47,7 @@ public class MainApplication extends GraphicsApplication {
 	}
 	
 	public void switchToSettings() {
+		switchToScreen(settingsPane);
 		
 	}
 	public void switchToHowToPlay() {
