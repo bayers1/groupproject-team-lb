@@ -16,11 +16,11 @@ public class MenuPane extends GraphicsPane {
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-		rect = new GButton("Play", 580, 150, 100, 80);
+		rect = new GButton("Play", CENTER - 50, 150, 100, 80);
 		rect.setFillColor(Color.RED);
-		rect2 = new GButton("Settings",580, 240, 100, 80);
+		rect2 = new GButton("Settings",CENTER - 50, 240, 100, 80);
 		rect2.setFillColor(Color.green);
-		rect3 = new GButton("How to Play",580, 330, 100, 80);
+		rect3 = new GButton("How to Play",CENTER - 50, 330, 100, 80);
 		rect3.setFillColor(Color.yellow);
 		
 	}
@@ -35,9 +35,7 @@ public class MenuPane extends GraphicsPane {
 
 	@Override
 	public void hideContents() {
-		program.remove(rect);
-		program.remove(rect2);
-		program.remove(rect3);
+		program.removeAll();
 	}
 
 	@Override

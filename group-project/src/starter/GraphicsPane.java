@@ -16,6 +16,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public abstract class GraphicsPane implements Interfaceable {
+	
+	public static final int WINDOW_WIDTH = 1280;
+	public static final int WINDOW_HEIGHT = 600;
+	public static final int RIGHT_BOTTOM = WINDOW_WIDTH - 150;
+	public static final int LEFT_BOTTOM = 25;
+	public static final int CENTER = WINDOW_WIDTH / 2;
 	@Override
 	public abstract void showContents();
 
