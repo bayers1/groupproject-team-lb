@@ -1,9 +1,19 @@
 package starter;
 
-public class PowerUpType {
+public enum PowerUpType {
+	multi, slow, bonus;
 
-	public PowerUpType() {
-		// TODO Auto-generated constructor stub
+	public String PowerUpType() {
+
+		switch(this) {
+			case multi:
+				return "Score Multiplier";
+			case slow:
+				return "Object Slowdown";
+			case bonus:
+				return "Bonus Point";
+		}
+		return "N/A";
 	}
 
 }
