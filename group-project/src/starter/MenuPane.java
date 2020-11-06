@@ -36,14 +36,15 @@ public class MenuPane extends GraphicsPane {
 	@Override
 	public void hideContents() {
 		program.remove(rect);
-		
+		program.remove(rect2);
+		program.remove(rect3);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == rect) {
-			program.switchToPlay();
+			program.switchToCharSelect();
 		}
 	}
 }

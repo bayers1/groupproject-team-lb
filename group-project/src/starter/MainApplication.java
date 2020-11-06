@@ -10,6 +10,7 @@ public class MainApplication extends GraphicsApplication {
 
 	private PlayPane playPane;
 	private MenuPane menu;
+	private CharacterSelectPane charPane;
 	private int count;
 	//private GImage img1;
 	public void init() {
@@ -25,7 +26,7 @@ public class MainApplication extends GraphicsApplication {
 		System.out.println("Hello, world!");
 		playPane = new PlayPane(this);
 		menu = new MenuPane(this);
-		
+		charPane = new CharacterSelectPane(this);
 		switchToMenu();
 	}
 
@@ -39,6 +40,12 @@ public class MainApplication extends GraphicsApplication {
 		playRandomSound();
 		switchToScreen(playPane);
 	}
+	
+	public void switchToCharSelect() {
+		playRandomSound();
+		switchToScreen(charPane);
+	}
+	
 	public void switchToSettings() {
 		
 	}
