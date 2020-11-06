@@ -31,18 +31,16 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	public void switchToMenu() {
-		playRandomSound();
+		//playRandomSound();
 		count++;
 		switchToScreen(menu);
 	}
 
 	public void switchToPlay() {
-		playRandomSound();
 		switchToScreen(playPane);
 	}
 	
 	public void switchToCharSelect() {
-		playRandomSound();
 		switchToScreen(charPane);
 	}
 	

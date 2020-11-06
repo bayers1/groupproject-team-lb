@@ -44,6 +44,9 @@ public class CharacterSelectPane extends GraphicsPane {
 		if (obj == Next) {
 			program.switchToPlay();
 		}
+		else if (obj == Back) {
+			program.switchToMenu();
+		}
 	}
 }
 
