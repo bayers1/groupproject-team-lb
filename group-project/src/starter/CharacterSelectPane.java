@@ -21,9 +21,9 @@ public class CharacterSelectPane extends GraphicsPane {
 		super();
 		program = app;
 		Fire = new GImage("fire1.jpg", 200, 300);
-		Next = new GButton("Next", RIGHT_BOTTOM, WINDOW_HEIGHT - 100, 120, 80);
+		Next = new GButton("Next", RIGHT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 		//Next.setFillColor(Color.yellow);
-		Back = new GButton("Back", LEFT_BOTTOM, WINDOW_HEIGHT - 100, 120, 80);
+		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 	}
 
 	@Override

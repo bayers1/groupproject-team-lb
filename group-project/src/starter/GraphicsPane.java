@@ -19,9 +19,14 @@ public abstract class GraphicsPane implements Interfaceable {
 	
 	public static final int WINDOW_WIDTH = 1280;
 	public static final int WINDOW_HEIGHT = 600;
-	public static final int RIGHT_BOTTOM = WINDOW_WIDTH - 150;
-	public static final int LEFT_BOTTOM = 30;
+	public static final int REG_BUTTON_HEIGHT = 50;
+	public static final int REG_BUTTON_WIDTH = 80;
+	public static final int PADDING = 30;
+	public static final int RIGHT_BOTTOM = (WINDOW_WIDTH-REG_BUTTON_WIDTH) - PADDING;
+	public static final int LEFT_BOTTOM = PADDING;
+	public static final int BOTTOM = (WINDOW_HEIGHT-REG_BUTTON_HEIGHT) - PADDING;
 	public static final int CENTER = WINDOW_WIDTH / 2;
+	
 	@Override
 	public abstract void showContents();
 

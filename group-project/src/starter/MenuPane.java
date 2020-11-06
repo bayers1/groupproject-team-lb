@@ -9,27 +9,27 @@ import acm.graphics.GObject;
 public class MenuPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
 										// all of the GraphicsProgram calls
-	private GButton rect;
-	private GButton rect2;
-	private GButton rect3;
+	private GButton play;
+	private GButton settings;
+	private GButton howToPlay;
 	
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-		rect = new GButton("Play", CENTER - 50, 150, 100, 80);
-		rect.setFillColor(Color.RED);
-		rect2 = new GButton("Settings",CENTER - 50, 240, 100, 80);
-		rect2.setFillColor(Color.green);
-		rect3 = new GButton("How to Play",CENTER - 50, 330, 100, 80);
-		rect3.setFillColor(Color.yellow);
+		play = new GButton("Play", CENTER - 50, 150, 100, 80);
+		play.setFillColor(Color.RED);
+		settings = new GButton("Settings",CENTER - 50, 240, 100, 80);
+		settings.setFillColor(Color.green);
+		howToPlay = new GButton("How to Play",CENTER - 50, 330, 100, 80);
+		howToPlay.setFillColor(Color.yellow);
 		
 	}
 
 	@Override
 	public void showContents() {
-		program.add(rect);
-		program.add(rect2);
-		program.add(rect3);
+		program.add(play);
+		program.add(settings);
+		program.add(howToPlay);
 	
 	}
 
@@ -41,7 +41,10 @@ public class MenuPane extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == rect) {
+		if (obj == play) {
+			program.switchToCharSelect();
+		}
+		else if (obj == settings) {
 			program.switchToCharSelect();
 		}
 	}
