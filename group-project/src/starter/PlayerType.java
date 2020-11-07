@@ -2,7 +2,7 @@ package starter;
 
 public enum PlayerType {
 	FIRE, WATER, EARTH, AIR;
-	
+
 	public String toString(){
 		switch(this) {
 			case FIRE: 

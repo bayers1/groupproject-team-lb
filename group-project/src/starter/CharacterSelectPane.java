@@ -32,10 +32,8 @@ public class CharacterSelectPane extends GraphicsPane{
 		Earth = new GImage("Earth.jpg", 120 + (2*IMAGE_WIDTH) + (2*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 		Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 		Next = new GButton("Next", RIGHT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
-		//Next.setFillColor(Color.yellow);
 		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 		program.setBackground(Color.cyan);
-		
 	}
 
 	@Override
@@ -44,20 +42,15 @@ public class CharacterSelectPane extends GraphicsPane{
 		program.add(Water);
 		program.add(Earth);
 		program.add(Wind);
+		
 		program.add(Next);
 		program.add(Back);
-		
 	}
-	
 
 	@Override
 	public void hideContents() {
 		program.removeAll();
 	}
-	
-	
-	
-	
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -67,41 +60,25 @@ public class CharacterSelectPane extends GraphicsPane{
 			program.switchToPlay();
 		}
 		else if (obj == Back) {
-			program.switchToMenu();
-			
+			program.switchToMenu();			
 		}
 		else if(someObj == Fire) {
-		//	setPlayerType(PlayerType.FIRE);
 			program.switchToPlay();
-			
-			
 		}
 		else if(someObj == Water) {
-		//	setPlayerType(PlayerType.WATER);
 			program.switchToPlay();
-			
-			
 		}
 		
 		else if(someObj == Earth) {
-		//	setPlayerType(PlayerType.EARTH);
 			program.switchToPlay();
-		
 		}
 		
 		else if(someObj == Wind) {
-			//setPlayerType(PlayerType.AIR);
 			program.switchToPlay();
-			
-			
 		}
-		
-		
+		else {
+		}
 	}
-
-	
-	
-	
 }
 
 

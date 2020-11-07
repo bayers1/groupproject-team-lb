@@ -23,20 +23,15 @@ public class MainApplication extends GraphicsApplication {
 	static String file;
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		
-		
 	}
 
 	public void run() {
-		
 		menu = new MenuPane(this);
 		charPane = new CharacterSelectPane(this);
 		playPane = new PlayPane(this);
 		settingPane = new SettingsPane(this);
 		howtoplayPane = new HowTOPlayPane(this);
 		switchToMenu();
-		
-	
 	}
 
 	public void switchToMenu() {
