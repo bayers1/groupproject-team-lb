@@ -1,10 +1,9 @@
 package starter;
 
 public enum PowerUpType {
-	multi, slow, bonus;
+	multi, slow, bonus, invul;
 
-	public String PowerUpType() {
-
+	public String toString() {
 		switch(this) {
 			case multi:
 				return "Score Multiplier";
@@ -12,6 +11,8 @@ public enum PowerUpType {
 				return "Object Slowdown";
 			case bonus:
 				return "Bonus Point";
+			case invul:
+				return "invulnerability";
 		}
 		return "N/A";
 	}
