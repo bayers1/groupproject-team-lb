@@ -7,7 +7,6 @@ public class Player extends GameObject{
 	public Player(double x, double y, int width, int height, PlayerType type) {
 		super(x, y, width, height);
 		this.type = type;
-		
 	}
 
 	public PlayerType getType() {
@@ -32,6 +31,14 @@ public class Player extends GameObject{
 	
 	public void bounds() {
 		
+	}
+	
+	public String toString() {
+		String characterDetails = "Height: "+ getHeight()
+								+ "Width: "	+ getWidth()
+								+ "Type: "	+ getType();
+		
+		return characterDetails;
 	}
 
 }
