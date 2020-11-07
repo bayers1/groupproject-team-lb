@@ -1,5 +1,8 @@
 package starter;
 
+import java.awt.Image;
+import java.util.ArrayList;
+
 import acm.graphics.GImage;
 
 public class MainApplication extends GraphicsApplication {
@@ -7,13 +10,17 @@ public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
+	//private static final String[] Characters = {"Fire.jpg","Water.jpg","Earth.jpg","Wind.jpg"};
 
 	private PlayPane playPane;
 	private MenuPane menu;
 	private CharacterSelectPane charPane;
-	private SettingsPane settingsPane;
 	private int count;
+	private SettingsPane settingPane;
+	private HowTOPlayPane howtoplayPane;
 	//private GImage img1;
+	
+	static String file;
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		
@@ -21,15 +28,15 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	public void run() {
-		//img1 = new GImage("menu_bg.jpg",1280,600);
-		//img1.setVisible(true);
-		//add(img1);
-		System.out.println("Hello, world!");
-		playPane = new PlayPane(this);
+		
 		menu = new MenuPane(this);
 		charPane = new CharacterSelectPane(this);
-		settingsPane = new SettingsPane(this);
+		playPane = new PlayPane(this);
+		settingPane = new SettingsPane(this);
+		howtoplayPane = new HowTOPlayPane(this);
 		switchToMenu();
+		
+	
 	}
 
 	public void switchToMenu() {
@@ -37,24 +44,31 @@ public class MainApplication extends GraphicsApplication {
 		count++;
 		switchToScreen(menu);
 	}
+	public void switchToCharSelect() {
+		switchToScreen(charPane);
+		
+	}
+	
 
 	public void switchToPlay() {
 		switchToScreen(playPane);
+		
 	}
 	
-	public void switchToCharSelect() {
-		switchToScreen(charPane);
-	}
 	
 	public void switchToSettings() {
-		switchToScreen(settingsPane);
+		switchToScreen(settingPane);
 		
 	}
 	public void switchToHowToPlay() {
-		
+		switchToScreen(howtoplayPane);
 	}
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
 	}
+
+	
+
+	
 }

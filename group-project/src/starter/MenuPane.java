@@ -57,5 +57,8 @@ public class MenuPane extends GraphicsPane {
 		else if (obj == settings) {
 			program.switchToSettings();
 		}
+		else if (obj == howToPlay) {
+			program.switchToHowToPlay();
+		}
 	}
 }

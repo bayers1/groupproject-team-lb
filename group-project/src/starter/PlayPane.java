@@ -3,29 +3,38 @@ package starter;
 	import java.awt.event.MouseEvent;
 
 	import acm.graphics.GImage;
-	import acm.graphics.GObject;
+import acm.graphics.GLabel;
+import acm.graphics.GObject;
 
 	public class PlayPane extends GraphicsPane {
 		private MainApplication program; // you will use program to get access to
 											// all of the GraphicsProgram calls
-
-		public PlayPane(MainApplication app) {
-			this.program = app;
-
-		}
 		
+	
+		
+		public static final int IMAGE_HEIGHT = 400;
+		public static final int IMAGE_WIDTH = 250;
+		
+		//private GLabel someLabel;
+	
 		public void createPlayer() {
 			
+		}
+		public PlayPane(MainApplication app) {
+			super();
+			program = app;
+			
+			//createPlayer();
 		}
 
 		@Override
 		public void showContents() {
-
+		//	program.add(someLabel);
 		}
 
 		@Override
 		public void hideContents() {
-
+			//program.remove(someLabel);
 		}
 
 		@Override

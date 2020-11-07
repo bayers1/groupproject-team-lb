@@ -1,12 +1,14 @@
 package starter;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 
-public class CharacterSelectPane extends GraphicsPane {
+public class CharacterSelectPane extends GraphicsPane{
 	private MainApplication program;
 	
 	public static final int IMAGE_HEIGHT = 400;
@@ -19,7 +21,9 @@ public class CharacterSelectPane extends GraphicsPane {
 	
 	private GButton Next;
 	private GButton Back;
+	private PlayPane playPane;
 	
+	GObject someObj;
 	public CharacterSelectPane(MainApplication app) {
 		super();
 		program = app;
@@ -30,6 +34,8 @@ public class CharacterSelectPane extends GraphicsPane {
 		Next = new GButton("Next", RIGHT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 		//Next.setFillColor(Color.yellow);
 		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
+		program.setBackground(Color.cyan);
+		
 	}
 
 	@Override
@@ -40,23 +46,62 @@ public class CharacterSelectPane extends GraphicsPane {
 		program.add(Wind);
 		program.add(Next);
 		program.add(Back);
+		
 	}
+	
 
 	@Override
 	public void hideContents() {
 		program.removeAll();
 	}
 	
+	
+	
+	
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
+		someObj = obj;
 		if (obj == Next) {
 			program.switchToPlay();
 		}
 		else if (obj == Back) {
 			program.switchToMenu();
+			
 		}
+		else if(someObj == Fire) {
+		//	setPlayerType(PlayerType.FIRE);
+			program.switchToPlay();
+			
+			
+		}
+		else if(someObj == Water) {
+		//	setPlayerType(PlayerType.WATER);
+			program.switchToPlay();
+			
+			
+		}
+		
+		else if(someObj == Earth) {
+		//	setPlayerType(PlayerType.EARTH);
+			program.switchToPlay();
+		
+		}
+		
+		else if(someObj == Wind) {
+			//setPlayerType(PlayerType.AIR);
+			program.switchToPlay();
+			
+			
+		}
+		
+		
 	}
+
+	
+	
+	
 }
 
 

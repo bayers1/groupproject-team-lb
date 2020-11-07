@@ -1,17 +1,17 @@
 package starter;
 
 public enum PlayerType {
-	fire, water, earth, air;
+	FIRE, WATER, EARTH, AIR;
 	
-	public String PlayerType() {
+	public String toString(){
 		switch(this) {
-			case fire: 
+			case FIRE: 
 				return "fireDragon";
-			case water:
+			case WATER:
 				return "waterDragon";
-			case earth:
+			case EARTH:
 				return "earthDragon";
-			case air:
+			case AIR:
 				return "airDragon";
 		}
 		return "N/A";
