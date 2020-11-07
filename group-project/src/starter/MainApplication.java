@@ -14,7 +14,6 @@ public class MainApplication extends GraphicsApplication {
 
 	private PlayPane playPane;
 	private MenuPane menu;
-	private CharacterSelectPane charPane;
 	private int count;
 	private SettingsPane settingPane;
 	private HowTOPlayPane howtoplayPane;
@@ -27,7 +26,6 @@ public class MainApplication extends GraphicsApplication {
 
 	public void run() {
 		menu = new MenuPane(this);
-		charPane = new CharacterSelectPane(this);
 		playPane = new PlayPane(this);
 		settingPane = new SettingsPane(this);
 		howtoplayPane = new HowTOPlayPane(this);
@@ -39,21 +37,13 @@ public class MainApplication extends GraphicsApplication {
 		count++;
 		switchToScreen(menu);
 	}
-	public void switchToCharSelect() {
-		switchToScreen(charPane);
-		
-	}
 	
-
 	public void switchToPlay() {
 		switchToScreen(playPane);
-		
 	}
-	
 	
 	public void switchToSettings() {
 		switchToScreen(settingPane);
-		
 	}
 	public void switchToHowToPlay() {
 		switchToScreen(howtoplayPane);
@@ -63,7 +53,4 @@ public class MainApplication extends GraphicsApplication {
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
 	}
 
-	
-
-	
 }
