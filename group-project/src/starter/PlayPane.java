@@ -14,8 +14,9 @@ import acm.graphics.GObject;
 		public static final int IMAGE_HEIGHT = 400;
 		public static final int IMAGE_WIDTH = 250;
 		public static final String IMG_EXTENSION = ".png";
-		public double startX = 0;
+		public double startX = 15;
 		public double startY = 300;
+		public double lastY = startY;
 		
 		
 		private GImage Fire;
@@ -23,6 +24,7 @@ import acm.graphics.GObject;
 		private GImage Earth;
 		private GImage Wind;
 		private GLabel gameOver;
+		private GImage character;
 		
 		private GButton Back;
 		private PlayPane playPane;
@@ -70,7 +72,7 @@ import acm.graphics.GObject;
 			}
 			fileName += "Dragon" + IMG_EXTENSION;
 			
-			GImage character = new GImage(fileName, startX, startY);
+			character = new GImage(fileName, startX, startY);
 			program.add(character);
 		}
 		
@@ -139,6 +141,11 @@ import acm.graphics.GObject;
 			}
 			else {
 			}
+		}
+		
+		public void mouseMoved(MouseEvent e) {
+			character.move(0, e.getY() - lastY);
+			lastY = e.getY();
 		}
 	
 	}
