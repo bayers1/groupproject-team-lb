@@ -25,9 +25,7 @@ import acm.graphics.GObject;
 		private GImage Wind;
 		private GLabel gameOver;
 		private GImage character;
-		
 		private GButton Back;
-		private PlayPane playPane;
 		
 		GObject someObj;
 		
