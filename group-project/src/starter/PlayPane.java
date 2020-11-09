@@ -17,7 +17,7 @@ import acm.graphics.GObject;
 		public double startX = 15;
 		public double startY = 300;
 		public double lastY = startY;
-		
+		private boolean selection = true;
 		
 		private GImage Fire;
 		private GImage Water;
@@ -86,6 +86,7 @@ import acm.graphics.GObject;
 		public void drawGame(PlayerType type) {
 			gameSetUp = new GameSetUp(type);
 			drawPlayer(type);
+			selection = false;
 		}
 		
 		@Override
@@ -144,6 +145,7 @@ import acm.graphics.GObject;
 		}
 		
 		public void mouseMoved(MouseEvent e) {
+			if(selection)return;
 			character.move(0, e.getY() - lastY);
 			lastY = e.getY();
 		}
