@@ -57,7 +57,7 @@ public class SettingsPane extends GraphicsPane {
 			program.switchToMenu();
 		}
 		else if(obj == OnOff) {
-			if(program.getSound()) {
+			if(program.getSound()) {//checks the status of sound and turns on/off.
 				program.stopSound("r2d2.mp3");
 				program.setSound(false);
 			}
@@ -68,7 +68,14 @@ public class SettingsPane extends GraphicsPane {
 		
 		}
 		else if(obj == OnOff1) {
-			
+			if(program.getMusic()) {//checks the status of music.
+				program.stopMusic("somethinlikethis.mp3");
+				program.setMusic(false);
+			}
+			else {
+				program.setMusic(true);
+				program.playSound("somethinlikethis.mp3",true);
+			}
 		}
 	}
 	}

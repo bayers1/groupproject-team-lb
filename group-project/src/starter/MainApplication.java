@@ -21,6 +21,7 @@ public class MainApplication extends GraphicsApplication {
 	private AudioPlayer audio;
 	static String file;
 	private boolean isSoundOn = true;
+	private boolean isMusicOn = true;
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
@@ -37,6 +38,7 @@ public class MainApplication extends GraphicsApplication {
 
 	public void switchToMenu() {
 		playSound("r2d2.mp3",true);
+		playSound("somethinlikethis.mp3",true);
 		count++;
 		switchToScreen(menu);
 	}
@@ -69,6 +71,20 @@ public class MainApplication extends GraphicsApplication {
 	}
 	public boolean getSound() {
 		return isSoundOn;
+	}
+	public void stopMusic(String fileName) {
+		audio.stopSound(MUSIC_FOLDER,fileName);//already here just using them for functionality.
+	}
+	public void playMusic(String fileName,boolean loop) {
+		if(isMusicOn) {
+			audio.playSound(MUSIC_FOLDER,fileName,loop);
+		}
+	}
+	public void setMusic(boolean turnOn) {
+		isMusicOn = turnOn;
+	}
+	public boolean getMusic() {
+		return isMusicOn;
 	}
 	
 }
