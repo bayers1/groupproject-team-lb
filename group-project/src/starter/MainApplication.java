@@ -18,22 +18,25 @@ public class MainApplication extends GraphicsApplication {
 	private SettingsPane settingPane;
 	private HowTOPlayPane howtoplayPane;
 	//private GImage img1;
-	
+	private AudioPlayer audio;
 	static String file;
+	private boolean isSoundOn = true;
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 
 	public void run() {
+		audio = AudioPlayer.getInstance();
 		menu = new MenuPane(this);
 		playPane = new PlayPane(this);
 		settingPane = new SettingsPane(this);
 		howtoplayPane = new HowTOPlayPane(this);
 		switchToMenu();
+		
 	}
 
 	public void switchToMenu() {
-		//playRandomSound();
+		playSound("r2d2.mp3",true);
 		count++;
 		switchToScreen(menu);
 	}
@@ -49,8 +52,23 @@ public class MainApplication extends GraphicsApplication {
 		switchToScreen(howtoplayPane);
 	}
 	private void playRandomSound() {
-		AudioPlayer audio = AudioPlayer.getInstance();
+		
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
 	}
-
+	public void stopSound(String fileName) {
+		audio.stopSound(MUSIC_FOLDER,fileName);
+	}
+	public void playSound(String fileName,boolean loop) {
+		if(isSoundOn) {
+		audio.playSound(MUSIC_FOLDER,fileName,loop);
+		}
+	}
+	public void setSound(boolean turnOn) {
+		isSoundOn = turnOn;
+		
+	}
+	public boolean getSound() {
+		return isSoundOn;
+	}
+	
 }

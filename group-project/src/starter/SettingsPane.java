@@ -57,6 +57,14 @@ public class SettingsPane extends GraphicsPane {
 			program.switchToMenu();
 		}
 		else if(obj == OnOff) {
+			if(program.getSound()) {
+				program.stopSound("r2d2.mp3");
+				program.setSound(false);
+			}
+			else {
+				program.setSound(true);
+				program.playSound("r2d2.mp3",true);
+			}
 		
 		}
 		else if(obj == OnOff1) {
