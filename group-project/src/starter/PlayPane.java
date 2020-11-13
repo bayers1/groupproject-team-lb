@@ -25,6 +25,7 @@ import acm.graphics.GObject;
 		private GImage Wind;
 		private GLabel gameOver;
 		private GImage character;
+		private GImage powerUp;
 		private GButton Back;
 		
 		GObject someObj;
@@ -77,8 +78,34 @@ import acm.graphics.GObject;
 		public void drawObstacle() {
 			//TODO:Display Obstacle
 		}
-		public void drawPowerUp() {
-			//TODO:Display PowerUp
+		
+		/**
+		 * This method is used to draw a certain Power Up
+		 * that will randomly appear as the player is
+		 * in the game
+		 */
+		public void drawPowerUp(PowerUpType type) {
+			String fileName = "";
+			if (type == PowerUpType.MULTI) {
+				fileName += "multi";
+			}
+			else if (type == PowerUpType.SLOW) {
+				fileName += "slow";
+			}
+			else if (type == PowerUpType.BONUS) {
+				fileName += "bonus";
+			}
+			else {
+				fileName += "invul";
+			}
+			fileName += "" + IMG_EXTENSION;
+			
+			/*
+			 * Will edit this part later
+			 */
+			//powerUp = new GImage(fileName, 700, 100);
+			//program.add(powerUp);
+			
 		}
 		
 		public void drawGame(PlayerType type) {
