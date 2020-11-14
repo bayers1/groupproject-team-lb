@@ -16,17 +16,20 @@ public class HowTOPlayPane extends GraphicsPane {
 	public static final int PANE_Y = 160;
 	
 	private GImage pane;
+	private GImage title;
 	public HowTOPlayPane(MainApplication app) {
 		super();
 		program = app;
 		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 		pane = new GImage("pane1.png", PANE_X, PANE_Y);
+		title = new GImage("howToPlay.png", 0, 0);
 	}
 		
 	@Override
 	public void showContents() {
 		program.add(Back);
 		program.add(pane);
+		program.add(title);
 	}
 
 	@Override
