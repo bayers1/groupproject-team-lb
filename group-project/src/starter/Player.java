@@ -6,8 +6,8 @@ public class Player extends GameObject{
 	
 	public Player(double x, double y, int width, int height, PlayerType type) {
 		super(x, y, width, height);
-		width = 80;
-		height = 40;
+		setWidth(80);
+		setHeight(40);
 		this.type = type;
 	}
 

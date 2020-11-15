@@ -37,8 +37,8 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	public void switchToMenu() {
-		playSound("r2d2.mp3",true);
-		playSound("somethinlikethis.mp3",true);
+		//playSound("r2d2.mp3",true);
+		//playSound("somethinlikethis.mp3",true);
 		count++;
 		switchToScreen(menu);
 	}

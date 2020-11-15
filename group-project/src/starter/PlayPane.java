@@ -110,6 +110,7 @@ import acm.graphics.GObject;
 		public void drawGame(PlayerType type) {
 			gameSetUp = new GameSetUp(type);
 			drawPlayer(type);
+			System.out.println("Player Info: " + gameSetUp.getPlayer());
 			selection = false;
 		}
 		

@@ -63,7 +63,7 @@ public class SettingsPane extends GraphicsPane {
 			}
 			else {
 				program.setSound(true);
-				program.playSound("r2d2.mp3",true);
+				//program.playSound("r2d2.mp3",true);
 			}
 		
 		}
@@ -74,7 +74,7 @@ public class SettingsPane extends GraphicsPane {
 			}
 			else {
 				program.setMusic(true);
-				program.playSound("somethinlikethis.mp3",true);
+				//program.playSound("somethinlikethis.mp3",true);
 			}
 		}
 	}
