@@ -39,6 +39,7 @@ import acm.graphics.GObject;
 			Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 			gameOver = new GLabel("You Lose", WINDOW_HEIGHT/2, WINDOW_WIDTH/2);
+			
 		}
 
 		@Override
@@ -83,8 +84,9 @@ import acm.graphics.GObject;
 		 * This method is used to draw a certain Power Up
 		 * that will randomly appear as the player is
 		 * in the game
+		 * Will work on this later
 		 */
-		public void drawPowerUp(PowerUpType type) {
+		/*public void drawPowerUp(PowerUpType type) {
 			String fileName = "";
 			if (type == PowerUpType.MULTI) {
 				fileName += "multi";
@@ -100,13 +102,10 @@ import acm.graphics.GObject;
 			}
 			fileName += "" + IMG_EXTENSION;
 			
-			/*
-			 * Will edit this part later
-			 */
-			//powerUp = new GImage(fileName, 700, 100);
-			//program.add(powerUp);
+			powerUp = new GImage(fileName, 700, 100);
+			program.add(powerUp);
 			
-		}
+		}*/
 		
 		public void drawGame(PlayerType type) {
 			gameSetUp = new GameSetUp(type);
