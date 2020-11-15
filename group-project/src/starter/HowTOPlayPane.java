@@ -27,7 +27,7 @@ public class HowTOPlayPane extends GraphicsPane {
 		pane = new GImage("pane1.png", PANE_X, PANE_Y);
 		title = new GImage("howToPlay.png", 0, 0);
 		left = new GImage("button_Left.png", 290, 300);
-		right = new GImage("button_Right.png", 980, 300);
+		right = new GImage("button_Right.png", 970, 300);
 	}
 		
 	@Override
