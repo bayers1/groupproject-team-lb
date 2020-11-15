@@ -15,10 +15,19 @@ public class GameSetUp {
 
 	public boolean movePlayer() {
 		return false;
+		
 	}
+	
 	public Player getPlayer() {
 		return player;
+		
 	}
+	
 	public void moveObstacle() {
+		
+	}
+	
+	public void getPlayerLocation(double y) {
+		player.setY(y);
 	}
 }

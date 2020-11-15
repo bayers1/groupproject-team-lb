@@ -110,7 +110,7 @@ import acm.graphics.GObject;
 		public void drawGame(PlayerType type) {
 			gameSetUp = new GameSetUp(type);
 			drawPlayer(type);
-			System.out.println("Player Info: " + gameSetUp.getPlayer());
+			System.out.println(gameSetUp.getPlayer());
 			selection = false;
 		}
 		
@@ -173,6 +173,8 @@ import acm.graphics.GObject;
 			if(selection)return;
 			character.move(0, e.getY() - lastY);
 			lastY = e.getY();
+			gameSetUp.getPlayerLocation(e.getY());
+			//System.out.println(gameSetUp.getPlayer().getY());
 		}
 	
 	}

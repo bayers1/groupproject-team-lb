@@ -37,8 +37,8 @@ public class Player extends GameObject{
 	
 	public String toString() {
 		String characterDetails = "Height: "+ getHeight()
-								+ "Width: "	+ getWidth()
-								+ "Type: "	+ getType();
+								+ "\nWidth: "	+ getWidth()
+								+ "\nType: "	+ getType();
 		
 		return characterDetails;
 	}
