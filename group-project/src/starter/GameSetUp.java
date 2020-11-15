@@ -13,9 +13,9 @@ public class GameSetUp {
 		player = new Player(startX, startY, playerWidth, playerHeight, type);
 	}
 
-	public boolean movePlayer() {
-		return false;
-		
+	public boolean movePlayer(double y) {
+		if(!(y <= 560 && y >= 0)) return false;
+		return true;
 	}
 	
 	public Player getPlayer() {

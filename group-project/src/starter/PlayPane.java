@@ -171,7 +171,10 @@ import acm.graphics.GObject;
 		
 		public void mouseMoved(MouseEvent e) {
 			if(selection)return;
-			character.move(0, e.getY() - lastY);
+			
+			if(gameSetUp.movePlayer(e.getY())) {
+				character.move(0, e.getY() - lastY);
+			}
 			lastY = e.getY();
 			gameSetUp.getPlayerLocation(e.getY());
 			//System.out.println(gameSetUp.getPlayer().getY());
