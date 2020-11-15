@@ -17,12 +17,17 @@ public class HowTOPlayPane extends GraphicsPane {
 	
 	private GImage pane;
 	private GImage title;
+	private GImage left;
+	private GImage right;
+	private int page = 0;
 	public HowTOPlayPane(MainApplication app) {
 		super();
 		program = app;
 		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 		pane = new GImage("pane1.png", PANE_X, PANE_Y);
 		title = new GImage("howToPlay.png", 0, 0);
+		left = new GImage("button_Left.png", 290, 300);
+		right = new GImage("button_Right.png", 980, 300);
 	}
 		
 	@Override
@@ -30,6 +35,8 @@ public class HowTOPlayPane extends GraphicsPane {
 		program.add(Back);
 		program.add(pane);
 		program.add(title);
+		program.add(left);
+		program.add(right);
 	}
 
 	@Override
@@ -44,5 +51,14 @@ public class HowTOPlayPane extends GraphicsPane {
 		if (obj == Back) {
 			program.switchToMenu();
 		}
+		else if(obj == right) {
+			page++;
+		}
+		else if(obj == left) {
+			page--;
+		}
+		int pageNum = (page % 5) + 1;
+		String panePage = "pane" + Integer.toString(pageNum)+ ".png";
+		pane.setImage(panePage);
 	}
 }
