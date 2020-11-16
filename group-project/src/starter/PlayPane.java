@@ -16,7 +16,6 @@ import acm.graphics.GObject;
 		public static final String IMG_EXTENSION = ".png";
 		public double startX = 15;
 		public double startY = 300;
-		public double lastY = startY;
 		private boolean selection = true;
 		
 		private GImage Fire;
@@ -173,11 +172,10 @@ import acm.graphics.GObject;
 			if(selection)return;
 			
 			if(gameSetUp.movePlayer(e.getY())) {
-				character.move(0, e.getY() - lastY);
+				character.setLocation(0, e.getY());
 			}
-			lastY = e.getY();
-			gameSetUp.getPlayerLocation(e.getY());
-			//System.out.println(gameSetUp.getPlayer().getY());
+			//test code for location of player and it's image
+			//System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
 		}
 	
 	}

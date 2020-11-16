@@ -14,8 +14,11 @@ public class GameSetUp {
 	}
 
 	public boolean movePlayer(double y) {
-		if(!(y <= 560 && y >= 0)) return false;
-		return true;
+		if(y <= 560 && y >= 0) {
+			player.setY(y);
+			return true;
+		}
+		return false;
 	}
 	
 	public Player getPlayer() {
@@ -25,9 +28,5 @@ public class GameSetUp {
 	
 	public void moveObstacle() {
 		
-	}
-	
-	public void getPlayerLocation(double y) {
-		player.setY(y);
 	}
 }
