@@ -72,6 +72,7 @@ import acm.graphics.GObject;
 			fileName += "Dragon" + IMG_EXTENSION;
 			
 			character = new GImage(fileName, startX, startY);
+			character.setSize(80,40);
 			program.add(character);
 		}
 		

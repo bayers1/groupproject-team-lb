@@ -3,12 +3,10 @@ package starter;
 public class Player extends GameObject{
 
 	private PlayerType type;
-	public static final int PLAYER_WIDTH = 80;
-	public static final int PLAYER_HEIGHT = 40;
 	public Player(double x, double y, int width, int height, PlayerType type) {
 		super(x, y, width, height);
-		setWidth(PLAYER_WIDTH);
-		setHeight(PLAYER_HEIGHT);
+		setWidth(width);
+		setHeight(height);
 		this.type = type;
 	}
 
@@ -20,17 +18,27 @@ public class Player extends GameObject{
 		this.type = type;
 	}
 	
-	public void move(double y) {
-		setY(y);
+	public boolean move(double xVel, double yVel) {
+		if(outOfBounds(xVel, yVel, getWidth(),getHeight())) return false;
+		setY(yVel);
+		return true;
 	}
 	
 	public boolean collision() {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param x where the object will be moving horizontally
+	 * @param y where the object will be moving vertically
+	 * @param width
+	 * @param height
+	 * @return
+	 */
 	public boolean outOfBounds(double x, double y, int width, int height) {
-		if (y <= (600-(height/2)) && y >= 0) return true;
-		return false;
+		if (y <= (600-(height/2)) && y >= 0) return false;
+		return true;
 	}
 	
 	public String toString() {

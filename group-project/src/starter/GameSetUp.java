@@ -14,11 +14,7 @@ public class GameSetUp {
 	}
 
 	public boolean movePlayer(double y) {
-		if(player.outOfBounds(0, y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
-			player.move(y);
-			return true;
-		}
-		return false;
+		return player.move(0, y);
 	}
 	
 	public Player getPlayer() {
