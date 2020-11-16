@@ -6,7 +6,7 @@ public class GameSetUp {
 	private PlayerType type;
 	private int playerHeight;
 	private int playerWidth;
-	private double startX = 0;
+	private double startX = 15;
 	private double startY = 300;
 	
 	public GameSetUp(PlayerType type) {

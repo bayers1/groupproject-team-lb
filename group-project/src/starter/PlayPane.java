@@ -172,7 +172,7 @@ import acm.graphics.GObject;
 			if(selection)return;
 			
 			if(gameSetUp.movePlayer(e.getY())) {
-				character.setLocation(0, e.getY());
+				character.setLocation(15, e.getY());
 			}
 			//test code for location of player and it's image
 			//System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
