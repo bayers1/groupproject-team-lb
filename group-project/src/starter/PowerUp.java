@@ -20,7 +20,7 @@ public class PowerUp extends GameObject{
 		this.type = type;
 	}
 	
-	public boolean move() {
+	public boolean move(double xVelocity, double yVelocity) {
 		return true;
 	}
 	
