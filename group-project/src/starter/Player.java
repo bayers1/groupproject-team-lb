@@ -20,20 +20,17 @@ public class Player extends GameObject{
 		this.type = type;
 	}
 	
-	public boolean move() {
-		return true;
-	}
-
-	public boolean OutOfBounds() {
-		return true;
+	public void move(double y) {
+		setY(y);
 	}
 	
 	public boolean collision() {
 		return true;
 	}
 	
-	public void bounds() {
-		
+	public boolean outOfBounds(double x, double y, int width, int height) {
+		if (y <= (600-(height/2)) && y >= 0) return true;
+		return false;
 	}
 	
 	public String toString() {

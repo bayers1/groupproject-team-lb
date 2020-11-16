@@ -4,18 +4,18 @@ public class GameSetUp {
 	private Player player;
 	private Obstacle obstacle;
 	private PlayerType type;
-	private int playerHeight;
-	private int playerWidth;
+	public static final int PLAYER_HEIGHT = 80;
+	public static final int PLAYER_WIDTH = 40;
 	private double startX = 15;
 	private double startY = 300;
 	
 	public GameSetUp(PlayerType type) {
-		player = new Player(startX, startY, playerWidth, playerHeight, type);
+		player = new Player(startX, startY, PLAYER_WIDTH, PLAYER_HEIGHT, type);
 	}
 
 	public boolean movePlayer(double y) {
-		if(y <= 560 && y >= 0) {
-			player.setY(y);
+		if(player.outOfBounds(0, y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
+			player.move(y);
 			return true;
 		}
 		return false;

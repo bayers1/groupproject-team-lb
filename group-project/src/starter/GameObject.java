@@ -44,8 +44,7 @@ public abstract class GameObject{
 		return height;
 	}
 	
-	public abstract boolean move();
-	public abstract void bounds();
+	//public abstract boolean move();
 	
 	
 }
