@@ -157,35 +157,30 @@ import acm.graphics.GObject;
 		public void mousePressed(MouseEvent e) {
 			GObject obj = program.getElementAt(e.getX(), e.getY());
 			someObj = obj;
-			
+			boolean gameStart = false;
 			if (obj == Back) {
-				program.switchToMenu();			
+				program.switchToMenu();
 			}
 			else if(someObj == Fire) {
-				timer = new Timer(25,this);
-				timer.start();
-				hideSelection();
 				drawGame(PlayerType.FIRE);
+				gameStart = true;
 			}
 			else if(someObj == Water) {
-				timer = new Timer(25,this);
-				timer.start();
-				hideSelection();
 				drawGame(PlayerType.WATER);
+				gameStart = true;
 			}
 			else if(someObj == Earth) {
-				timer = new Timer(25,this);
-				timer.start();
-				hideSelection();
 				drawGame(PlayerType.EARTH);
+				gameStart = true;
 			}
 			else if(someObj == Wind) {
+				drawGame(PlayerType.AIR);
+				gameStart = true;
+			}
+			if(gameStart) {
 				timer = new Timer(25,this);
 				timer.start();
 				hideSelection();
-				drawGame(PlayerType.AIR);
-			}
-			else {
 			}
 		}
 		
@@ -196,8 +191,9 @@ import acm.graphics.GObject;
 				character.setLocation(15, e.getY());
 			}
 			//test code for location of player and it's image
-			System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
+			//System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
 		}
+		
 		private void moveObstacles(){
 			ArrayList<GImage> tempList = new ArrayList<GImage>();
 			for(int i = 0;i<obstacles.size();i++) {
@@ -208,21 +204,22 @@ import acm.graphics.GObject;
 			}
 			obstacles.removeAll(tempList);
 		}
+		
 		private boolean checkCollision() {
 			for(int i = 0;i<obstacles.size();i++) {
 				if(obstacles.get(i).getBounds().intersects(character.getBounds())) {
 				return true;
+				}
 			}
-			}
-				return false;
+			return false;
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if(count % 100 == 0 && obstacles.size()<max) {
-			drawObstacle();
-			count = 0;
+				drawObstacle();
+				count = 0;
 			}
 			moveObstacles();
 			if(checkCollision()) {
