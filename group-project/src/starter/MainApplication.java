@@ -9,7 +9,7 @@ public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 1280;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
+	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3","Dark-theme.mp3"};
 	//private static final String[] Characters = {"Fire.jpg","Water.jpg","Earth.jpg","Wind.jpg"};
 
 	private PlayPane playPane;
@@ -37,8 +37,8 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	public void switchToMenu() {
-		//playSound("r2d2.mp3",true);
-		//playSound("somethinlikethis.mp3",true);
+		playSound("r2d2.mp3",true);
+		playMusic("Dark-theme.mp3",true);
 		count++;
 		switchToScreen(menu);
 	}
@@ -65,6 +65,11 @@ public class MainApplication extends GraphicsApplication {
 		audio.playSound(MUSIC_FOLDER,fileName,loop);
 		}
 	}
+	/*
+	private void playRandomMusic() {
+		audio.playMusic(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
+	}
+	*/
 	public void setSound(boolean turnOn) {
 		isSoundOn = turnOn;
 		
@@ -73,11 +78,11 @@ public class MainApplication extends GraphicsApplication {
 		return isSoundOn;
 	}
 	public void stopMusic(String fileName) {
-		audio.stopSound(MUSIC_FOLDER,fileName);//already here just using them for functionality.
+		audio.stopMusic(MUSIC_FOLDER,fileName);//already here just using them for functionality.
 	}
 	public void playMusic(String fileName,boolean loop) {
 		if(isMusicOn) {
-			audio.playSound(MUSIC_FOLDER,fileName,loop);
+			audio.playMusic(MUSIC_FOLDER,fileName,loop);
 		}
 	}
 	public void setMusic(boolean turnOn) {

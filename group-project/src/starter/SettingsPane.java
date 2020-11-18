@@ -63,18 +63,18 @@ public class SettingsPane extends GraphicsPane {
 			}
 			else {
 				program.setSound(true);
-				//program.playSound("r2d2.mp3",true);
+				program.playSound("r2d2.mp3",true);
 			}
 		
 		}
 		else if(obj == OnOff1) {
 			if(program.getMusic()) {//checks the status of music.
-				program.stopMusic("somethinlikethis.mp3");
+				program.stopMusic("Dark-theme.mp3");
 				program.setMusic(false);
 			}
 			else {
 				program.setMusic(true);
-				//program.playSound("somethinlikethis.mp3",true);
+				program.playMusic("Dark-theme.mp3",true);
 			}
 		}
 	}

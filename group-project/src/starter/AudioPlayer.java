@@ -55,7 +55,10 @@ public final class AudioPlayer {
 	public void playSound(String folder, String filename) {
 		playSound(folder, filename, false);
 	}
-
+	
+	public void playMusic(String folder, String filename) {
+		playMusic(folder,filename,false);
+	}
 	/**
 	 * same as the original play sound, but has the option to loop the sound
 	 * 
@@ -68,6 +71,14 @@ public final class AudioPlayer {
 	 *            true will loop the sound.
 	 */
 	public void playSound(String folder, String filename, boolean shouldLoop) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				playSoundWithOptions(folder, filename, shouldLoop);
+			}
+		});
+	}
+	public void playMusic(String folder, String filename, boolean shouldLoop) {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -146,7 +157,16 @@ public final class AudioPlayer {
 			}
 		});
 	}
-
+	public void stopMusic(String folder, String filename) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				MediaPlayer music = findSound(folder, filename);
+				if (music != null) {
+					music.stop();
+				}
+			}
+		});
+	}
 	/**
 	 * Pauses the sound when the media is playing, does nothing otherwise
 	 * Calling playSound after pausing the sound will cause the sound to play

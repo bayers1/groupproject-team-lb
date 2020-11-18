@@ -1,12 +1,18 @@
 package starter;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import javax.swing.Timer;
+
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
 
-	public class PlayPane extends GraphicsPane {
+	public class PlayPane extends GraphicsPane implements ActionListener {
 		private MainApplication program; // you will use program to get access to
 										 // all of the GraphicsProgram calls
 		
@@ -26,9 +32,11 @@ import acm.graphics.GObject;
 		private GImage character;
 		private GImage powerUp;
 		private GButton Back;
-		
+		private Timer timer;
 		GObject someObj;
-		
+		private int count = 0;
+		private int max = 10;
+		private ArrayList<GImage> obstacles;
 		public PlayPane(MainApplication app) {
 			super();
 			program = app;
@@ -38,7 +46,7 @@ import acm.graphics.GObject;
 			Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 			gameOver = new GLabel("You Lose", WINDOW_HEIGHT/2, WINDOW_WIDTH/2);
-			
+			obstacles = new ArrayList<GImage>();
 		}
 
 		@Override
@@ -78,6 +86,10 @@ import acm.graphics.GObject;
 		
 		public void drawObstacle() {
 			//TODO:Display Obstacle
+			GImage obs1 = new GImage("obstacle1.jpg",program.WINDOW_WIDTH,0);
+			obs1.setLocation(program.WINDOW_WIDTH,program.WINDOW_HEIGHT-obs1.getHeight());
+			program.add(obs1);
+			obstacles.add(obs1);
 		}
 		
 		/**
@@ -150,6 +162,8 @@ import acm.graphics.GObject;
 				program.switchToMenu();			
 			}
 			else if(someObj == Fire) {
+				timer = new Timer(25,this);
+				timer.start();
 				hideSelection();
 				drawGame(PlayerType.FIRE);
 			}
@@ -178,8 +192,42 @@ import acm.graphics.GObject;
 			//test code for location of player and it's image
 			System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
 		}
-	
+		private void moveObstacles(){
+			ArrayList<GImage> tempList = new ArrayList<GImage>();
+			for(int i = 0;i<obstacles.size();i++) {
+				obstacles.get(i).move(-1,0);
+				if((obstacles.get(i).getX()+ obstacles.get(i).getWidth()) < 0) {
+					tempList.add(obstacles.get(i));
+				}
+			}
+			obstacles.removeAll(tempList);
+		}
+		private boolean checkCollision() {
+			for(int i = 0;i<obstacles.size();i++) {
+				if(obstacles.get(i).getBounds().intersects(character.getBounds())) {
+				return true;
+			}
+			}
+				return false;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if(count % 100 == 0 && obstacles.size()<max) {
+			drawObstacle();
+			count = 0;
+			}
+			moveObstacles();
+			if(checkCollision()) {
+				System.out.println("Gameover");
+				timer.stop();
+				gameOver();
+			}
+			count++;
+		}
+		
 	}
 
-
+	
 
