@@ -86,8 +86,8 @@ import acm.graphics.GObject;
 		
 		public void drawObstacle() {
 			//TODO:Display Obstacle
-			GImage obs1 = new GImage("obstacle1.jpg",program.WINDOW_WIDTH,0);
-			obs1.setLocation(program.WINDOW_WIDTH,program.WINDOW_HEIGHT-obs1.getHeight());
+			GImage obs1 = new GImage("obstacle1.jpg",WINDOW_WIDTH,0);
+			obs1.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs1.getHeight());
 			program.add(obs1);
 			obstacles.add(obs1);
 		}
@@ -197,7 +197,7 @@ import acm.graphics.GObject;
 		private void moveObstacles(){
 			ArrayList<GImage> tempList = new ArrayList<GImage>();
 			for(int i = 0;i<obstacles.size();i++) {
-				obstacles.get(i).move(-1,0);
+				obstacles.get(i).move(-5,0);
 				if((obstacles.get(i).getX()+ obstacles.get(i).getWidth()) < 0) {
 					tempList.add(obstacles.get(i));
 				}
