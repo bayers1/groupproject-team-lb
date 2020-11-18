@@ -168,14 +168,20 @@ import acm.graphics.GObject;
 				drawGame(PlayerType.FIRE);
 			}
 			else if(someObj == Water) {
+				timer = new Timer(25,this);
+				timer.start();
 				hideSelection();
 				drawGame(PlayerType.WATER);
 			}
 			else if(someObj == Earth) {
+				timer = new Timer(25,this);
+				timer.start();
 				hideSelection();
 				drawGame(PlayerType.EARTH);
 			}
 			else if(someObj == Wind) {
+				timer = new Timer(25,this);
+				timer.start();
 				hideSelection();
 				drawGame(PlayerType.AIR);
 			}
