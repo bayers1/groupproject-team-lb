@@ -33,15 +33,15 @@ public class MenuPane extends GraphicsPane {
 		//creating the main buttons for the menu
 		play = new GButton("   Play   ", CENTER - (MENU_BUTTON_WIDTH/2), 
 						   START_POS, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		play.setFillColor(Color.cyan);
+		play.setFillColor(Color.GRAY);
 		
 		settings = new GButton("Settings",CENTER - (MENU_BUTTON_WIDTH/2),
 							   START_POS+MENU_BUTTON_HEIGHT+REG_PADDING, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		settings.setFillColor(Color.cyan);
+		settings.setFillColor(Color.GRAY);
 		
 		howToPlay = new GButton("How to Play",CENTER - (MENU_BUTTON_WIDTH/2),
 								START_POS+(2*MENU_BUTTON_HEIGHT)+(2*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		howToPlay.setFillColor(Color.cyan);
+		howToPlay.setFillColor(Color.GRAY);
 	}
 
 	@Override
@@ -76,9 +76,9 @@ public class MenuPane extends GraphicsPane {
 		Color highlightColor = new Color(0,220,0);
 		boolean something = true;
 		if(something) {
-			play.setFillColor(Color.cyan);
-			settings.setFillColor(Color.cyan);
-			howToPlay.setFillColor(Color.cyan);
+			play.setFillColor(Color.GRAY);
+			settings.setFillColor(Color.GRAY);
+			howToPlay.setFillColor(Color.GRAY);
 		}
 			if(obj == play) {
 			play.setFillColor(highlightColor);
