@@ -2,6 +2,7 @@ package starter;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import acm.graphics.GImage;
 import acm.graphics.GObject;
@@ -16,11 +17,19 @@ public class MenuPane extends GraphicsPane {
 	private GButton play;
 	private GButton settings;
 	private GButton howToPlay;
-	
+	GButton button;
+	private ArrayList<GButton> gButtons = new ArrayList<GButton>();
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-		
+		/*
+		for (int i = 0; i < 6; i++) {
+			GButton button = new GButton(gbuttonStrings[i], 280, 235 + 55 * i, MainApplication.BUTTON_HEIGHT,
+					MainApplication.BUTTON_WIDTH);
+			button.setFillColor(Color.GREEN);
+			gButtons.add(button);
+		}
+		*/
 		//creating the main buttons for the menu
 		play = new GButton("   Play   ", CENTER - (MENU_BUTTON_WIDTH/2), 
 						   START_POS, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
@@ -60,5 +69,29 @@ public class MenuPane extends GraphicsPane {
 		else if (obj == howToPlay) {
 			program.switchToHowToPlay();
 		}
+	}
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		GObject obj = program.getElementAt(e.getX(), e.getY());
+		Color highlightColor = new Color(0,220,0);
+		boolean something = true;
+		if(something) {
+			play.setFillColor(Color.GRAY);
+			settings.setFillColor(Color.GRAY);
+			howToPlay.setFillColor(Color.GRAY);
+		}
+			if(obj == play) {
+			play.setFillColor(highlightColor);
+			something = false;
+		}
+			else if(obj == settings) {
+			settings.setFillColor(highlightColor);
+			something = false;
+		}
+			else if(obj == howToPlay) {
+			howToPlay.setFillColor(highlightColor);
+			something = false;
+		}
+	
 	}
 }
