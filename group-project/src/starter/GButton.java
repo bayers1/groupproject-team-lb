@@ -40,6 +40,7 @@ public class GButton extends GCompound {
 		rect.setFillColor(col);
 		add(rect);
 		message = new GLabel(label);
+		message.setFont("NirmalaUISemilight");
 		sizeLabelFont(message, width - BUFFER, height - BUFFER);
 		double centerX = width / 2 - message.getWidth() / 2;
 		double centerY = height / 2 + message.getAscent() / 4;
@@ -56,7 +57,7 @@ public class GButton extends GCompound {
 		while (label.getWidth() < width && label.getHeight() < height) {
 			f = label.getFont();
 			size = f.getSize();
-			label.setFont(new Font(name, style, size + 1));
+			label.setFont(new Font(name, style, size + 2));
 		}
 		label.setFont(new Font(name, style, size - 1));
 	}

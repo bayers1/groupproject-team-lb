@@ -78,4 +78,17 @@ public class SettingsPane extends GraphicsPane {
 			}
 		}
 	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		GObject obj = program.getElementAt(e.getX(), e.getY());
+		boolean buttonHover = false;
+		if(!buttonHover) {
+			notHovered(Back);
+		}
+		if(obj == Back) {
+			hover(Back);
+		}
+		buttonHover = true;	
 	}
+}

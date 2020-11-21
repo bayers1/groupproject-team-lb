@@ -11,7 +11,7 @@ public class MenuPane extends GraphicsPane {
 	private MainApplication program;
 	
 	public static final int MENU_BUTTON_HEIGHT = 60;
-	public static final int MENU_BUTTON_WIDTH = 120;
+	public static final int MENU_BUTTON_WIDTH = 140;
 	public static final int START_POS = 180;
 	
 	private GButton play;
@@ -22,26 +22,20 @@ public class MenuPane extends GraphicsPane {
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-		/*
-		for (int i = 0; i < 6; i++) {
-			GButton button = new GButton(gbuttonStrings[i], 280, 235 + 55 * i, MainApplication.BUTTON_HEIGHT,
-					MainApplication.BUTTON_WIDTH);
-			button.setFillColor(Color.GREEN);
-			gButtons.add(button);
-		}
-		*/
+
 		//creating the main buttons for the menu
-		play = new GButton("   Play   ", CENTER - (MENU_BUTTON_WIDTH/2), 
+		play = new GButton(" P L A Y ", CENTER - (MENU_BUTTON_WIDTH/2), 
 						   START_POS, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		play.setFillColor(Color.GRAY);
+		play.setFillColor(BUTTON_COLOR);
 		
-		settings = new GButton("Settings",CENTER - (MENU_BUTTON_WIDTH/2),
+		settings = new GButton("  SETTINGS  ",CENTER - (MENU_BUTTON_WIDTH/2),
 							   START_POS+MENU_BUTTON_HEIGHT+REG_PADDING, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		settings.setFillColor(Color.GRAY);
+		settings.setFillColor(BUTTON_COLOR);
 		
-		howToPlay = new GButton("How to Play",CENTER - (MENU_BUTTON_WIDTH/2),
+		howToPlay = new GButton("HOW TO PLAY",CENTER - (MENU_BUTTON_WIDTH/2),
 								START_POS+(2*MENU_BUTTON_HEIGHT)+(2*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		howToPlay.setFillColor(Color.GRAY);
+		howToPlay.setFillColor(BUTTON_COLOR);
+
 	}
 
 	@Override
@@ -73,25 +67,24 @@ public class MenuPane extends GraphicsPane {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		Color highlightColor = new Color(0,220,0);
-		boolean something = true;
-		if(something) {
-			play.setFillColor(Color.GRAY);
-			settings.setFillColor(Color.GRAY);
-			howToPlay.setFillColor(Color.GRAY);
+		
+		boolean buttonHover = false;
+		if(!buttonHover) {
+			notHovered(play);
+			notHovered(settings);
+			notHovered(howToPlay);
 		}
-			if(obj == play) {
-			play.setFillColor(highlightColor);
-			something = false;
+		
+		if(obj == play) {
+			hover(play);
 		}
-			else if(obj == settings) {
-			settings.setFillColor(highlightColor);
-			something = false;
+		else if(obj == settings) {
+			hover(settings);
 		}
-			else if(obj == howToPlay) {
-			howToPlay.setFillColor(highlightColor);
-			something = false;
+		else if(obj == howToPlay) {
+			hover(howToPlay);
 		}
+			buttonHover = true;
 	
 	}
 }

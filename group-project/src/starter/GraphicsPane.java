@@ -1,6 +1,8 @@
 package starter;
 
 
+import java.awt.Color;
+
 /* File: GraphicsPane.java
  * -----------------------
  * Like you did with your own graphics programs, simply
@@ -27,6 +29,8 @@ public abstract class GraphicsPane implements Interfaceable {
 	public static final int LEFT_BOTTOM = OUTSIDE_PADDING;
 	public static final int BOTTOM = (WINDOW_HEIGHT-REG_BUTTON_HEIGHT) - OUTSIDE_PADDING;
 	public static final int CENTER = WINDOW_WIDTH / 2;
+	public static final Color BUTTON_COLOR = new Color(230, 230, 250);
+	public static final Color FONT_COLOR = new Color(0, 0, 20);
 	
 	@Override
 	public abstract void showContents();
@@ -74,6 +78,14 @@ public abstract class GraphicsPane implements Interfaceable {
 		// TODO Auto-generated method stub
 	}
 
-	
+	public void hover(GButton button) {
+		Color highlightColor = new Color(100, 100, 120);
+		button.setFillColor(highlightColor);
+		button.setColor(Color.WHITE);
+	}
+	public void notHovered(GButton button) {
+		button.setFillColor(BUTTON_COLOR);
+		button.setColor(FONT_COLOR);
+	}
 
 }

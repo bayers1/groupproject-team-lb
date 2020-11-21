@@ -24,6 +24,7 @@ public class HowTOPlayPane extends GraphicsPane {
 		super();
 		program = app;
 		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
+		notHovered(Back);
 		pane = new GImage("pane1.png", PANE_X, PANE_Y);
 		title = new GImage("howToPlay.png", 0, 0);
 		left = new GImage("button_Left.png", 290, 300);
@@ -61,5 +62,18 @@ public class HowTOPlayPane extends GraphicsPane {
 		int pageNum = (page % 5) + 1;
 		String panePage = "pane" + Integer.toString(pageNum)+ ".png";
 		pane.setImage(panePage);
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		GObject obj = program.getElementAt(e.getX(), e.getY());
+		boolean buttonHover = false;
+		if(!buttonHover) {
+			notHovered(Back);
+		}
+		if(obj == Back) {
+			hover(Back);
+		}
+		buttonHover = true;	
 	}
 }
