@@ -11,6 +11,7 @@ import javax.swing.Timer;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+import acm.util.RandomGenerator;
 
 	public class PlayPane extends GraphicsPane implements ActionListener {
 		private MainApplication program; // you will use program to get access to
@@ -37,8 +38,11 @@ import acm.graphics.GObject;
 		private int count = 0;
 		private int max = 10;
 		private ArrayList<GImage> obstacles;
+		private RandomGenerator num;
+		
 		public PlayPane(MainApplication app) {
 			super();
+			num = RandomGenerator.getInstance();
 			program = app;
 			Fire = new GImage("Fire.jpg", 120, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Water = new GImage("Water.jpg", 120 + IMAGE_WIDTH + REG_PADDING, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
@@ -84,12 +88,28 @@ import acm.graphics.GObject;
 			program.add(character);
 		}
 		
+		
+		/*Random Number Generator decides which obstacle type to spawn
+		 * Obstacle's design is based off which character the player selected
+		 */
 		public void drawObstacle() {
 			//TODO:Display Obstacle
-			GImage obs1 = new GImage("obstacle1.jpg",WINDOW_WIDTH,0);
-			obs1.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs1.getHeight());
-			program.add(obs1);
-			obstacles.add(obs1);
+			if (num.nextInt(1, 20) >= 1 || num.nextInt(1, 20) <= 7) {
+				GImage obs1 = new GImage("obstacle1.jpg",WINDOW_WIDTH,0);
+				obs1.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs1.getHeight());
+				program.add(obs1);
+				obstacles.add(obs1);
+			}
+			
+			if (num.nextInt(1, 20) >= 8 || num.nextInt(1, 20) <= 14) {
+			
+			}
+			
+			if (num.nextInt(1, 20) >= 15 || num.nextInt(1, 20) <= 20) {
+			
+			}
+			
+
 		}
 		
 		/**
