@@ -98,7 +98,7 @@ import acm.util.RandomGenerator;
 				GImage obs1 = new GImage("obstacle1.jpg",WINDOW_WIDTH,0);
 				obs1.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs1.getHeight());
 				program.add(obs1);
-				obstacles.add(obs1);
+				obstacles.add(obs1); 
 			}
 			
 			if (num.nextInt(1, 20) >= 8 || num.nextInt(1, 20) <= 14) {
