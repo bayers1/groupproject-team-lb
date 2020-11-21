@@ -78,11 +78,22 @@ public abstract class GraphicsPane implements Interfaceable {
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * changes the style or look of the button
+	 * when it is hovered
+	 * @param button
+	 */
 	public void hover(GButton button) {
 		Color highlightColor = new Color(100, 100, 120);
 		button.setFillColor(highlightColor);
 		button.setColor(Color.WHITE);
 	}
+	
+	/**
+	 * sets the style of the buttons to it's default style 
+	 * when it is not hovered
+	 * @param button
+	 */
 	public void notHovered(GButton button) {
 		button.setFillColor(BUTTON_COLOR);
 		button.setColor(FONT_COLOR);
