@@ -1,9 +1,11 @@
 package starter;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 
 import acm.graphics.GImage;
+import acm.graphics.GObject;
 
 public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 1280;
@@ -22,6 +24,7 @@ public class MainApplication extends GraphicsApplication {
 	static String file;
 	private boolean isSoundOn = true;
 	private boolean isMusicOn = true;
+	//private GButton button;
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
@@ -90,6 +93,5 @@ public class MainApplication extends GraphicsApplication {
 	}
 	public boolean getMusic() {
 		return isMusicOn;
-	}
-	
+	}	
 }

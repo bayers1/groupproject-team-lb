@@ -55,6 +55,7 @@ public class HowTOPlayPane extends GraphicsPane {
 			page++;
 		}
 		else if(obj == left) {
+			if(page == 0) page = 6;
 			page--;
 		}
 		int pageNum = (page % 5) + 1;
