@@ -25,6 +25,7 @@ import acm.util.RandomGenerator;
 		public double startY = 300;
 		private boolean selection = true;
 
+		private String sceneType;
 		private GImage Fire;
 		private GImage Water;
 		private GImage Earth;
@@ -39,10 +40,12 @@ import acm.util.RandomGenerator;
 		private int max = 10;
 		private ArrayList<GImage> obstacles;
 		private RandomGenerator rgen;
+		private RandomGenerator isTopRandom;
 		
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
+			isTopRandom = RandomGenerator.getInstance();
 			program = app;
 			Fire = new GImage("Fire.jpg", 120, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Water = new GImage("Water.jpg", 120 + IMAGE_WIDTH + REG_PADDING, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
@@ -71,15 +74,19 @@ import acm.util.RandomGenerator;
 			String fileName = "";
 			if (type == PlayerType.FIRE) {
 				fileName += "fire";
+				sceneType = "fire";
 			}
 			else if (type == PlayerType.WATER) {
 				fileName += "water";
+				sceneType = "water";
 			}
 			else if (type == PlayerType.EARTH) {
 				fileName += "earth";
+				sceneType = "earth";
 			}
 			else {
 				fileName += "air";
+				sceneType = "air";
 			}
 			fileName += "Dragon" + IMG_EXTENSION;
 			
@@ -94,24 +101,35 @@ import acm.util.RandomGenerator;
 		 */
 		public void drawObstacle() {
 			//TODO:Display Obstacle
-			int num = rgen.nextInt(1, 20);
+			String fileName = sceneType;
 			
+			int num = rgen.nextInt(1, 20);
+			int vNum = isTopRandom.nextInt(1,3);
 			if (num <= 7) {
-				GImage obs1 = new GImage("obstacle1.jpg",WINDOW_WIDTH,0);
-				obs1.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs1.getHeight());
-				program.add(obs1);
-				obstacles.add(obs1); 
+				fileName += "Static1";
 			}
 			
 			else if (num <= 14) {
-			
+				fileName += "Static2";
 			}
 			
 			else {
-			
+				fileName += "Moving";
 			}
+			if(vNum < 2) {
+				fileName += "top";
+			}
+			else {
+				fileName += "bottom";
+			}
+			fileName += IMG_EXTENSION;
 			
-			System.out.println(num);
+			System.out.println(fileName);
+			//GImage obs = new GImage(fileName,WINDOW_WIDTH,0);
+			GImage obs = new GImage("obstacle1.jpg",WINDOW_WIDTH,0);
+			obs.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs.getHeight());
+			program.add(obs);
+			obstacles.add(obs);
 
 		}
 		
