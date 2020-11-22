@@ -24,7 +24,7 @@ import acm.util.RandomGenerator;
 		public double startX = 15;
 		public double startY = 300;
 		private boolean selection = true;
-		
+
 		private GImage Fire;
 		private GImage Water;
 		private GImage Earth;
@@ -38,11 +38,11 @@ import acm.util.RandomGenerator;
 		private int count = 0;
 		private int max = 10;
 		private ArrayList<GImage> obstacles;
-		private RandomGenerator num;
+		private RandomGenerator rgen;
 		
 		public PlayPane(MainApplication app) {
 			super();
-			num = RandomGenerator.getInstance();
+			rgen = RandomGenerator.getInstance();
 			program = app;
 			Fire = new GImage("Fire.jpg", 120, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Water = new GImage("Water.jpg", 120 + IMAGE_WIDTH + REG_PADDING, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
@@ -94,21 +94,24 @@ import acm.util.RandomGenerator;
 		 */
 		public void drawObstacle() {
 			//TODO:Display Obstacle
-			if (num.nextInt(1, 20) >= 1 || num.nextInt(1, 20) <= 7) {
+			int num = rgen.nextInt(1, 20);
+			
+			if (num <= 7) {
 				GImage obs1 = new GImage("obstacle1.jpg",WINDOW_WIDTH,0);
 				obs1.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs1.getHeight());
 				program.add(obs1);
 				obstacles.add(obs1); 
 			}
 			
-			if (num.nextInt(1, 20) >= 8 || num.nextInt(1, 20) <= 14) {
+			else if (num <= 14) {
 			
 			}
 			
-			if (num.nextInt(1, 20) >= 15 || num.nextInt(1, 20) <= 20) {
+			else {
 			
 			}
 			
+			System.out.println(num);
 
 		}
 		
