@@ -20,6 +20,10 @@ import acm.util.RandomGenerator;
 		private GameSetUp gameSetUp;
 		public static final int IMAGE_HEIGHT = 400;
 		public static final int IMAGE_WIDTH = 250;
+		
+		public static final int TOP_OCCUR = 150;
+		public static final int BOTTOM_OCCUR = 50;
+		
 		public static final String IMG_EXTENSION = ".png";
 		public double startX = 15;
 		public double startY = 300;
@@ -35,25 +39,34 @@ import acm.util.RandomGenerator;
 		private GImage powerUp;
 		private GButton Back;
 		private Timer timer;
+		
 		GObject someObj;
-		private int count = 0;
+		private int topCount = 0;
+		private int bottomCount = 0;
+		private int totalCount = 0;
 		private int max = 10;
-		private ArrayList<GImage> obstacles;
+		private float velX = -8;
+		private float multiplyer = 1.0f;
+		
+		private int gameTime = 0;
+		
+		private ArrayList<GImage> topObstacles;
+		private ArrayList<GImage> bottomObstacles;
 		private RandomGenerator rgen;
-		private RandomGenerator isTopRandom;
 		
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
-			isTopRandom = RandomGenerator.getInstance();
 			program = app;
+			
 			Fire = new GImage("Fire.jpg", 120, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Water = new GImage("Water.jpg", 120 + IMAGE_WIDTH + REG_PADDING, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Earth = new GImage("Earth.jpg", 120 + (2*IMAGE_WIDTH) + (2*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 			gameOver = new GLabel("You Lose", WINDOW_HEIGHT/2, WINDOW_WIDTH/2);
-			obstacles = new ArrayList<GImage>();
+			topObstacles = new ArrayList<GImage>();
+			bottomObstacles = new ArrayList<GImage>();
 		}
 
 		@Override
@@ -99,50 +112,85 @@ import acm.util.RandomGenerator;
 		/*Random Number Generator decides which obstacle type to spawn
 		 * Obstacle's design is based off which character the player selected
 		 */
-		public void drawObstacle() {
-			//TODO:Display Obstacle
+		public void drawTopObstacle() {
 			String fileName = sceneType;
 			
-			int num = rgen.nextInt(1, 20);
-			int vNum = isTopRandom.nextInt(1,3);
+			int num = rgen.nextInt(1, 40);
 			int height;
-			int width = 100;
-			int locY = 0;
-			boolean isBottom = true;
+			int width = 120;
 			
-			if (num <= 7) {
+			if (num < 11) {
 				fileName += "Static1";
-				height = 150;
+				height = 180;
 			}
 			
-			else if (num <= 14) {
+			else if (num < 37) {
 				fileName += "Static2";
-				height = 300;
+				height = 330;
+				width = 110;
 			}
 			
 			else {
 				fileName += "Moving";
-				height = 100;
+				height = 80;
+				width = 80;
 			}
-			if(vNum < 2) {
-				fileName += "Top";
-				isBottom = false;
-			}
-			else {
-				fileName += "Bottom";
-			}
+
+			fileName += "Top";
 			fileName += IMG_EXTENSION;
 			
-			System.out.println(fileName);
-			GImage obs = new GImage(fileName,WINDOW_WIDTH,locY);
+			GImage obs = new GImage(fileName,WINDOW_WIDTH,0);
+			
 			obs.setSize(width,height);
 			
-			if (isBottom)locY = (int) (WINDOW_HEIGHT-obs.getHeight());
-			obs.setLocation(WINDOW_WIDTH,locY);
+			program.add(obs);
+			topObstacles.add(obs);
+		}
+		
+		public void drawBottomObstacle() {
+			String fileName = sceneType;
+
+			int num = rgen.nextInt(1, 40);
+			int height;
+			int width = 120;
+
+			//to make sure that player can get through
+			if(totalCount % TOP_OCCUR == 0){
+				num = 2;
+				totalCount = 0;
+			}
+			
+			if (num < 11) {
+				fileName += "Static1";
+				height = 180;
+			}
+			
+			else if (num < 37) {
+				fileName += "Static2";
+				height = 270;
+				width = 90;
+				if((totalCount % BOTTOM_OCCUR == 0) && (totalCount % TOP_OCCUR != 0)){
+					height = 360;
+					width = 120;
+				}
+			}
+			
+			else {
+				fileName += "Moving";
+				height = 80;
+				width = 80;
+			}
+
+			fileName += "Bottom";
+			fileName += IMG_EXTENSION;
+			
+			GImage obs = new GImage(fileName,WINDOW_WIDTH,0);
+			
+			obs.setSize(width,height);
+			obs.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs.getHeight());
 			
 			program.add(obs);
-			obstacles.add(obs);
-
+			bottomObstacles.add(obs);
 		}
 		
 		/**
@@ -247,21 +295,41 @@ import acm.util.RandomGenerator;
 			//System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
 		}
 		
-		private void moveObstacles(){
+		private void moveTopObstacles(){
 			ArrayList<GImage> tempList = new ArrayList<GImage>();
-			for(int i = 0;i<obstacles.size();i++) {
-				obstacles.get(i).move(-5,0);
-				if((obstacles.get(i).getX()+ obstacles.get(i).getWidth()) < 0) {
-					tempList.add(obstacles.get(i));
+			
+			for(int i = 0;i<topObstacles.size();i++) {
+				topObstacles.get(i).move(velX,0);
+				if((topObstacles.get(i).getX()+ topObstacles.get(i).getWidth()) < 0) {
+					tempList.add(topObstacles.get(i));
 				}
 			}
-			obstacles.removeAll(tempList);
+			topObstacles.removeAll(tempList);
 		}
 		
+		private void moveBottomObstacles(){
+			ArrayList<GImage> tempList = new ArrayList<GImage>();
+			
+			for(int i = 0;i<bottomObstacles.size();i++) {
+				bottomObstacles.get(i).move(velX,0);
+				
+				if((bottomObstacles.get(i).getX()+ bottomObstacles.get(i).getWidth()) < 0) {
+					tempList.add(bottomObstacles.get(i));
+				}
+			}
+			bottomObstacles.removeAll(tempList);
+		}
+		
+		
 		private boolean checkCollision() {
-			for(int i = 0;i<obstacles.size();i++) {
-				if(obstacles.get(i).getBounds().intersects(character.getBounds())) {
-				return true;
+			for(int i = 0; i <topObstacles.size();i++) {
+				if(topObstacles.get(i).getBounds().intersects(character.getBounds())) {
+					return true;
+				}
+			}
+			for(int i = 0; i <bottomObstacles.size();i++) {
+				if(bottomObstacles.get(i).getBounds().intersects(character.getBounds())) {
+					return true;
 				}
 			}
 			return false;
@@ -270,17 +338,33 @@ import acm.util.RandomGenerator;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if(count % 100 == 0 && obstacles.size()<max) {
-				drawObstacle();
-				count = 0;
+			if(topCount % TOP_OCCUR == 0 && topObstacles.size()<max) {
+				drawTopObstacle();
+				topCount = 0;
 			}
-			moveObstacles();
+			if(bottomCount % BOTTOM_OCCUR == 0 && topObstacles.size()<max) {
+				drawBottomObstacle();
+				bottomCount = 0;
+			}
+			
+			moveTopObstacles();
+			moveBottomObstacles();
 			if(checkCollision()) {
 				System.out.println("Gameover");
 				timer.stop();
 				gameOver();
 			}
-			count++;
+			
+			velX = -8.0f * multiplyer;
+			if (gameTime % 1200 == 0) {
+				multiplyer += .1;
+				System.out.println(velX);
+			}
+			
+			topCount++;
+			bottomCount++;
+			totalCount++;
+			gameTime++;
 		}
 		
 	}
