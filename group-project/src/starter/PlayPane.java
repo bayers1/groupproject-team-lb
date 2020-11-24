@@ -105,19 +105,28 @@ import acm.util.RandomGenerator;
 			
 			int num = rgen.nextInt(1, 20);
 			int vNum = isTopRandom.nextInt(1,3);
+			int height;
+			int width = 100;
+			int locY = 0;
+			boolean isBottom = true;
+			
 			if (num <= 7) {
 				fileName += "Static1";
+				height = 150;
 			}
 			
 			else if (num <= 14) {
 				fileName += "Static2";
+				height = 300;
 			}
 			
 			else {
 				fileName += "Moving";
+				height = 100;
 			}
 			if(vNum < 2) {
 				fileName += "Top";
+				isBottom = false;
 			}
 			else {
 				fileName += "Bottom";
@@ -125,9 +134,12 @@ import acm.util.RandomGenerator;
 			fileName += IMG_EXTENSION;
 			
 			System.out.println(fileName);
-			//GImage obs = new GImage(fileName,WINDOW_WIDTH,0);
-			GImage obs = new GImage("obstacle1.jpg",WINDOW_WIDTH,0);
-			obs.setLocation(WINDOW_WIDTH,WINDOW_HEIGHT-obs.getHeight());
+			GImage obs = new GImage(fileName,WINDOW_WIDTH,locY);
+			obs.setSize(width,height);
+			
+			if (isBottom)locY = (int) (WINDOW_HEIGHT-obs.getHeight());
+			obs.setLocation(WINDOW_WIDTH,locY);
+			
 			program.add(obs);
 			obstacles.add(obs);
 
