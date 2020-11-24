@@ -44,7 +44,7 @@ import acm.util.RandomGenerator;
 		private int bottomCount = 0;
 		private int totalCount = 0;
 		private float velX = -8;
-		private float multiplyer = 1.0f;
+		private float multiplier = 1.0f;
 		private int score = 0;
 		private double pointsEarned;
 		
@@ -276,6 +276,9 @@ import acm.util.RandomGenerator;
 		 * Displays score and highest as navigations on the screen
 		 */
 		public void gameOver() {
+			System.out.println("Gameover");
+			timer.stop();
+			
 			program.removeAll();
 			program.add(gameOver);
 			//TODO: display scores as well as options to play again or go back to main menu
@@ -359,9 +362,9 @@ import acm.util.RandomGenerator;
 		}
 		
 		//helper method to scale points earned
-		//based on multiplyer
+		//based on multiplier
 		private void scalePointsEarned() {
-			pointsEarned = 20 * multiplyer;
+			pointsEarned = 20 * multiplier;
 		}
 		
 		//helper method
@@ -390,14 +393,12 @@ import acm.util.RandomGenerator;
 			moveTopObstacles();
 			moveBottomObstacles();
 			if(checkCollision()) {
-				System.out.println("Gameover");
-				timer.stop();
 				gameOver();
 			}
 			
-			velX = -8.0f * multiplyer;
+			velX = -8.0f * multiplier;
 			if (gameTime % 1200 == 0) {
-				multiplyer += .2;
+				multiplier += .2;
 				System.out.println(velX);
 				
 				gameTime = 0;
