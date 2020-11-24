@@ -80,6 +80,24 @@ import acm.util.RandomGenerator;
 		}
 
 		/**
+		 * The drawGame method draws the objects for the game
+		 * @param type
+		 * 		the type will dictate the display or art style of objects
+		 */
+		public void drawGame(PlayerType type) {
+			selection = false;
+			hideSelection();
+			
+			gameSetUp = new GameSetUp(type);
+			drawPlayer(type);
+			//System.out.println(gameSetUp.getPlayer());
+			
+			//starts drawing the obstacles
+			timer = new Timer(24,this);
+			timer.start();
+		}
+		
+		/**
 		 * This method is used to draw the player based on 
 		 * the input from character selection 
 		 */
@@ -109,8 +127,11 @@ import acm.util.RandomGenerator;
 		}
 		
 		
-		/*Random Number Generator decides which obstacle type to spawn
+		/**
+		 * The method drawTopObstacle()
+		 * decides which obstacle type to draw
 		 * Obstacle's design is based off which character the player selected
+		 * draws the TOP obstacles only
 		 */
 		public void drawTopObstacle() {
 			String fileName = sceneType;
@@ -147,6 +168,12 @@ import acm.util.RandomGenerator;
 			topObstacles.add(obs);
 		}
 		
+		/**
+		 * The method drawBottomObstacle()
+		 * decides which obstacle type to draw
+		 * Obstacle's design is based off which character the player selected
+		 * draws the BOTTOM obstacles only
+		 */
 		public void drawBottomObstacle() {
 			String fileName = sceneType;
 
@@ -220,13 +247,6 @@ import acm.util.RandomGenerator;
 			
 		}*/
 		
-		public void drawGame(PlayerType type) {
-			gameSetUp = new GameSetUp(type);
-			drawPlayer(type);
-			System.out.println(gameSetUp.getPlayer());
-			selection = false;
-		}
-		
 		@Override
 		public void hideContents() {
 			program.removeAll();
@@ -258,31 +278,23 @@ import acm.util.RandomGenerator;
 		public void mousePressed(MouseEvent e) {
 			GObject obj = program.getElementAt(e.getX(), e.getY());
 			someObj = obj;
-			boolean gameStart = false;
+			
 			if (obj == Back) {
 				program.switchToMenu();
 			}
 			else if(someObj == Fire) {
 				drawGame(PlayerType.FIRE);
-				gameStart = true;
 			}
 			else if(someObj == Water) {
 				drawGame(PlayerType.WATER);
-				gameStart = true;
 			}
 			else if(someObj == Earth) {
 				drawGame(PlayerType.EARTH);
-				gameStart = true;
 			}
 			else if(someObj == Wind) {
 				drawGame(PlayerType.AIR);
-				gameStart = true;
 			}
-			if(gameStart) {
-				timer = new Timer(25,this);
-				timer.start();
-				hideSelection();
-			}
+			
 		}
 		
 		public void mouseMoved(MouseEvent e) {
@@ -357,8 +369,10 @@ import acm.util.RandomGenerator;
 			
 			velX = -8.0f * multiplyer;
 			if (gameTime % 1200 == 0) {
-				multiplyer += .1;
+				multiplyer += .2;
 				System.out.println(velX);
+				
+				gameTime = 0;
 			}
 			
 			topCount++;
