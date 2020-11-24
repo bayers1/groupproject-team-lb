@@ -24,19 +24,18 @@ import acm.util.RandomGenerator;
 		public static final int TOP_OCCUR = 150;
 		public static final int BOTTOM_OCCUR = 50;
 		
+		public static final int OBS_MAX = 5;
+		
 		public static final String IMG_EXTENSION = ".png";
 		public double startX = 15;
 		public double startY = 300;
 		private boolean selection = true;
 
 		private String sceneType;
-		private GImage Fire;
-		private GImage Water;
-		private GImage Earth;
-		private GImage Wind;
+		private GImage Fire, Water, Earth, Wind;
 		private GLabel gameOver;
-		private GImage character;
-		private GImage powerUp;
+		private GLabel scoreDisplay;
+		private GImage character, powerUp;
 		private GButton Back;
 		private Timer timer;
 		
@@ -44,9 +43,10 @@ import acm.util.RandomGenerator;
 		private int topCount = 0;
 		private int bottomCount = 0;
 		private int totalCount = 0;
-		private int max = 10;
 		private float velX = -8;
 		private float multiplyer = 1.0f;
+		private int score = 0;
+		private double pointsEarned;
 		
 		private int gameTime = 0;
 		
@@ -64,7 +64,12 @@ import acm.util.RandomGenerator;
 			Earth = new GImage("Earth.jpg", 120 + (2*IMAGE_WIDTH) + (2*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
+			
+			scoreDisplay = new GLabel("Current Score: " + score, WINDOW_WIDTH-200, REG_PADDING);
+			scoreDisplay.setColor(Color.RED);
+			
 			gameOver = new GLabel("You Lose", WINDOW_HEIGHT/2, WINDOW_WIDTH/2);
+			
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
 		}
@@ -95,6 +100,8 @@ import acm.util.RandomGenerator;
 			//starts drawing the obstacles
 			timer = new Timer(24,this);
 			timer.start();
+			
+			program.add(scoreDisplay);
 		}
 		
 		/**
@@ -294,7 +301,6 @@ import acm.util.RandomGenerator;
 			else if(someObj == Wind) {
 				drawGame(PlayerType.AIR);
 			}
-			
 		}
 		
 		public void mouseMoved(MouseEvent e) {
@@ -332,7 +338,12 @@ import acm.util.RandomGenerator;
 			bottomObstacles.removeAll(tempList);
 		}
 		
-		
+		/**
+		 * the checkCollision() method checks for collision 
+		 * between player and obstacles
+		 * @return true when player and obstacle do collide 
+		 * 		   otherwise false
+		 */
 		private boolean checkCollision() {
 			for(int i = 0; i <topObstacles.size();i++) {
 				if(topObstacles.get(i).getBounds().intersects(character.getBounds())) {
@@ -347,14 +358,31 @@ import acm.util.RandomGenerator;
 			return false;
 		}
 		
+		//helper method to scale points earned
+		//based on multiplyer
+		private void scalePointsEarned() {
+			pointsEarned = 20 * multiplyer;
+		}
+		
+		//helper method
+		private void updateScore() {
+			scalePointsEarned();
+			score += pointsEarned;
+		}
+		
+		private void drawScore() {
+			updateScore();
+			scoreDisplay.setLabel("Current Score: " + score);			
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if(topCount % TOP_OCCUR == 0 && topObstacles.size()<max) {
+			if(topCount % TOP_OCCUR == 0 && topObstacles.size()< OBS_MAX) {
 				drawTopObstacle();
 				topCount = 0;
 			}
-			if(bottomCount % BOTTOM_OCCUR == 0 && topObstacles.size()<max) {
+			if(bottomCount % BOTTOM_OCCUR == 0 && topObstacles.size()< OBS_MAX) {
 				drawBottomObstacle();
 				bottomCount = 0;
 			}
@@ -374,6 +402,8 @@ import acm.util.RandomGenerator;
 				
 				gameTime = 0;
 			}
+			
+			drawScore();
 			
 			topCount++;
 			bottomCount++;
