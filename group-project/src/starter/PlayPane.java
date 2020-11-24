@@ -117,10 +117,10 @@ import acm.util.RandomGenerator;
 				fileName += "Moving";
 			}
 			if(vNum < 2) {
-				fileName += "top";
+				fileName += "Top";
 			}
 			else {
-				fileName += "bottom";
+				fileName += "Bottom";
 			}
 			fileName += IMG_EXTENSION;
 			
