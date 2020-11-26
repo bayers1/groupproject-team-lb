@@ -58,7 +58,7 @@ public class SettingsPane extends GraphicsPane {
 		}
 		else if(obj == OnOff) {
 			if(program.getSound()) {//checks the status of sound and turns on/off.
-				program.stopSound("r2d2.mp3");
+				program.stopSound("gameover.wav");
 				program.setSound(false);
 			}
 			else {

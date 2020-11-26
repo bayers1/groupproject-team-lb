@@ -410,7 +410,8 @@ import acm.util.RandomGenerator;
 			moveTopObstacles();
 			moveBottomObstacles();
 			if(checkCollision()) {
-				program.playSound("r2d2.mp3",false);
+				program.playSound("gameover.wav",false);
+				program.stopMusic("Dark-theme.mp3");
 				gameOver();
 			}
 			
