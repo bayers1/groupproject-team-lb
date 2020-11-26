@@ -393,6 +393,7 @@ import acm.util.RandomGenerator;
 			moveTopObstacles();
 			moveBottomObstacles();
 			if(checkCollision()) {
+				program.playSound("r2d2.mp3",false);
 				gameOver();
 			}
 			

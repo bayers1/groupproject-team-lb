@@ -63,7 +63,7 @@ public class SettingsPane extends GraphicsPane {
 			}
 			else {
 				program.setSound(true);
-				program.playSound("r2d2.mp3",true);
+				//program.playSound("r2d2.mp3",true);
 			}
 		
 		}
@@ -85,9 +85,17 @@ public class SettingsPane extends GraphicsPane {
 		boolean buttonHover = false;
 		if(!buttonHover) {
 			notHovered(Back);
+			notHovered(OnOff);
+			notHovered(OnOff1);
 		}
 		if(obj == Back) {
 			hover(Back);
+		}
+		else if(obj == OnOff) {
+			hover(OnOff);
+		}
+		else if(obj == OnOff1) {
+			hover(OnOff1);
 		}
 		buttonHover = true;	
 	}
