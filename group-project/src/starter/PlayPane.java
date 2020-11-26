@@ -316,11 +316,22 @@ import acm.util.RandomGenerator;
 			//System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
 		}
 		
+		/*Checks what type the top obstacle 
+		 * is and moves it accordingly
+		 */
+		
 		private void moveTopObstacles(){
 			ArrayList<GImage> tempList = new ArrayList<GImage>();
 			
 			for(int i = 0;i<topObstacles.size();i++) {
-				topObstacles.get(i).move(velX,0);
+				int velY = 0;
+				
+				if (topObstacles.get(i).getWidth() == 80) {
+					velY = 2;
+				}
+				
+				topObstacles.get(i).move(velX, velY);
+				
 				if((topObstacles.get(i).getX()+ topObstacles.get(i).getWidth()) < 0) {
 					tempList.add(topObstacles.get(i));
 				}
@@ -332,7 +343,12 @@ import acm.util.RandomGenerator;
 			ArrayList<GImage> tempList = new ArrayList<GImage>();
 			
 			for(int i = 0;i<bottomObstacles.size();i++) {
-				bottomObstacles.get(i).move(velX,0);
+				int velY = 0;
+				if (bottomObstacles.get(i).getWidth() == 80) {
+					velY = -2;
+				}
+				
+				bottomObstacles.get(i).move(velX, velY);
 				
 				if((bottomObstacles.get(i).getX()+ bottomObstacles.get(i).getWidth()) < 0) {
 					tempList.add(bottomObstacles.get(i));
@@ -340,6 +356,7 @@ import acm.util.RandomGenerator;
 			}
 			bottomObstacles.removeAll(tempList);
 		}
+		
 		
 		/**
 		 * the checkCollision() method checks for collision 
