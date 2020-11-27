@@ -36,6 +36,7 @@ import acm.util.RandomGenerator;
 		private GLabel gameOver;
 		private GLabel scoreDisplay;
 		private GImage character, powerUp;
+		private GImage scene;
 		private GButton Back;
 		private Timer timer;
 		
@@ -95,6 +96,7 @@ import acm.util.RandomGenerator;
 			
 			gameSetUp = new GameSetUp(type);
 			drawPlayer(type);
+			drawScene();
 			//System.out.println(gameSetUp.getPlayer());
 			
 			//starts drawing the obstacles
@@ -131,6 +133,15 @@ import acm.util.RandomGenerator;
 			character = new GImage(fileName, startX, startY);
 			character.setSize(80,40);
 			program.add(character);
+		}
+		
+		public void drawScene() {
+			String fileName = sceneType + "Background" + IMG_EXTENSION;
+			
+			scene = new GImage(fileName, 0, 0);
+			scene.setSize(1600, 600);
+			program.add(scene);
+			scene.sendToBack();
 		}
 		
 		
