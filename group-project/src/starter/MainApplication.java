@@ -93,5 +93,8 @@ public class MainApplication extends GraphicsApplication {
 	}
 	public boolean getMusic() {
 		return isMusicOn;
-	}	
+	}
+	public String[] getSoundFiles(){
+		return  SOUND_FILES;
+	}
 }

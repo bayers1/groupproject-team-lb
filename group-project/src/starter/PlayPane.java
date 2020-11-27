@@ -420,9 +420,10 @@ import acm.util.RandomGenerator;
 			
 			moveTopObstacles();
 			moveBottomObstacles();
+			
 			if(checkCollision()) {
-				program.playSound("gameover.wav",false);
-				program.stopMusic("Dark-theme.mp3");
+				program.playSound(program.getSoundFiles()[3],false);
+				program.stopMusic(program.getSoundFiles()[2]);
 				gameOver();
 			}
 			
