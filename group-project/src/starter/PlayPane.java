@@ -420,6 +420,7 @@ import acm.util.RandomGenerator;
 			
 			moveTopObstacles();
 			moveBottomObstacles();
+			
 			if(checkCollision()) {
 				program.playSound(program.getSoundFiles()[3],false);
 				program.stopMusic(program.getSoundFiles()[2]);
