@@ -344,54 +344,47 @@ import acm.util.RandomGenerator;
 		 * is and moves it accordingly
 		 */
 		
-		private void moveTopObstacles(){
-			ArrayList<GImage> tempList = new ArrayList<GImage>();
-			
-			for(int i = 0;i<topObstacles.size();i++) {
+		private void moveTopObstacles(){			
+			for(int i = 0; i<topObstacles.size(); i++) {
 				int velY = 0;
-				
 				if (topObstacles.get(i).getWidth() == 80) {
 					velY = 2;
 				}
-				
 				topObstacles.get(i).move(velX, velY);
 				
-				if((topObstacles.get(i).getX()+ topObstacles.get(i).getWidth()) < 0) {
-					tempList.add(topObstacles.get(i));
+				//remove Obstacle when it gets out of screen
+				if(topObstacles.get(i).getX() < -100) {
+					program.remove(topObstacles.get(i));
+					topObstacles.remove(topObstacles.get(i));
 				}
 			}
-			topObstacles.removeAll(tempList);
 		}
 		
 		private void moveBottomObstacles(){
-			ArrayList<GImage> tempList = new ArrayList<GImage>();
-			
-			for(int i = 0;i<bottomObstacles.size();i++) {
+			for(int i = 0; i<bottomObstacles.size(); i++) {
 				int velY = 0;
 				if (bottomObstacles.get(i).getWidth() == 80) {
 					velY = -2;
 				}
-				
 				bottomObstacles.get(i).move(velX, velY);
 				
-				if((bottomObstacles.get(i).getX()+ bottomObstacles.get(i).getWidth()) < 0) {
-					tempList.add(bottomObstacles.get(i));
+				//remove Obstacle when it gets out of screen
+				if(bottomObstacles.get(i).getX() < -100) {
+					program.remove(bottomObstacles.get(i));
+					bottomObstacles.remove(bottomObstacles.get(i));
 				}
 			}
-			bottomObstacles.removeAll(tempList);
 		}
 		
 		private void movePowerUps(){
-			ArrayList<GImage> tempList = new ArrayList<GImage>();
-			
-			for(int i = 0 ;i < powerUps.size();i++) {
+			for(int i = 0; i < powerUps.size(); i++) {
 				powerUps.get(i).move(velX, 0);
 				
-				if((powerUps.get(i).getX()+ powerUps.get(i).getWidth()) < 0) {
-					tempList.add(powerUps.get(i));
+				if(powerUps.get(i).getX() < -80) {
+					program.remove(powerUps.get(i));
+					powerUps.remove(powerUps.get(i));
 				}
 			}
-			powerUps.removeAll(tempList);
 		}
 		
 		
