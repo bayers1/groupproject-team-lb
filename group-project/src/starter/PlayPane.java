@@ -24,7 +24,9 @@ import acm.util.RandomGenerator;
 		public static final int TOP_OCCUR = 150;
 		public static final int BOTTOM_OCCUR = 50;
 		
+		
 		public static final int OBS_MAX = 5;
+		public static final int POWERUP_MAX = 1;
 		
 		public static final String IMG_EXTENSION = ".png";
 		public double startX = 15;
@@ -44,6 +46,7 @@ import acm.util.RandomGenerator;
 		private int topCount = 0;
 		private int bottomCount = 0;
 		private int totalCount = 0;
+		private int powerUpCount = 0;
 		private float velX = -8;
 		private float multiplier = 1.0f;
 		private int score = 0;
@@ -53,6 +56,7 @@ import acm.util.RandomGenerator;
 		
 		private ArrayList<GImage> topObstacles;
 		private ArrayList<GImage> bottomObstacles;
+		private ArrayList<GImage> powerUps;
 		private RandomGenerator rgen;
 		
 		public PlayPane(MainApplication app) {
@@ -73,6 +77,8 @@ import acm.util.RandomGenerator;
 			
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
+			powerUps = new ArrayList<GImage>();
+			
 		}
 
 		@Override
@@ -244,26 +250,33 @@ import acm.util.RandomGenerator;
 		 * in the game
 		 * Will work on this later
 		 */
-		/*public void drawPowerUp(PowerUpType type) {
+		public void drawPowerUp() {
+			int random = rgen.nextInt(1, 20);
+			int occurs = rgen.nextInt(1, 30);
+			if (occurs < 26) return;
+			
 			String fileName = "";
-			if (type == PowerUpType.MULTI) {
+			if (random < 8) {
 				fileName += "multi";
 			}
-			else if (type == PowerUpType.SLOW) {
-				fileName += "slow";
-			}
-			else if (type == PowerUpType.BONUS) {
+			else if (random < 16) {
 				fileName += "bonus";
+			}
+			else if (random < 18) {
+				fileName += "slow";
 			}
 			else {
 				fileName += "invul";
 			}
-			fileName += "" + IMG_EXTENSION;
+			fileName += IMG_EXTENSION;
 			
-			powerUp = new GImage(fileName, 700, 100);
+			powerUp = new GImage(fileName, WINDOW_WIDTH, 300);
+			powerUp.setSize(50, 50);
+			powerUp.sendToFront();
 			program.add(powerUp);
+			powerUps.add(powerUp);
 			
-		}*/
+		}
 		
 		@Override
 		public void hideContents() {
@@ -368,6 +381,19 @@ import acm.util.RandomGenerator;
 			bottomObstacles.removeAll(tempList);
 		}
 		
+		private void movePowerUps(){
+			ArrayList<GImage> tempList = new ArrayList<GImage>();
+			
+			for(int i = 0 ;i < powerUps.size();i++) {
+				powerUps.get(i).move(velX, 0);
+				
+				if((powerUps.get(i).getX()+ powerUps.get(i).getWidth()) < 0) {
+					tempList.add(powerUps.get(i));
+				}
+			}
+			powerUps.removeAll(tempList);
+		}
+		
 		
 		/**
 		 * the checkCollision() method checks for collision 
@@ -418,8 +444,14 @@ import acm.util.RandomGenerator;
 				bottomCount = 0;
 			}
 			
+			if (powerUpCount % 90 == 0 || powerUpCount % 290 == 0) {
+				drawPowerUp();
+				powerUpCount = 0;
+			}
+			
 			moveTopObstacles();
 			moveBottomObstacles();
+			movePowerUps();
 			
 			if(checkCollision()) {
 				program.playSound(program.getSoundFiles()[3],false);
@@ -440,6 +472,7 @@ import acm.util.RandomGenerator;
 			topCount++;
 			bottomCount++;
 			totalCount++;
+			powerUpCount++;
 			gameTime++;
 		}
 		
