@@ -17,6 +17,7 @@ public class MenuPane extends GraphicsPane {
 	private GButton play;
 	private GButton settings;
 	private GButton howToPlay;
+	private GButton exitGame;
 	GButton button;
 	private ArrayList<GButton> gButtons = new ArrayList<GButton>();
 	public MenuPane(MainApplication app) {
@@ -35,7 +36,10 @@ public class MenuPane extends GraphicsPane {
 		howToPlay = new GButton("HOW TO PLAY",CENTER - (MENU_BUTTON_WIDTH/2),
 								START_POS+(2*MENU_BUTTON_HEIGHT)+(2*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
 		howToPlay.setFillColor(BUTTON_COLOR);
-
+		
+		exitGame = new GButton("E X I T",CENTER - (MENU_BUTTON_WIDTH/2),
+				START_POS+(3*MENU_BUTTON_HEIGHT)+(3*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+		exitGame.setFillColor(BUTTON_COLOR);
 	}
 
 	@Override
@@ -43,7 +47,7 @@ public class MenuPane extends GraphicsPane {
 		program.add(play);
 		program.add(settings);
 		program.add(howToPlay);
-	
+		program.add(exitGame);
 	}
 
 	@Override
@@ -63,6 +67,9 @@ public class MenuPane extends GraphicsPane {
 		else if (obj == howToPlay) {
 			program.switchToHowToPlay();
 		}
+		else if(obj == exitGame) {
+			System.exit(0);
+		}
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
@@ -73,6 +80,7 @@ public class MenuPane extends GraphicsPane {
 			notHovered(play);
 			notHovered(settings);
 			notHovered(howToPlay);
+			notHovered(exitGame);
 		}
 		
 		if(obj == play) {
@@ -84,7 +92,10 @@ public class MenuPane extends GraphicsPane {
 		else if(obj == howToPlay) {
 			hover(howToPlay);
 		}
+		else if(obj == exitGame) {
+			hover(exitGame);
+		}
 			buttonHover = true;
-	
+		
 	}
 }
