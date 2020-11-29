@@ -271,7 +271,7 @@ import acm.util.RandomGenerator;
 			fileName += IMG_EXTENSION;
 			
 			powerUp = new GImage(fileName, WINDOW_WIDTH, 300);
-			powerUp.setSize(50, 50);
+			powerUp.setSize(225, 100);
 			powerUp.sendToFront();
 			program.add(powerUp);
 			powerUps.add(powerUp);
