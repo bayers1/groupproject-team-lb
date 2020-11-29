@@ -39,7 +39,7 @@ import acm.util.RandomGenerator;
 		private GLabel scoreDisplay;
 		private GImage character, powerUp;
 		private GImage scene;
-		private GButton Back;
+		private GButton Back,ReturnToMenu;
 		private Timer timer;
 		
 		GObject someObj;
@@ -69,6 +69,7 @@ import acm.util.RandomGenerator;
 			Earth = new GImage("Earth.jpg", 120 + (2*IMAGE_WIDTH) + (2*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
+			ReturnToMenu = new GButton("ReturnToMenu", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 			
 			scoreDisplay = new GLabel("Current Score: " + score, WINDOW_WIDTH-200, REG_PADDING);
 			scoreDisplay.setColor(Color.RED);
@@ -305,6 +306,7 @@ import acm.util.RandomGenerator;
 			
 			program.removeAll();
 			program.add(gameOver);
+			program.add(ReturnToMenu);
 			//TODO: display scores as well as options to play again or go back to main menu
 		}
 		
@@ -327,6 +329,9 @@ import acm.util.RandomGenerator;
 			}
 			else if(someObj == Wind) {
 				drawGame(PlayerType.AIR);
+			}
+			else if(someObj == ReturnToMenu) {
+				program.switchToMenu();
 			}
 		}
 		
