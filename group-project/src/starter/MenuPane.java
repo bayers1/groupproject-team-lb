@@ -14,11 +14,8 @@ public class MenuPane extends GraphicsPane {
 	public static final int MENU_BUTTON_WIDTH = 140;
 	public static final int START_POS = 180;
 	
-	private GButton play;
-	private GButton settings;
-	private GButton howToPlay;
-	private GButton exitGame;
-
+	private GButton play,settings, howToPlay, exitGame;
+	private ArrayList<GButton> mButtons = new ArrayList<GButton>();
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
@@ -39,14 +36,18 @@ public class MenuPane extends GraphicsPane {
 		exitGame = new GButton("E X I T",CENTER - (MENU_BUTTON_WIDTH/2),
 				START_POS+(3*MENU_BUTTON_HEIGHT)+(3*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
 		exitGame.setFillColor(BUTTON_COLOR);
+		
+		GButton[] buttons = {play,settings,howToPlay,exitGame}; 
+		for(GButton button:buttons) {
+			mButtons.add(button);
+		}
 	}
 
 	@Override
 	public void showContents() {
-		program.add(play);
-		program.add(settings);
-		program.add(howToPlay);
-		program.add(exitGame);
+		for(GButton button:mButtons) {
+			program.add(button);
+		}
 	}
 
 	@Override
@@ -57,16 +58,16 @@ public class MenuPane extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == play) {
+		if (obj == mButtons.get(0)) {
 			program.switchToPlay();
 		}
-		else if (obj == settings) {
+		if (obj == mButtons.get(1)) {
 			program.switchToSettings();
 		}
-		else if (obj == howToPlay) {
+		if (obj == mButtons.get(2)) {
 			program.switchToHowToPlay();
 		}
-		else if(obj == exitGame) {
+		if(obj == mButtons.get(3)) {
 			System.exit(0);
 		}
 	}
@@ -76,25 +77,22 @@ public class MenuPane extends GraphicsPane {
 		
 		boolean buttonHover = false;
 		if(!buttonHover) {
-			notHovered(play);
-			notHovered(settings);
-			notHovered(howToPlay);
-			notHovered(exitGame);
+		for(int i = 0;i < mButtons.size();i++) {
+			notHovered(mButtons.get(i));
 		}
-		
-		if(obj == play) {
-			hover(play);
 		}
-		else if(obj == settings) {
-			hover(settings);
+		if(obj == mButtons.get(0)) {
+			hover(mButtons.get(0));
 		}
-		else if(obj == howToPlay) {
-			hover(howToPlay);
+		if(obj == mButtons.get(1)) {
+			hover(mButtons.get(1));
 		}
-		else if(obj == exitGame) {
-			hover(exitGame);
+		if(obj == mButtons.get(2)) {
+			hover(mButtons.get(2));
 		}
-		
+		if(obj == mButtons.get(3)) {
+			hover(mButtons.get(3));
+		}
 		buttonHover = true;
 		
 	}
