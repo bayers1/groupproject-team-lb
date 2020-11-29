@@ -1,6 +1,7 @@
 package starter;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -10,11 +11,10 @@ import acm.graphics.GObject;
 
 public class SettingsPane extends GraphicsPane {
 	private MainApplication program;
-	private GButton Back;
+	private GButton Back,OnOff,OnOff1;
 	private GLabel soundLabel;
 	private GLabel musicLabel;
-	private GButton OnOff;
-	private GButton  OnOff1;
+	private ArrayList<GButton> sButtons = new ArrayList<GButton>();
 	public SettingsPane(MainApplication app) {
 		super();
 		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
@@ -29,33 +29,32 @@ public class SettingsPane extends GraphicsPane {
 		OnOff.setColor(Color.BLUE);
 		OnOff1 =new GButton("ON/OFF",800,365,50,50);
 		OnOff1.setColor(Color.BLUE);
+		GButton[] buttons = {Back,OnOff,OnOff1};
+		for(GButton button:buttons) {
+			sButtons.add(button);
+		}
 	}
-		
 	@Override
 	public void showContents() {
-		program.add(Back);
 		program.add(soundLabel);
 		program.add(musicLabel);
-		program.add(OnOff);
-		program.add(OnOff1);
+		for(GButton button:sButtons) {
+			program.add(button);
+		}
 	}
 
 	@Override
 	public void hideContents() {
-		program.remove(Back);
-		program.remove(soundLabel);
-		program.remove(musicLabel);
-		program.remove(OnOff);
-		program.remove(OnOff1);
+		program.removeAll();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == Back) {
+		if (obj == sButtons.get(0)) {
 			program.switchToMenu();
 		}
-		else if(obj == OnOff){
+		else if(obj == sButtons.get(1)){
 			if(program.getSound()) {//checks the status of sound and turns on/off.
 				program.stopSound(program.getSoundFiles()[3]);
 				program.setSound(false);
@@ -66,7 +65,7 @@ public class SettingsPane extends GraphicsPane {
 			}
 		
 		}
-		else if(obj == OnOff1){
+		else if(obj == sButtons.get(2)){
 			if(program.getMusic()) {//checks the status of music.
 				program.stopMusic(program.getSoundFiles()[2]);
 				program.setMusic(false);
@@ -77,25 +76,14 @@ public class SettingsPane extends GraphicsPane {
 			}
 		}
 	}
-	
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		boolean buttonHover = false;
-		if(!buttonHover) {
-			notHovered(Back);
-			notHovered(OnOff);
-			notHovered(OnOff1);
-		}
-		if(obj == Back) {
-			hover(Back);
-		}
-		else if(obj == OnOff) {
-			hover(OnOff);
-		}
-		else if(obj == OnOff1) {
-			hover(OnOff1);
-		}
-		buttonHover = true;	
+		for(int i = 0;i < sButtons.size();i++) {
+			notHovered(sButtons.get(i));
+			if(obj == sButtons.get(i)) {
+			hover(sButtons.get(i));
+			}
+	}
 	}
 }
