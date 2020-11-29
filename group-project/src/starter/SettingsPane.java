@@ -29,7 +29,6 @@ public class SettingsPane extends GraphicsPane {
 		OnOff.setColor(Color.BLUE);
 		OnOff1 =new GButton("ON/OFF",800,365,50,50);
 		OnOff1.setColor(Color.BLUE);
-	
 	}
 		
 	@Override

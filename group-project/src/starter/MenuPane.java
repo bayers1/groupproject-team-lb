@@ -18,8 +18,7 @@ public class MenuPane extends GraphicsPane {
 	private GButton settings;
 	private GButton howToPlay;
 	private GButton exitGame;
-	GButton button;
-	private ArrayList<GButton> gButtons = new ArrayList<GButton>();
+
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
@@ -95,7 +94,8 @@ public class MenuPane extends GraphicsPane {
 		else if(obj == exitGame) {
 			hover(exitGame);
 		}
-			buttonHover = true;
+		
+		buttonHover = true;
 		
 	}
 }

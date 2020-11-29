@@ -35,7 +35,6 @@ import acm.util.RandomGenerator;
 
 		private String sceneType;
 		private GImage Fire, Water, Earth, Wind;
-		private GLabel gameOver;
 		private GLabel scoreDisplay;
 		private GImage character, powerUp;
 		private GImage scene;
@@ -73,8 +72,6 @@ import acm.util.RandomGenerator;
 			
 			scoreDisplay = new GLabel("Current Score: " + score, WINDOW_WIDTH-200, REG_PADDING);
 			scoreDisplay.setColor(Color.RED);
-			
-			gameOver = new GLabel("You Lose", WINDOW_HEIGHT/2, WINDOW_WIDTH/2);
 			
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
@@ -301,13 +298,36 @@ import acm.util.RandomGenerator;
 		 * Displays score and highest as navigations on the screen
 		 */
 		public void gameOver() {
-			System.out.println("Gameover");
 			timer.stop();
 			
+			//remove all images on screen
 			program.removeAll();
-			program.add(gameOver);
 			
-			//TODO: display scores as well as options to play again or go back to main menu
+			//resets the ArrayLists
+			topObstacles.clear();
+			bottomObstacles.clear();
+			powerUps.clear();
+			
+			resetData();
+			selection = true;
+			
+			program.switchToGameOver();
+		}
+		
+		/**
+		 * helper method to revert the game data(cache)
+		 * back from the start
+		 * Does Not reset Highscore that is stored
+		 */
+		public void resetData() {
+			topCount = 0;
+			bottomCount = 0;
+			totalCount = 0;
+			powerUpCount = 0;
+			velX = -8;
+			multiplier = 1.0f;
+			score = 0;
+			gameTime = 0;
 		}
 		
 		@Override
@@ -345,7 +365,6 @@ import acm.util.RandomGenerator;
 		/*Checks what type the top obstacle 
 		 * is and moves it accordingly
 		 */
-		
 		private void moveTopObstacles(){			
 			for(int i = 0; i<topObstacles.size(); i++) {
 				int velY = 0;

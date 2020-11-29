@@ -14,11 +14,14 @@ public class MainApplication extends GraphicsApplication {
 	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3","Dark-theme.mp3","gameover.wav"};
 	//private static final String[] Characters = {"Fire.jpg","Water.jpg","Earth.jpg","Wind.jpg"};
 
+	//panes
 	private PlayPane playPane;
+	private GameOverPane gameOverPane;
 	private MenuPane menu;
-	private int count;
 	private SettingsPane settingPane;
 	private HowTOPlayPane howtoplayPane;
+	
+	private int count;
 	//private GImage img1;
 	private AudioPlayer audio;
 	static String file;
@@ -35,6 +38,7 @@ public class MainApplication extends GraphicsApplication {
 		playPane = new PlayPane(this);
 		settingPane = new SettingsPane(this);
 		howtoplayPane = new HowTOPlayPane(this);
+		gameOverPane = new GameOverPane(this);
 		switchToMenu();
 		
 	}
@@ -53,13 +57,19 @@ public class MainApplication extends GraphicsApplication {
 	public void switchToSettings() {
 		switchToScreen(settingPane);
 	}
+	
 	public void switchToHowToPlay() {
 		switchToScreen(howtoplayPane);
 	}
+	
+	public void switchToGameOver() {
+		switchToScreen(gameOverPane);
+	}
+	
 	private void playRandomSound() {
-		
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
 	}
+	
 	public void stopSound(String fileName) {
 		audio.stopSound(MUSIC_FOLDER,fileName);
 	}
