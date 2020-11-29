@@ -42,7 +42,6 @@ public class MenuPane extends GraphicsPane {
 			mButtons.add(button);
 		}
 	}
-
 	@Override
 	public void showContents() {
 		for(GButton button:mButtons) {
@@ -54,7 +53,6 @@ public class MenuPane extends GraphicsPane {
 	public void hideContents() {
 		program.removeAll();
 	}
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
@@ -72,28 +70,13 @@ public class MenuPane extends GraphicsPane {
 		}
 	}
 	@Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseMoved(MouseEvent e) { //Highlighting of the menu buttons.
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		
-		boolean buttonHover = false;
-		if(!buttonHover) {
 		for(int i = 0;i < mButtons.size();i++) {
 			notHovered(mButtons.get(i));
-		}
-		}
-		if(obj == mButtons.get(0)) {
-			hover(mButtons.get(0));
-		}
-		if(obj == mButtons.get(1)) {
-			hover(mButtons.get(1));
-		}
-		if(obj == mButtons.get(2)) {
-			hover(mButtons.get(2));
-		}
-		if(obj == mButtons.get(3)) {
-			hover(mButtons.get(3));
-		}
-		buttonHover = true;
-		
+			if(obj == mButtons.get(i)) {
+			hover(mButtons.get(i));
+			}
 	}
+}
 }
