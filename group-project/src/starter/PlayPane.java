@@ -50,7 +50,6 @@ import acm.util.RandomGenerator;
 		private float multiplier = 1.0f;
 		private int score = 0;
 		private double pointsEarned;
-		
 		private int gameTime = 0;
 		
 		private ArrayList<GImage> topObstacles;
@@ -348,14 +347,24 @@ import acm.util.RandomGenerator;
 			else if(someObj == Wind) {
 				drawGame(PlayerType.AIR);
 			}
+			
 		}
 		
 		public void mouseMoved(MouseEvent e) {
+			GObject obj = program.getElementAt(e.getX(), e.getY());
+			boolean buttonHover = false;
+			if(!buttonHover) {
+				notHovered(Back);
+			}
+			if(obj == Back) {
+				hover(Back);
+			}
+			buttonHover = true;	
 			if(selection)return;
-			
 			if(gameSetUp.movePlayer(e.getY())) {
 				character.setLocation(15, e.getY());
 			}
+			
 			//test code for location of player and it's image
 			//System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
 		}
@@ -457,6 +466,7 @@ import acm.util.RandomGenerator;
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			// TODO Auto-generated method stub
 			if(topCount % TOP_OCCUR == 0 && topObstacles.size()< OBS_MAX) {
 				drawTopObstacle();
@@ -481,7 +491,7 @@ import acm.util.RandomGenerator;
 				program.stopMusic(program.getSoundFiles()[2]);
 				gameOver();
 			}
-			gotPowerUp(); //just to check.		
+			gotPowerUp(); //just to check.
 			velX = -8.0f * multiplier;
 			if (gameTime % 1200 == 0) {
 				multiplier += .2;
@@ -491,14 +501,12 @@ import acm.util.RandomGenerator;
 			}
 			
 			drawScore();
-			
 			topCount++;
 			bottomCount++;
 			totalCount++;
 			powerUpCount++;
-			gameTime++;
+			gameTime++;	
 		}
-		
 	}
 
 	
