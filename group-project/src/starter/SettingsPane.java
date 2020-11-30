@@ -83,13 +83,11 @@ public class SettingsPane extends GraphicsPane {
 				program.stopSound(program.getSoundFiles()[3]);
 				program.setSound(false);
 				slabels.get(2).setLabel("OFF");
-				statusLabel.setLabel("Game Sound is turned off.");
 				isSoundOff = true;	
 			}
 			else {
 				program.setSound(true);
 				slabels.get(2).setLabel("ON");
-				statusLabel.setLabel("Game Sound is turned on.");
 				isSoundOff = false;
 			}
 		
@@ -99,14 +97,12 @@ public class SettingsPane extends GraphicsPane {
 				program.stopMusic(program.getSoundFiles()[2]);
 				program.setMusic(false);
 				slabels.get(3).setLabel("OFF");
-				statusLabel.setLabel("Game Music is turned off.");
 				isMusicOff = true;
 			}
 			else {
 				program.setMusic(true);
 				program.playMusic(program.getSoundFiles()[2],true);
 				slabels.get(3).setLabel("ON");
-				statusLabel.setLabel("Game Music is turned on.");
 				isMusicOff = false;
 			}
 			
