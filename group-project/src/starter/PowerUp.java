@@ -27,5 +27,13 @@ public class PowerUp extends GameObject{
 	public void bounds() {
 		
 	}
+	
+	public String toString() {
+		String powerUpDetails = "Height: "+ getHeight()
+								+ "\nWidth: "	+ getWidth()
+								+ "\nType: "	+ getType();
+		
+		return powerUpDetails;
+	}
 
 }

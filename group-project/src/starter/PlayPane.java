@@ -56,6 +56,7 @@ import acm.util.RandomGenerator;
 		private ArrayList<GImage> bottomObstacles;
 		private ArrayList<GImage> powerUps;
 		private RandomGenerator rgen;
+		
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
@@ -247,27 +248,32 @@ import acm.util.RandomGenerator;
 		 * Will work on this later
 		 */
 		public void drawPowerUp() {
-			int random = rgen.nextInt(1, 20);
 			int occurs = rgen.nextInt(1, 30);
+			int random = rgen.nextInt(1, 20);
 			if (occurs < 26) return;
 			
+			PowerUp newPower = gameSetUp.createPowerUp(random);
+			PowerUpType powerUpType = newPower.getType();
+			
 			String fileName = "";
-			if (random < 8) {
+			if(powerUpType == PowerUpType.MULTI) {
 				fileName += "multi";
 			}
-			else if (random < 16) {
+			else if(powerUpType == PowerUpType.BONUS) {
 				fileName += "bonus";
 			}
-			else if (random < 18) {
+			else if(powerUpType == PowerUpType.SLOW) {
 				fileName += "slow";
 			}
 			else {
 				fileName += "invul";
 			}
+			
 			fileName += IMG_EXTENSION;
 			powerUp = new GImage(fileName, WINDOW_WIDTH, 300);
-			powerUp.setSize(225, 100);
+			powerUp.setSize(newPower.getWidth(), newPower.getHeight());
 			powerUp.sendToFront();
+			
 			program.add(powerUp);
 			powerUps.add(powerUp);
 			
@@ -306,6 +312,7 @@ import acm.util.RandomGenerator;
 			powerUps.clear();
 			
 			resetData();
+			gameSetUp.removeCache();
 			selection = true;
 			
 			program.switchToGameOver();
@@ -411,6 +418,7 @@ import acm.util.RandomGenerator;
 				if(powerUps.get(i).getX() < -80) {
 					program.remove(powerUps.get(i));
 					powerUps.remove(powerUps.get(i));
+					gameSetUp.removePowerUp(i);
 				}
 			}
 		}
@@ -439,12 +447,33 @@ import acm.util.RandomGenerator;
 		private boolean gotPowerUp() {
 			for(int i = 0;i<powerUps.size();i++) {
 				if(powerUps.get(i).getBounds().intersects(character.getBounds())) {
-					program.remove(powerUps.remove(i));
-					System.out.println("got powerup");
+					determinePower(gameSetUp.getPower(i));
+					program.remove(powerUps.get(i));
+					powerUps.remove(powerUps.get(i));
 					return true;
 				}
 			}
 			return false;
+		}
+		
+		/**
+		 * based on powerUp collided with determine
+		 * what to do
+		 */
+		private void determinePower(PowerUpType pUpType) {
+			if(pUpType == PowerUpType.MULTI) {
+				System.out.println("multi");
+			}
+			else if(pUpType == PowerUpType.BONUS) {
+				System.out.println("bonus");
+			}
+			else if(pUpType == PowerUpType.SLOW) {
+				System.out.println("slow");
+			}
+			else {
+				System.out.println("invul");
+			}
+			
 		}
 		
 		//helper method to scale points earned
