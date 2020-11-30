@@ -466,6 +466,7 @@ import acm.util.RandomGenerator;
 			}
 			else if(pUpType == PowerUpType.BONUS) {
 				System.out.println("bonus");
+				score += (100 * multiplier);
 			}
 			else if(pUpType == PowerUpType.SLOW) {
 				System.out.println("slow");
@@ -479,7 +480,7 @@ import acm.util.RandomGenerator;
 		//helper method to scale points earned
 		//based on multiplier
 		private void scalePointsEarned() {
-			pointsEarned = 20 * multiplier;
+			pointsEarned = 10 * multiplier;
 		}
 		
 		//helper method
@@ -520,7 +521,9 @@ import acm.util.RandomGenerator;
 				program.stopMusic(program.getSoundFiles()[2]);
 				gameOver();
 			}
+			
 			gotPowerUp(); //just to check.
+			
 			velX = -8.0f * multiplier;
 			if (gameTime % 1200 == 0) {
 				multiplier += .2;
@@ -529,7 +532,10 @@ import acm.util.RandomGenerator;
 				gameTime = 0;
 			}
 			
-			drawScore();
+			if (gameTime % 20 == 0) {
+				drawScore();
+			}
+			
 			topCount++;
 			bottomCount++;
 			totalCount++;
