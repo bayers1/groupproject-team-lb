@@ -57,7 +57,6 @@ import acm.util.RandomGenerator;
 		private ArrayList<GImage> bottomObstacles;
 		private ArrayList<GImage> powerUps;
 		private RandomGenerator rgen;
-		
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
@@ -267,7 +266,6 @@ import acm.util.RandomGenerator;
 				fileName += "invul";
 			}
 			fileName += IMG_EXTENSION;
-			
 			powerUp = new GImage(fileName, WINDOW_WIDTH, 300);
 			powerUp.setSize(225, 100);
 			powerUp.sendToFront();
@@ -429,6 +427,17 @@ import acm.util.RandomGenerator;
 			return false;
 		}
 		
+		private boolean gotPowerUp() {
+			for(int i = 0;i<powerUps.size();i++) {
+				if(powerUps.get(i).getBounds().intersects(character.getBounds())) {
+					program.remove(powerUps.remove(i));
+					System.out.println("got powerup");
+					return true;
+				}
+			}
+			return false;
+		}
+		
 		//helper method to scale points earned
 		//based on multiplier
 		private void scalePointsEarned() {
@@ -472,7 +481,7 @@ import acm.util.RandomGenerator;
 				program.stopMusic(program.getSoundFiles()[2]);
 				gameOver();
 			}
-			
+			gotPowerUp(); //just to check.		
 			velX = -8.0f * multiplier;
 			if (gameTime % 1200 == 0) {
 				multiplier += .2;
