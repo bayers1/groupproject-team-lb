@@ -15,11 +15,11 @@ public class SettingsPane extends GraphicsPane {
 	private GLabel soundLabel, musicLabel,soundStatus,musicStatus;
 	private ArrayList<GButton> sButtons = new ArrayList<GButton>();
 	private ArrayList<GLabel> slabels = new ArrayList<GLabel>();
-	private GRect textBox = new GRect(280, 450, 600, 40);
+	private GRect textBox = new GRect(280, 450, 570, 40);
 	private GLabel statusLabel = new GLabel("Sound and Music are always on by default.", textBox.getX() + 20, textBox.getY() + 25);
 	private boolean isSoundOff = false;
 	private boolean isMusicOff = false;
-	private GLabel settings = new GLabel("S E T T I N G S",500, 100);
+	private GLabel settings = new GLabel("S E T T I N G S",430, 100);
 	
 	public SettingsPane(MainApplication app) {
 		super();
@@ -52,7 +52,7 @@ public class SettingsPane extends GraphicsPane {
 		textBox.setFillColor(Color.yellow);
 		textBox.setFilled(true);
 		statusLabel.setFont(new Font("Ariel", Font.PLAIN,25));
-		settings.setFont(new Font("Ariel", Font.PLAIN,30));
+		settings.setFont(new Font("Ariel", Font.PLAIN,40));
 	}
 	@Override
 	public void showContents() {
