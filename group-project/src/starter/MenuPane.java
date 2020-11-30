@@ -16,6 +16,7 @@ public class MenuPane extends GraphicsPane {
 	
 	private GButton play,settings, howToPlay, exitGame;
 	private ArrayList<GButton> mButtons = new ArrayList<GButton>();
+	
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
@@ -37,6 +38,7 @@ public class MenuPane extends GraphicsPane {
 				START_POS+(3*MENU_BUTTON_HEIGHT)+(3*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
 		exitGame.setFillColor(BUTTON_COLOR);
 		
+		//puts all the buttons into an array
 		GButton[] buttons = {play,settings,howToPlay,exitGame}; 
 		for(GButton button:buttons) {
 			mButtons.add(button);
@@ -53,6 +55,7 @@ public class MenuPane extends GraphicsPane {
 	public void hideContents() {
 		program.removeAll();
 	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
@@ -69,14 +72,17 @@ public class MenuPane extends GraphicsPane {
 			System.exit(0);
 		}
 	}
+	
 	@Override
-	public void mouseMoved(MouseEvent e) { //Highlighting of the menu buttons.
+	public void mouseMoved(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
+		
+		//for hovering over buttons
 		for(int i = 0;i < mButtons.size();i++) {
 			notHovered(mButtons.get(i));
-			if(obj == mButtons.get(i)) {
-			hover(mButtons.get(i));
-			}
+			
+			if(obj == mButtons.get(i)) hover(mButtons.get(i));
+		}
 	}
-}
+	
 }
