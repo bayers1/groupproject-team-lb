@@ -53,6 +53,8 @@ import acm.util.RandomGenerator;
 		private int totalGameTime = 0;
 		
 		private int times2 = 1, times2EndTime = 0;
+		private float movementModifier = 1.0f;
+		private int slowDownEndTime = 0;
 		
 		private ArrayList<GImage> topObstacles;
 		private ArrayList<GImage> bottomObstacles;
@@ -337,6 +339,8 @@ import acm.util.RandomGenerator;
 			totalGameTime = 0;
 			times2 = 1;
 			times2EndTime = 0;
+			movementModifier = 1.0f;
+			slowDownEndTime = 0;
 		}
 		
 		@Override
@@ -388,7 +392,7 @@ import acm.util.RandomGenerator;
 				if (topObstacles.get(i).getWidth() == 80) {
 					velY = 2;
 				}
-				topObstacles.get(i).move(velX, velY);
+				topObstacles.get(i).move(movementModifier*velX, velY);
 				
 				//remove Obstacle when it gets out of screen
 				if(topObstacles.get(i).getX() < -100) {
@@ -404,7 +408,7 @@ import acm.util.RandomGenerator;
 				if (bottomObstacles.get(i).getWidth() == 80) {
 					velY = -2;
 				}
-				bottomObstacles.get(i).move(velX, velY);
+				bottomObstacles.get(i).move(movementModifier*velX, velY);
 				
 				//remove Obstacle when it gets out of screen
 				if(bottomObstacles.get(i).getX() < -100) {
@@ -416,7 +420,7 @@ import acm.util.RandomGenerator;
 		
 		private void movePowerUps(){
 			for(int i = 0; i < powerUps.size(); i++) {
-				powerUps.get(i).move(velX, 0);
+				powerUps.get(i).move(movementModifier*velX, 0);
 				
 				if(powerUps.get(i).getX() < -80) {
 					program.remove(powerUps.get(i));
@@ -465,24 +469,19 @@ import acm.util.RandomGenerator;
 		 */
 		private void determinePower(PowerUpType pUpType) {
 			if(pUpType == PowerUpType.MULTI) {
-				System.out.println("multi");
-				activateTimes2Multiplier();
+				times2 = 2;
+				times2EndTime = totalGameTime + 25;
 			}
 			else if(pUpType == PowerUpType.BONUS) {
-				System.out.println("bonus");
 				score += (100 * multiplier);
 			}
 			else if(pUpType == PowerUpType.SLOW) {
-				System.out.println("slow");
+				movementModifier = 0.6f;
+				slowDownEndTime = totalGameTime + 12;
 			}
 			else {
 				System.out.println("invul");
 			}
-		}
-		
-		public void activateTimes2Multiplier() {
-			times2 = 2;
-			times2EndTime = totalGameTime + 25;
 		}
 		
 		//helper method to scale points earned
@@ -507,6 +506,10 @@ import acm.util.RandomGenerator;
 			//ends duration of times2 PowerUp "multi type"
 			if(totalGameTime == times2EndTime) {
 				times2 = 1;
+			}
+			
+			if(totalGameTime == slowDownEndTime) {
+				movementModifier = 1.0f;
 			}
 		}
 		
