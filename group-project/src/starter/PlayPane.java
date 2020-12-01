@@ -49,8 +49,10 @@ import acm.util.RandomGenerator;
 		private float velX = -8;
 		private float multiplier = 1.0f;
 		private int score = 0;
-		private double pointsEarned;
-		private int gameTime = 0;
+		private int difficultyTracker = 0;
+		private int totalGameTime = 0;
+		
+		private int times2 = 1, times2EndTime = 0;
 		
 		private ArrayList<GImage> topObstacles;
 		private ArrayList<GImage> bottomObstacles;
@@ -331,7 +333,10 @@ import acm.util.RandomGenerator;
 			velX = -8;
 			multiplier = 1.0f;
 			score = 0;
-			gameTime = 0;
+			difficultyTracker = 0;
+			totalGameTime = 0;
+			times2 = 1;
+			times2EndTime = 0;
 		}
 		
 		@Override
@@ -372,8 +377,6 @@ import acm.util.RandomGenerator;
 				character.setLocation(15, e.getY());
 			}
 			
-			//test code for location of player and it's image
-			//System.out.println(character.getY() + ", " + gameSetUp.getPlayer().getY());
 		}
 		
 		/*Checks what type the top obstacle 
@@ -463,6 +466,7 @@ import acm.util.RandomGenerator;
 		private void determinePower(PowerUpType pUpType) {
 			if(pUpType == PowerUpType.MULTI) {
 				System.out.println("multi");
+				activateTimes2Multiplier();
 			}
 			else if(pUpType == PowerUpType.BONUS) {
 				System.out.println("bonus");
@@ -474,24 +478,36 @@ import acm.util.RandomGenerator;
 			else {
 				System.out.println("invul");
 			}
-			
+		}
+		
+		public void activateTimes2Multiplier() {
+			times2 = 2;
+			times2EndTime = totalGameTime + 25;
 		}
 		
 		//helper method to scale points earned
 		//based on multiplier
-		private void scalePointsEarned() {
-			pointsEarned = 10 * multiplier;
+		private double PointsEarned() {
+			double pointsEarned = times2 * (10 * multiplier);
+			//System.out.println(pointsEarned);
+			return pointsEarned;
 		}
 		
 		//helper method
 		private void updateScore() {
-			scalePointsEarned();
-			score += pointsEarned;
+			score += PointsEarned();
 		}
 		
 		private void drawScore() {
 			updateScore();
 			scoreDisplay.setLabel("Current Score: " + score);			
+		}
+		
+		private void checkDurations() {
+			//ends duration of times2 PowerUp "multi type"
+			if(totalGameTime == times2EndTime) {
+				times2 = 1;
+			}
 		}
 		
 		@Override
@@ -525,22 +541,23 @@ import acm.util.RandomGenerator;
 			gotPowerUp(); //just to check.
 			
 			velX = -8.0f * multiplier;
-			if (gameTime % 1200 == 0) {
-				multiplier += .2;
-				System.out.println(velX);
-				
-				gameTime = 0;
+			if (difficultyTracker % 1200 == 0) {
+				multiplier += .2;				
+				difficultyTracker = 0;
 			}
 			
-			if (gameTime % 20 == 0) {
+			if (difficultyTracker % 24 == 0) {
 				drawScore();
+				totalGameTime++;
 			}
+			
+			checkDurations();
 			
 			topCount++;
 			bottomCount++;
 			totalCount++;
 			powerUpCount++;
-			gameTime++;	
+			difficultyTracker++;		
 		}
 	}
 
