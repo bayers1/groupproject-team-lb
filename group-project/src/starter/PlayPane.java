@@ -437,18 +437,23 @@ import acm.util.RandomGenerator;
 		 * @return true when player and obstacle do collide 
 		 * 		   otherwise false
 		 */
-		private boolean checkCollision() {
+		private void checkCollision() {
+			boolean collided = false;
 			for(int i = 0; i <topObstacles.size();i++) {
 				if(topObstacles.get(i).getBounds().intersects(character.getBounds())) {
-					return true;
+					collided = true;
 				}
 			}
 			for(int i = 0; i <bottomObstacles.size();i++) {
 				if(bottomObstacles.get(i).getBounds().intersects(character.getBounds())) {
-					return true;
+					collided = true;
 				}
 			}
-			return false;
+			if(collided) {
+				program.playSound(program.getSoundFiles()[3],false);
+				program.stopMusic(program.getSoundFiles()[2]);
+				gameOver();
+			}
 		}
 		
 		private boolean gotPowerUp() {
@@ -535,11 +540,7 @@ import acm.util.RandomGenerator;
 			moveBottomObstacles();
 			movePowerUps();
 			
-			if(checkCollision()) {
-				program.playSound(program.getSoundFiles()[3],false);
-				program.stopMusic(program.getSoundFiles()[2]);
-				gameOver();
-			}
+			checkCollision();
 			
 			gotPowerUp(); //just to check.
 			
