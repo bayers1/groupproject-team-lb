@@ -55,7 +55,7 @@ import java.io.OutputStreamWriter;
 		private int bottomCount = 0;
 		private int totalCount = 0;
 		private int powerUpCount = 0;
-		private float velX = -8;
+		private float velX = -4;
 		private float multiplier = 1.0f;
 		private int score = 0;
 		private int difficultyTracker = 0;
@@ -116,7 +116,7 @@ import java.io.OutputStreamWriter;
 			//System.out.println(gameSetUp.getPlayer());
 			
 			//starts drawing the obstacles
-			timer = new Timer(24,this);
+			timer = new Timer(20,this);
 			timer.start();
 			
 			program.add(scoreDisplay);
@@ -341,7 +341,7 @@ import java.io.OutputStreamWriter;
 			bottomCount = 0;
 			totalCount = 0;
 			powerUpCount = 0;
-			velX = -8;
+			velX = -4;
 			multiplier = 1.0f;
 			score = 0;
 			difficultyTracker = 0;
@@ -562,7 +562,7 @@ import java.io.OutputStreamWriter;
 				difficultyTracker = 0;
 			}
 			
-			if (difficultyTracker % 24 == 0) {
+			if (difficultyTracker % 50 == 0) {
 				drawScore();
 				totalGameTime++;
 			}
