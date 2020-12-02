@@ -69,8 +69,7 @@ import java.io.OutputStreamWriter;
 		private ArrayList<GImage> bottomObstacles;
 		private ArrayList<GImage> powerUps;
 		private RandomGenerator rgen;
-		String text;
-		private GLabel finalScore = new GLabel("",500,200);
+		
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
@@ -314,7 +313,7 @@ import java.io.OutputStreamWriter;
 		 * Removes everything from Screen when player loses
 		 * Displays score and highest as navigations on the screen
 		 */
-		public void gameOver() {
+		public void gameOver(int score) {
 			timer.stop();
 			
 			//remove all images on screen
@@ -324,12 +323,12 @@ import java.io.OutputStreamWriter;
 			topObstacles.clear();
 			bottomObstacles.clear();
 			powerUps.clear();
-			writeScore();
+		
 			resetData();
 			gameSetUp.removeCache();
 			selection = true;
 			
-			program.switchToGameOver();
+			program.switchToGameOver(score);
 		}
 		
 		/**
@@ -462,8 +461,7 @@ import java.io.OutputStreamWriter;
 			if(collided) {
 				program.playSound(program.getSoundFiles()[3],false);
 				program.stopMusic(program.getSoundFiles()[2]);
-				gameOver();
-				readScore();
+				gameOver(score);
 			}
 		}
 		
@@ -516,7 +514,7 @@ import java.io.OutputStreamWriter;
 		private void drawScore() {
 			updateScore();
 			scoreDisplay.setLabel("Current Score: " + score);	
-			System.out.println(score);
+			//System.out.println(score);
 		}
 		
 		private void checkDurations() {
@@ -529,47 +527,7 @@ import java.io.OutputStreamWriter;
 				movementModifier = 1.0f;
 			}
 		}
-		private void writeScore() {// writing of score to a text file.called in gameover().
-			 try {
-		            FileOutputStream outputStream = new FileOutputStream("MyFile.txt");
-		            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-16");
-		            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
-		            bufferedWriter.write(Integer.toString(score));
-		            
-		            
-		          //  bufferedWriter.newLine();
-		             
-		            bufferedWriter.close();
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-			
-		}
-		private void readScore() {// reading of score from a text file.//called when collision.
-			try {
-	            FileReader reader = new FileReader("MyFile.txt");
-	            BufferedReader bufferedReader = new BufferedReader(reader);
-	 
-	            String line;
-	 
-	            while ((line = bufferedReader.readLine()) != null) {
-	                System.out.println(line);
-	                text = line;
-	                finalScore.setLabel(text);
-	                program.add(finalScore);
-	                /*
-	                for(int i = 0;i<=5;i++) {
-	            		GLabel label = new GLabel(text,500,(40*i)/2);
-	            		last5scores.add(label);
-	            	}
-	                */
-	            }
-	            reader.close();
-	            
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-		}
+		
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {

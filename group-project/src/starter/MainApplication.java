@@ -38,7 +38,7 @@ public class MainApplication extends GraphicsApplication {
 		playPane = new PlayPane(this);
 		settingPane = new SettingsPane(this);
 		howtoplayPane = new HowTOPlayPane(this);
-		gameOverPane = new GameOverPane(this);
+		//gameOverPane = new GameOverPane(this);
 		switchToMenu();
 		
 	}
@@ -62,7 +62,8 @@ public class MainApplication extends GraphicsApplication {
 		switchToScreen(howtoplayPane);
 	}
 	
-	public void switchToGameOver() {
+	public void switchToGameOver(int score) {
+		gameOverPane = new GameOverPane(this,score);
 		switchToScreen(gameOverPane);
 	}
 	
