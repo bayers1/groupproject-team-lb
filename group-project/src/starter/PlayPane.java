@@ -64,6 +64,8 @@ import java.io.OutputStreamWriter;
 		private int times2 = 1, times2EndTime = 0;
 		private float movementModifier = 1.0f;
 		private int slowDownEndTime = 0;
+		private boolean invulnerable = false;
+		private int invulnerableEndTime = 0;
 		
 		private ArrayList<GImage> topObstacles;
 		private ArrayList<GImage> bottomObstacles;
@@ -350,6 +352,7 @@ import java.io.OutputStreamWriter;
 			times2EndTime = 0;
 			movementModifier = 1.0f;
 			slowDownEndTime = 0;
+			invulnerableEndTime = 0;
 		}
 		
 		@Override
@@ -447,6 +450,8 @@ import java.io.OutputStreamWriter;
 		 * 		   otherwise false
 		 */
 		private void checkCollision() {
+			if(invulnerable) return;
+			
 			boolean collided = false;
 			for(int i = 0; i <topObstacles.size();i++) {
 				if(topObstacles.get(i).getBounds().intersects(character.getBounds())) {
@@ -484,17 +489,18 @@ import java.io.OutputStreamWriter;
 		private void determinePower(PowerUpType pUpType) {
 			if(pUpType == PowerUpType.MULTI) {
 				times2 = 2;
-				times2EndTime = totalGameTime + 25;
+				times2EndTime = totalGameTime + 15;
 			}
 			else if(pUpType == PowerUpType.BONUS) {
 				score += (100 * multiplier);
 			}
 			else if(pUpType == PowerUpType.SLOW) {
 				movementModifier = 0.6f;
-				slowDownEndTime = totalGameTime + 12;
+				slowDownEndTime = totalGameTime + 10;
 			}
 			else {
-				System.out.println("invul");
+				invulnerable = true;
+				invulnerableEndTime = totalGameTime + 7;
 			}
 		}
 		
@@ -525,6 +531,10 @@ import java.io.OutputStreamWriter;
 			
 			if(totalGameTime == slowDownEndTime) {
 				movementModifier = 1.0f;
+			}
+			
+			if(totalGameTime == invulnerableEndTime) {
+				invulnerable = false;
 			}
 		}
 		
