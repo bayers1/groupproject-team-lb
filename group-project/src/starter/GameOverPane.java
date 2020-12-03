@@ -33,6 +33,7 @@ public class GameOverPane extends GraphicsPane {
 	private GLabel currentScore = new GLabel("CURRENT SCORE",515,140);
 	private GLabel scoreLabel = new GLabel("",605,200);
 	private GLabel gameOver = new GLabel("G  A  M  E  O  V  E  R",420,80);
+	private GButton restart = new GButton("Restart", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 	
 	public GameOverPane(MainApplication app,int score) {
 		super();
@@ -48,6 +49,7 @@ public class GameOverPane extends GraphicsPane {
 		scoreLabel.setLabel(Integer.toString(score));
 		gameOver.setFont(new Font("Ariel", Font.PLAIN,45));
 		gameOver.setColor(Color.black);
+		restart.setFillColor(BUTTON_COLOR);
 	}
 	private void writeScore() {// writing of score to a text file.
 		 try {
@@ -102,6 +104,7 @@ public class GameOverPane extends GraphicsPane {
 		program.add(currentScore);
 		program.add(scoreLabel);
 		program.add(gameOver);
+		program.add(restart);
 	}
 
 	@Override
@@ -115,6 +118,9 @@ public class GameOverPane extends GraphicsPane {
 		if (obj == mainMenu) {
 			program.switchToMenu();
 		}
+		if(obj == restart) {
+			program.switchToPlay();
+		}
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
@@ -123,13 +129,15 @@ public class GameOverPane extends GraphicsPane {
 		boolean buttonHover = false;
 		if(!buttonHover) {
 			notHovered(mainMenu);
+			notHovered(restart);
 		}
 		
 		if(obj == mainMenu) {
 			hover(mainMenu);
 		}
-		
+		else if(obj == restart) {
+			hover(restart);
+		}
 		buttonHover = true;
-		
 	}
 }
