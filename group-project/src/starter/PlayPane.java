@@ -3,6 +3,7 @@ package starter;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import javax.swing.Timer;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+import acm.graphics.GRect;
 import acm.util.RandomGenerator;
 
 import java.io.BufferedReader;
@@ -71,7 +73,10 @@ import java.io.OutputStreamWriter;
 		private ArrayList<GImage> bottomObstacles;
 		private ArrayList<GImage> powerUps;
 		private RandomGenerator rgen;
-		
+		private GRect border;
+		private GImage lastDragonSelection;
+		private boolean gameStarted = false;
+		private boolean pause = false;
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
@@ -101,6 +106,7 @@ import java.io.OutputStreamWriter;
 			program.add(Wind);
 			
 			program.add(Back);
+			
 		}
 
 		/**
@@ -120,7 +126,7 @@ import java.io.OutputStreamWriter;
 			//starts drawing the obstacles
 			timer = new Timer(20,this);
 			timer.start();
-			
+			gameStarted = true;
 			program.add(scoreDisplay);
 		}
 		
@@ -309,6 +315,9 @@ import java.io.OutputStreamWriter;
 			program.remove(Earth);
 			program.remove(Wind);
 			program.remove(Back);
+			if(border != null) {
+				program.remove(border);
+			}
 		}
 		
 		/**
@@ -387,14 +396,75 @@ import java.io.OutputStreamWriter;
 			if(obj == Back) {
 				hover(Back);
 			}
+			if(obj==Fire) {
+				hoverImage(Fire);
+			}
+			if(obj == Water) {
+				hoverImage(Water);
+			}
+			if(obj == Wind) {
+				hoverImage(Wind);
+			}
+			if(obj == Earth) {
+				hoverImage(Earth);
+			}
+			if(obj == null || obj != lastDragonSelection) {
+				removeBorder();
+			}
+		
 			buttonHover = true;	
 			if(selection)return;
 			if(gameSetUp.movePlayer(e.getY())) {
 				character.setLocation(15, e.getY());
+				}
+			/*
+			if(!pause) {
+				if(gameSetUp.movePlayer(e.getY())) {
+				character.setLocation(15, e.getY());
+				}
+			}
+			*/
+				
+			
+		}
+		/*
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if(e.getKeyCode() == KeyEvent.VK_P && gameStarted) {
+				pause = !pause;
+				if(pause) {
+					timer.stop();
+				}
+				else {
+					timer.start();
+					
+				}
+			}
+		}
+		*/
+		private void removeBorder() {
+			// TODO Auto-generated method stub
+			if(border != null) {
+				program.remove(border);
+				border = null;
+				lastDragonSelection = null;
 			}
 			
 		}
-		
+
+		private void hoverImage(GImage img) {
+			// TODO Auto-generated method stub
+			if(border == null) {
+				border = new GRect(img.getBounds().getX()-1,img.getBounds().getY()-1,img.getBounds().getWidth()+1,img.getBounds().getHeight()+1);
+				program.add(border);
+				img.sendToFront();
+				lastDragonSelection = img;
+			}
+			
+			
+			//System.out.println();
+		}
+
 		/*Checks what type the top obstacle 
 		 * is and moves it accordingly
 		 */
