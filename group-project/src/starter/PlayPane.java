@@ -1,6 +1,7 @@
 package starter;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -51,6 +52,7 @@ import java.io.OutputStreamWriter;
 		private GImage scene;
 		private GButton Back;
 		private Timer timer;
+		private GRect invulBar;
 		
 		GObject someObj;
 		private int topCount = 0;
@@ -89,8 +91,14 @@ import java.io.OutputStreamWriter;
 			Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 			
 			
-			scoreDisplay = new GLabel("Current Score: " + score, WINDOW_WIDTH-200, REG_PADDING);
-			scoreDisplay.setColor(Color.RED);
+			scoreDisplay = new GLabel("Current Score: " + score, WINDOW_WIDTH - 300, REG_PADDING);
+			scoreDisplay.setColor(Color.WHITE);
+			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 30));
+			
+			invulBar = new GRect(0, 0, 0, 25);
+			invulBar.setFilled(true);
+			invulBar.setColor(Color.BLACK);
+			invulBar.setFillColor(Color.YELLOW);
 			
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
@@ -104,8 +112,8 @@ import java.io.OutputStreamWriter;
 			program.add(Water);
 			program.add(Earth);
 			program.add(Wind);
-			
 			program.add(Back);
+			program.add(invulBar);
 			
 		}
 
@@ -271,7 +279,7 @@ import java.io.OutputStreamWriter;
 		public void drawPowerUp() {
 			int occurs = rgen.nextInt(1, 30);
 			int random = rgen.nextInt(1, 20);
-			if (occurs < 26) return;
+			if (occurs < 22 && (totalCount % BOTTOM_OCCUR == 0)) return;
 			
 			PowerUp newPower = gameSetUp.createPowerUp(random);
 			PowerUpType powerUpType = newPower.getType();
@@ -362,6 +370,8 @@ import java.io.OutputStreamWriter;
 			movementModifier = 1.0f;
 			slowDownEndTime = 0;
 			invulnerableEndTime = 0;
+			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 30));
+			scoreDisplay.setColor(Color.WHITE);
 		}
 		
 		@Override
@@ -558,6 +568,8 @@ import java.io.OutputStreamWriter;
 		 */
 		private void determinePower(PowerUpType pUpType) {
 			if(pUpType == PowerUpType.MULTI) {
+				scoreDisplay.setFont(new Font("Serif", Font.BOLD, 35));
+				scoreDisplay.setColor(Color.RED);
 				times2 = 2;
 				times2EndTime = totalGameTime + 15;
 			}
@@ -569,6 +581,7 @@ import java.io.OutputStreamWriter;
 				slowDownEndTime = totalGameTime + 10;
 			}
 			else {
+				invulBar.setSize(70, 25);
 				invulnerable = true;
 				invulnerableEndTime = totalGameTime + 7;
 			}
@@ -597,6 +610,8 @@ import java.io.OutputStreamWriter;
 			//ends duration of times2 PowerUp "multi type"
 			if(totalGameTime == times2EndTime) {
 				times2 = 1;
+				scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 30));
+				scoreDisplay.setColor(Color.WHITE);
 			}
 			
 			if(totalGameTime == slowDownEndTime) {
@@ -605,6 +620,7 @@ import java.io.OutputStreamWriter;
 			
 			if(totalGameTime == invulnerableEndTime) {
 				invulnerable = false;
+
 			}
 		}
 		
@@ -644,6 +660,9 @@ import java.io.OutputStreamWriter;
 			
 			if (difficultyTracker % 50 == 0) {
 				drawScore();
+				if (invulnerable) {
+					invulBar.setSize(invulBar.getWidth() - 10, 25);
+				}
 				totalGameTime++;
 			}
 			
