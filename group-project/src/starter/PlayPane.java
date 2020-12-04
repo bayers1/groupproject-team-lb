@@ -79,7 +79,7 @@ import java.io.OutputStreamWriter;
 		private GLabel pausemenuLabel;
 	    private GButton restartGame;
 	    private GButton exitGame;
-		
+	  //  private int backgroundSpeed = 2;    
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
@@ -139,7 +139,7 @@ import java.io.OutputStreamWriter;
 			gameStarted = true;
 			program.add(scoreBacking);
 			program.add(scoreDisplay);
-			program.add(invulBar);
+			
 		}
 		
 		/**
@@ -180,6 +180,17 @@ import java.io.OutputStreamWriter;
 			scene.sendToBack();
 		}
 		
+		/*
+		public void scrollingBackground() {
+	        // Moves background image:
+	        if (scene.getX() > -1260) {
+	            scene.setLocation(scene.getX() - velX, scene.getY());
+	            //System.out.println("BACKGROUND1x: " + background1.getX());
+	        } else {
+	            scene.setLocation(1260,scene.getY());
+	        }
+		}
+		*/
 		
 		/**
 		 * The method drawTopObstacle()
@@ -326,6 +337,9 @@ import java.io.OutputStreamWriter;
 			if(border != null) {
 				program.remove(border);
 			}
+			if(invulnerable == false) {
+				program.remove(invulBar);
+			}
 		}
 		
 		/**
@@ -368,6 +382,7 @@ import java.io.OutputStreamWriter;
 			movementModifier = 1.0f;
 			slowDownEndTime = 0;
 			invulnerableEndTime = 0;
+			invulnerable = false;
 			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 18));
 			scoreDisplay.setColor(Color.WHITE);
 		}
@@ -586,6 +601,7 @@ import java.io.OutputStreamWriter;
 				invulBar.setSize(350, 25);
 				invulnerable = true;
 				invulnerableEndTime = totalGameTime + 7;
+				program.add(invulBar);
 			}
 		}
 		
