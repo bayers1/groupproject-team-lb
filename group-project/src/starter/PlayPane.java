@@ -276,7 +276,7 @@ import java.io.OutputStreamWriter;
 			int occurs = rgen.nextInt(1, 30);
 			int random = rgen.nextInt(1, 20);
 			int yLoc = rgen.nextInt(150, 450);
-			if (occurs < 0) return;
+			if (occurs < 24) return;
 			
 			PowerUp newPower = gameSetUp.createPowerUp(random);
 			PowerUpType powerUpType = newPower.getType();
