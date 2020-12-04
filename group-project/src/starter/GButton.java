@@ -21,7 +21,7 @@ import acm.graphics.GRoundRect;
 public class GButton extends GCompound {
 	private GRoundRect rect;
 	private GLabel message;
-
+	
 	public static final int BUFFER = 20;
 
 	public GButton(String label, double x, double y, double width, double height) {
@@ -68,5 +68,11 @@ public class GButton extends GCompound {
 
 	public void setColor(Color col) {
 		message.setColor(col);
+	}
+	public void setLabel(GLabel message) {
+		this.message = message;
+	}
+	public GLabel getLabel() {
+		return message;
 	}
 }

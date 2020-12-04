@@ -14,7 +14,7 @@ public class SettingsPane extends GraphicsPane {
 	private MainApplication program;
 	
 	private GImage settingsBackground;
-	private GButton Back, soundButtonOn, soundButtonOff, musicButtonOn, musicButtonOff;
+	private GButton Back,soundButton,musicButton;
 	private GLabel soundLabel, musicLabel;
 	private ArrayList<GButton> sButtons = new ArrayList<GButton>();
 	
@@ -39,32 +39,23 @@ public class SettingsPane extends GraphicsPane {
 		musicLabel.setFont(new Font("elephant", Font.PLAIN,24));
 		musicLabel.setColor(Color.black);
 			
-		soundButtonOn = new GButton("ON",BUTTON_INDENT,165,50,50);
-		musicButtonOn = new GButton("ON",BUTTON_INDENT,265,50,50);
-		soundButtonOff = new GButton("OFF",BUTTON_INDENT,165,50,50);
-		musicButtonOff = new GButton("OFF",BUTTON_INDENT,265,50,50);
-		
-		GButton[] buttons = {Back, soundButtonOff, musicButtonOff, soundButtonOn, musicButtonOn};
+		soundButton = new GButton("ON",BUTTON_INDENT,165,50,50);
+		musicButton = new GButton("ON",BUTTON_INDENT,265,50,50);
+
+		GButton[] buttons = {Back,soundButton,musicButton};
 		for(GButton button:buttons) {
 			sButtons.add(button);
 		}
 	}
-	private void addingButtons() {
-		if (program.getSound())program.add(soundButtonOn);
-		else program.add(soundButtonOff);
-		
-		if (program.getMusic())program.add(musicButtonOn);
-		else program.add(musicButtonOff);	
-	}
 	@Override
 	public void showContents() {
 		program.add(settingsBackground);
-		program.add(Back);
 		program.add(soundLabel);
 		program.add(musicLabel);
-		addingButtons();
+		for(GButton button: sButtons) {
+			program.add(button);
+		}
 	}
-
 	@Override
 	public void hideContents() {
 		program.removeAll();
@@ -76,34 +67,29 @@ public class SettingsPane extends GraphicsPane {
 		if (obj == Back) {
 			program.switchToMenu();
 		}
-		//soundButton
-		else if(obj == soundButtonOff || obj == soundButtonOn){
+		//soundButton.
+		else if(obj == soundButton){
 			if(program.getSound()) {//checks the status of sound and turns on/off.
 				program.stopSound(program.getSoundFiles()[3]);
 				program.setSound(false);
-				program.remove(soundButtonOn);
-				program.add(soundButtonOff);
+				soundButton.getLabel().setLabel("OFF");
 			}
 			else {
 				program.setSound(true);
-				program.remove(soundButtonOff);
-				program.add(soundButtonOn);
+				soundButton.getLabel().setLabel("ON");
 			}
-		
 		}
-		//musicButton
-		else if(obj == musicButtonOff || obj == musicButtonOn){
-			if(program.getMusic()) {//checks the status of music.
+		//musicButton.
+		else if(obj == musicButton){
+			if(program.getMusic()) {//checks the status of music and turns on/off.
 				program.stopMusic(program.getSoundFiles()[2]);
 				program.setMusic(false);
-				program.remove(musicButtonOn);
-				program.add(musicButtonOff);
+				musicButton.getLabel().setLabel("OFF");
 			}
 			else {
 				program.setMusic(true);
 				program.playMusic(program.getSoundFiles()[2],true);
-				program.remove(musicButtonOff);
-				program.add(musicButtonOn);
+				musicButton.getLabel().setLabel("ON");
 			}
 		}
 	}
