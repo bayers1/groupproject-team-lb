@@ -69,9 +69,14 @@ public class SettingsPane extends GraphicsPane {
 	public void showContents() {
 		program.add(settingsBackground);
 		
-		for(GButton button:sButtons) {
-			program.add(button);
-		}
+		program.add(Back);
+		
+		if (program.getSound())program.add(soundButtonOn);
+		else program.add(soundButtonOff);
+		
+		if (program.getMusic())program.add(musicButtonOn);
+		else program.add(musicButtonOff);
+		
 		for(GLabel label:slabels) {
 			program.add(label);
 		}
