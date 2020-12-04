@@ -52,7 +52,7 @@ import java.io.OutputStreamWriter;
 		private GImage scene;
 		private GButton Back;
 		private Timer timer;
-		private GRect invulBar;
+		private GRect invulBar, scoreBacking;
 		
 		GObject someObj;
 		private int topCount = 0;
@@ -90,15 +90,21 @@ import java.io.OutputStreamWriter;
 			Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
 			Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 			
+			scoreBacking = new GRect(WINDOW_WIDTH - 250, REG_PADDING, 250, OUTSIDE_PADDING);
+			scoreBacking.setFilled(true);
+			Color backing = new Color(0, 0, 0, 0.6f);
+			scoreBacking.setFillColor(backing);
 			
-			scoreDisplay = new GLabel("Current Score: " + score, WINDOW_WIDTH - 300, REG_PADDING);
+			scoreDisplay = new GLabel("Current Score: " + score, WINDOW_WIDTH - 225, OUTSIDE_PADDING + 5);
 			scoreDisplay.setColor(Color.WHITE);
-			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 30));
+			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 18));
+			scoreDisplay.sendToFront();
 			
 			invulBar = new GRect(0, 0, 0, 25);
 			invulBar.setFilled(true);
 			invulBar.setColor(Color.BLACK);
 			invulBar.setFillColor(Color.YELLOW);
+			
 			
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
@@ -135,7 +141,9 @@ import java.io.OutputStreamWriter;
 			timer = new Timer(20,this);
 			timer.start();
 			gameStarted = true;
+			program.add(scoreBacking);
 			program.add(scoreDisplay);
+			
 		}
 		
 		/**
@@ -370,7 +378,7 @@ import java.io.OutputStreamWriter;
 			movementModifier = 1.0f;
 			slowDownEndTime = 0;
 			invulnerableEndTime = 0;
-			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 30));
+			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 18));
 			scoreDisplay.setColor(Color.WHITE);
 		}
 		
@@ -568,7 +576,7 @@ import java.io.OutputStreamWriter;
 		 */
 		private void determinePower(PowerUpType pUpType) {
 			if(pUpType == PowerUpType.MULTI) {
-				scoreDisplay.setFont(new Font("Serif", Font.BOLD, 35));
+				scoreDisplay.setFont(new Font("Serif", Font.BOLD, 20));
 				scoreDisplay.setColor(Color.RED);
 				times2 = 2;
 				times2EndTime = totalGameTime + 15;
@@ -610,7 +618,7 @@ import java.io.OutputStreamWriter;
 			//ends duration of times2 PowerUp "multi type"
 			if(totalGameTime == times2EndTime) {
 				times2 = 1;
-				scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 30));
+				scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 18));
 				scoreDisplay.setColor(Color.WHITE);
 			}
 			
