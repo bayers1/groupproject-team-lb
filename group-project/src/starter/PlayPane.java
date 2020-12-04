@@ -192,6 +192,7 @@ import java.io.OutputStreamWriter;
 		}
 		*/
 		
+		
 		/**
 		 * The method drawTopObstacle()
 		 * decides which obstacle type to draw
@@ -601,6 +602,7 @@ import java.io.OutputStreamWriter;
 				invulBar.setSize(350, 25);
 				invulnerable = true;
 				invulnerableEndTime = totalGameTime + 7;
+				
 				program.add(invulBar);
 			}
 		}
