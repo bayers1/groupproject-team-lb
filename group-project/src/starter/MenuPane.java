@@ -27,7 +27,11 @@ public class MenuPane extends GraphicsPane {
 		menuBackground.sendToBack();
 		//creating the main buttons for the menu
 		for(int i = 0;i<4;i++) {
-			GButton button = new GButton(gButtonStrings[i], CENTER - (MENU_BUTTON_WIDTH/2), START_POS+(i*MENU_BUTTON_HEIGHT)+(i*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+			GButton button = new GButton(gButtonStrings[i],
+										 CENTER - (MENU_BUTTON_WIDTH/2),
+										 START_POS+(i*MENU_BUTTON_HEIGHT)+(i*REG_PADDING),
+										 MENU_BUTTON_WIDTH,
+										 MENU_BUTTON_HEIGHT);
 			button.setFillColor(BUTTON_COLOR);
 			mButtons.add(button);
 		}
