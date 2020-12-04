@@ -14,13 +14,17 @@ public class MenuPane extends GraphicsPane {
 	public static final int MENU_BUTTON_WIDTH = 140;
 	public static final int START_POS = 180;
 	
+	private GImage menuBackground;
 	private GButton play,settings, howToPlay, exitGame;
 	private ArrayList<GButton> mButtons = new ArrayList<GButton>();
 	
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-
+		
+		menuBackground = new GImage("menuBackground.png", 0, 0);
+		menuBackground.setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+		menuBackground.sendToBack();
 		//creating the main buttons for the menu
 		play = new GButton(" P L A Y ", CENTER - (MENU_BUTTON_WIDTH/2), 
 						   START_POS, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
@@ -46,6 +50,7 @@ public class MenuPane extends GraphicsPane {
 	}
 	@Override
 	public void showContents() {
+		program.add(menuBackground);
 		for(GButton button:mButtons) {
 			program.add(button);
 		}
