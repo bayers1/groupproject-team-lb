@@ -33,10 +33,6 @@ import java.io.OutputStreamWriter;
 		public static final int IMAGE_HEIGHT = 400;
 		public static final int IMAGE_WIDTH = 250;
 		
-		public static final int TOP_OCCUR = 150;
-		public static final int BOTTOM_OCCUR = 50;
-		
-		
 		public static final int OBS_MAX = 5;
 		public static final int POWERUP_MAX = 1;
 		
@@ -54,12 +50,11 @@ import java.io.OutputStreamWriter;
 		private Timer timer;
 		private GRect invulBar, scoreBacking;
 		
+		short obstacleSpawn = 50, topOccurRate = 2;
+		
 		GObject someObj;
-		private int topCount = 0;
-		private int bottomCount = 0;
 		private int totalCount = 0;
-		private int powerUpCount = 0;
-		private float velX = -4;
+		private float velX = -6;
 		private float multiplier = 1.0f;
 		private int score = 0;
 		private int difficultyTracker = 0;
@@ -77,8 +72,10 @@ import java.io.OutputStreamWriter;
 		private RandomGenerator rgen;
 		private GRect border;
 		private GImage lastDragonSelection;
+		
 		private boolean gameStarted = false;
 		private boolean pause = false;
+		
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
@@ -105,11 +102,9 @@ import java.io.OutputStreamWriter;
 			invulBar.setColor(Color.BLACK);
 			invulBar.setFillColor(Color.YELLOW);
 			
-			
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
 			powerUps = new ArrayList<GImage>();
-			
 		}
 
 		@Override
@@ -118,9 +113,7 @@ import java.io.OutputStreamWriter;
 			program.add(Water);
 			program.add(Earth);
 			program.add(Wind);
-			program.add(Back);
-			program.add(invulBar);
-			
+			program.add(Back);	
 		}
 
 		/**
@@ -143,7 +136,7 @@ import java.io.OutputStreamWriter;
 			gameStarted = true;
 			program.add(scoreBacking);
 			program.add(scoreDisplay);
-			
+			program.add(invulBar);
 		}
 		
 		/**
@@ -197,6 +190,7 @@ import java.io.OutputStreamWriter;
 			int num = rgen.nextInt(1, 40);
 			int height;
 			int width = 120;
+			totalCount = 0;
 			
 			if (num < 11) {
 				fileName += "Static1";
@@ -240,24 +234,19 @@ import java.io.OutputStreamWriter;
 			int width = 120;
 
 			//to make sure that player can get through
-			if(totalCount % TOP_OCCUR == 0){
-				num = 2;
-				totalCount = 0;
+			if(totalCount % (obstacleSpawn* topOccurRate) == 0){
+				num = 2;	
 			}
 			
-			if (num < 11) {
+			if (num < 6) {
 				fileName += "Static1";
 				height = 180;
 			}
 			
 			else if (num < 37) {
 				fileName += "Static2";
-				height = 270;
-				width = 90;
-				if((totalCount % BOTTOM_OCCUR == 0) && (totalCount % TOP_OCCUR != 0)){
-					height = 360;
-					width = 120;
-				}
+				height = 360;
+				width = 120;
 			}
 			
 			else {
@@ -287,7 +276,8 @@ import java.io.OutputStreamWriter;
 		public void drawPowerUp() {
 			int occurs = rgen.nextInt(1, 30);
 			int random = rgen.nextInt(1, 20);
-			if (occurs < 22 && (totalCount % BOTTOM_OCCUR == 0)) return;
+			int yLoc = rgen.nextInt(150, 450);
+			if (occurs < 24) return;
 			
 			PowerUp newPower = gameSetUp.createPowerUp(random);
 			PowerUpType powerUpType = newPower.getType();
@@ -307,13 +297,12 @@ import java.io.OutputStreamWriter;
 			}
 			
 			fileName += IMG_EXTENSION;
-			powerUp = new GImage(fileName, WINDOW_WIDTH, 300);
+			powerUp = new GImage(fileName, WINDOW_WIDTH + 225, yLoc);
 			powerUp.setSize(newPower.getWidth(), newPower.getHeight());
 			powerUp.sendToFront();
 			
 			program.add(powerUp);
-			powerUps.add(powerUp);
-			
+			powerUps.add(powerUp);	
 		}
 		
 		@Override
@@ -361,13 +350,10 @@ import java.io.OutputStreamWriter;
 		/**
 		 * helper method to revert the game data(cache)
 		 * back from the start
-		 * Does Not reset Highscore that is stored
+		 * Does Not reset high score that is stored
 		 */
 		public void resetData() {
-			topCount = 0;
-			bottomCount = 0;
 			totalCount = 0;
-			powerUpCount = 0;
 			velX = -4;
 			multiplier = 1.0f;
 			score = 0;
@@ -402,7 +388,6 @@ import java.io.OutputStreamWriter;
 			else if(someObj == Wind) {
 				drawGame(PlayerType.AIR);
 			}
-			
 		}
 		
 		public void mouseMoved(MouseEvent e) {
@@ -414,37 +399,39 @@ import java.io.OutputStreamWriter;
 			if(obj == Back) {
 				hover(Back);
 			}
+			
 			if(obj==Fire) {
 				hoverImage(Fire);
 			}
-			if(obj == Water) {
+			else if(obj == Water) {
 				hoverImage(Water);
 			}
-			if(obj == Wind) {
+			else if(obj == Wind) {
 				hoverImage(Wind);
 			}
-			if(obj == Earth) {
+			else if(obj == Earth) {
 				hoverImage(Earth);
 			}
+			
 			if(obj == null || obj != lastDragonSelection) {
 				removeBorder();
 			}
 		
 			buttonHover = true;	
 			if(selection)return;
+			
 			if(gameSetUp.movePlayer(e.getY())) {
 				character.setLocation(15, e.getY());
-				}
+			}
 			/*
 			if(!pause) {
 				if(gameSetUp.movePlayer(e.getY())) {
 				character.setLocation(15, e.getY());
 				}
 			}
-			*/
-				
-			
+			*/	
 		}
+		
 		/*
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -460,27 +447,22 @@ import java.io.OutputStreamWriter;
 			}
 		}
 		*/
+		
 		private void removeBorder() {
-			// TODO Auto-generated method stub
 			if(border != null) {
 				program.remove(border);
 				border = null;
 				lastDragonSelection = null;
 			}
-			
 		}
 
 		private void hoverImage(GImage img) {
-			// TODO Auto-generated method stub
 			if(border == null) {
 				border = new GRect(img.getBounds().getX()-1,img.getBounds().getY()-1,img.getBounds().getWidth()+1,img.getBounds().getHeight()+1);
 				program.add(border);
 				img.sendToFront();
 				lastDragonSelection = img;
 			}
-			
-			
-			//System.out.println();
 		}
 
 		/*Checks what type the top obstacle 
@@ -585,8 +567,8 @@ import java.io.OutputStreamWriter;
 				score += (100 * multiplier);
 			}
 			else if(pUpType == PowerUpType.SLOW) {
-				movementModifier = 0.6f;
-				slowDownEndTime = totalGameTime + 10;
+				movementModifier = 0.8f;
+				slowDownEndTime = totalGameTime + 4;
 			}
 			else {
 				invulBar.setSize(70, 25);
@@ -599,7 +581,6 @@ import java.io.OutputStreamWriter;
 		//based on multiplier
 		private double PointsEarned() {
 			double pointsEarned = times2 * (10 * multiplier);
-			//System.out.println(pointsEarned);
 			return pointsEarned;
 		}
 		
@@ -628,34 +609,24 @@ import java.io.OutputStreamWriter;
 			
 			if(totalGameTime == invulnerableEndTime) {
 				invulnerable = false;
-
 			}
 		}
 		
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			// TODO Auto-generated method stub
-			if(topCount % TOP_OCCUR == 0 && topObstacles.size()< OBS_MAX) {
+			if(totalCount % (obstacleSpawn * topOccurRate) == 0 && topObstacles.size()< OBS_MAX) {
 				drawTopObstacle();
-				topCount = 0;
 			}
-			if(bottomCount % BOTTOM_OCCUR == 0 && topObstacles.size()< OBS_MAX) {
+			if(totalCount % obstacleSpawn == 0 && topObstacles.size()< OBS_MAX) {
 				drawBottomObstacle();
-				bottomCount = 0;
-			}
-			
-			if (powerUpCount % 90 == 0 || powerUpCount % 290 == 0) {
 				drawPowerUp();
-				powerUpCount = 0;
 			}
 			
 			moveTopObstacles();
 			moveBottomObstacles();
 			movePowerUps();
 			
-
 			checkCollision();
 
 			gotPowerUp(); //just to check.
@@ -676,10 +647,7 @@ import java.io.OutputStreamWriter;
 			
 			checkDurations();
 			
-			topCount++;
-			bottomCount++;
 			totalCount++;
-			powerUpCount++;
 			difficultyTracker++;		
 		}
 	}
