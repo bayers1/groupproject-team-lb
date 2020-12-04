@@ -15,8 +15,8 @@ public class MenuPane extends GraphicsPane {
 	public static final int START_POS = 180;
 	
 	private GImage menuBackground;
-	private GButton play,settings, howToPlay, exitGame;
 	private ArrayList<GButton> mButtons = new ArrayList<GButton>();
+	private String[] gButtonStrings = {" P L A Y ","  SETTINGS  ","HOW TO PLAY","E X I T"};
 	
 	public MenuPane(MainApplication app) {
 		super();
@@ -26,25 +26,9 @@ public class MenuPane extends GraphicsPane {
 		menuBackground.setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		menuBackground.sendToBack();
 		//creating the main buttons for the menu
-		play = new GButton(" P L A Y ", CENTER - (MENU_BUTTON_WIDTH/2), 
-						   START_POS, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		play.setFillColor(BUTTON_COLOR);
-		
-		settings = new GButton("  SETTINGS  ",CENTER - (MENU_BUTTON_WIDTH/2),
-							   START_POS+MENU_BUTTON_HEIGHT+REG_PADDING, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		settings.setFillColor(BUTTON_COLOR);
-		
-		howToPlay = new GButton("HOW TO PLAY",CENTER - (MENU_BUTTON_WIDTH/2),
-								START_POS+(2*MENU_BUTTON_HEIGHT)+(2*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		howToPlay.setFillColor(BUTTON_COLOR);
-		
-		exitGame = new GButton("E X I T",CENTER - (MENU_BUTTON_WIDTH/2),
-				START_POS+(3*MENU_BUTTON_HEIGHT)+(3*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-		exitGame.setFillColor(BUTTON_COLOR);
-		
-		//puts all the buttons into an array
-		GButton[] buttons = {play,settings,howToPlay,exitGame}; 
-		for(GButton button:buttons) {
+		for(int i = 0;i<4;i++) {
+			GButton button = new GButton(gButtonStrings[i], CENTER - (MENU_BUTTON_WIDTH/2), START_POS+(i*MENU_BUTTON_HEIGHT)+(i*REG_PADDING), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+			button.setFillColor(BUTTON_COLOR);
 			mButtons.add(button);
 		}
 	}
@@ -82,10 +66,9 @@ public class MenuPane extends GraphicsPane {
 	public void mouseMoved(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		
-		//for hovering over buttons
+		//for hovering over buttons.
 		for(int i = 0;i < mButtons.size();i++) {
 			notHovered(mButtons.get(i));
-			
 			if(obj == mButtons.get(i)) hover(mButtons.get(i));
 		}
 	}
