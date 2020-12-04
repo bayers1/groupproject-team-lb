@@ -76,6 +76,10 @@ import java.io.OutputStreamWriter;
 		private boolean gameStarted = false;
 		private boolean pause = false;
 		
+		private GLabel pausemenuLabel;
+	    private GButton restartGame;
+	    private GButton exitGame;
+		
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
@@ -329,6 +333,10 @@ import java.io.OutputStreamWriter;
 		 * Displays score and highest as navigations on the screen
 		 */
 		public void gameOver(int score) {
+			gameLeft();
+			program.switchToGameOver(score);
+		}
+		public void gameLeft() {
 			timer.stop();
 			
 			//remove all images on screen
@@ -342,10 +350,7 @@ import java.io.OutputStreamWriter;
 			resetData();
 			gameSetUp.removeCache();
 			selection = true;
-			
-			program.switchToGameOver(score);
 		}
-		
 		/**
 		 * helper method to revert the game data(cache)
 		 * back from the start
@@ -387,6 +392,16 @@ import java.io.OutputStreamWriter;
 			else if(someObj == Wind) {
 				drawGame(PlayerType.AIR);
 			}
+			else if(someObj == exitGame) {
+				pause = false;
+				gameLeft();
+				program.switchToMenu();
+			}
+			else if(someObj == restartGame) {
+				pause = false;
+				gameLeft();
+				program.switchToPlay();
+			}
 		}
 		
 		public void mouseMoved(MouseEvent e) {
@@ -419,34 +434,32 @@ import java.io.OutputStreamWriter;
 			buttonHover = true;	
 			if(selection)return;
 			
-			if(gameSetUp.movePlayer(e.getY())) {
-				character.setLocation(15, e.getY());
-			}
-			/*
+			
 			if(!pause) {
 				if(gameSetUp.movePlayer(e.getY())) {
-				character.setLocation(15, e.getY());
+					character.setLocation(15, e.getY());
 				}
-			}
-			*/	
+			}				
 		}
 		
-		/*
+		
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if(e.getKeyCode() == KeyEvent.VK_P && gameStarted) {
+			if(e.getKeyCode() == KeyEvent.VK_SPACE && gameStarted) { //press space bar to pause and un-pause.
 				pause = !pause;
 				if(pause) {
+					pauseMenu();
 					timer.stop();
+					
 				}
 				else {
+					exitpauseMenu();
+					timer.setInitialDelay(3000); //can simply use a delay so that by then user resets its cursor.
 					timer.start();
-					
 				}
 			}
 		}
-		*/
-		
+	
 		private void removeBorder() {
 			if(border != null) {
 				program.remove(border);
@@ -611,6 +624,32 @@ import java.io.OutputStreamWriter;
 			}
 		}
 		
+		public void pauseMenu() {
+			pausemenuLabel = new GLabel("PAUSED", WINDOW_WIDTH / 2 - 70, WINDOW_HEIGHT / 2 - 50);
+			pausemenuLabel.setFont(new Font("Helvetica", Font.BOLD, 44));
+			pausemenuLabel.setColor(Color.BLACK);
+	        program.add(pausemenuLabel);
+
+	        restartGame = new GButton("RESTART", WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2 - 20, 120, 50);
+	        restartGame.setFillColor(BUTTON_COLOR);
+	        program.add(restartGame);
+
+	        exitGame = new GButton("E X I T", WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2 + 40, 120, 50);
+	        exitGame.setFillColor(BUTTON_COLOR);
+	        program.add(exitGame);
+	        pause = true;
+	      
+	       
+	    }
+
+	    public void exitpauseMenu() {
+	        program.remove(pausemenuLabel);
+	        program.remove(restartGame);
+	        program.remove(exitGame);
+	        pause = false;
+	       
+	    }
+
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
