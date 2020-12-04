@@ -97,9 +97,8 @@ import java.io.OutputStreamWriter;
 			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 18));
 			scoreDisplay.sendToFront();
 			
-			invulBar = new GRect(0, 0, 0, 25);
+			invulBar = new GRect(640, 0, 0, 25);
 			invulBar.setFilled(true);
-			invulBar.setColor(Color.BLACK);
 			invulBar.setFillColor(Color.YELLOW);
 			
 			topObstacles = new ArrayList<GImage>();
@@ -277,7 +276,7 @@ import java.io.OutputStreamWriter;
 			int occurs = rgen.nextInt(1, 30);
 			int random = rgen.nextInt(1, 20);
 			int yLoc = rgen.nextInt(150, 450);
-			if (occurs < 24) return;
+			if (occurs < 0) return;
 			
 			PowerUp newPower = gameSetUp.createPowerUp(random);
 			PowerUpType powerUpType = newPower.getType();
@@ -571,7 +570,7 @@ import java.io.OutputStreamWriter;
 				slowDownEndTime = totalGameTime + 4;
 			}
 			else {
-				invulBar.setSize(70, 25);
+				invulBar.setSize(350, 25);
 				invulnerable = true;
 				invulnerableEndTime = totalGameTime + 7;
 			}
@@ -637,14 +636,14 @@ import java.io.OutputStreamWriter;
 				difficultyTracker = 0;
 			}
 			
+			invulBar.setSize(invulBar.getWidth() - 1, 25);
+			
 			if (difficultyTracker % 50 == 0) {
 				drawScore();
-				if (invulnerable) {
-					invulBar.setSize(invulBar.getWidth() - 10, 25);
-				}
 				totalGameTime++;
 			}
 			
+			invulBar.setLocation(640 - (invulBar.getWidth()/2), 0);
 			checkDurations();
 			
 			totalCount++;
