@@ -29,7 +29,7 @@ public abstract class GraphicsPane implements Interfaceable {
 	public static final int LEFT_BOTTOM = OUTSIDE_PADDING;
 	public static final int BOTTOM = (WINDOW_HEIGHT-REG_BUTTON_HEIGHT) - OUTSIDE_PADDING;
 	public static final int CENTER = WINDOW_WIDTH / 2;
-	public static final Color BUTTON_COLOR = new Color(230, 230, 250);
+	public static final Color BUTTON_COLOR = new Color(251, 176, 59);
 	public static final Color FONT_COLOR = new Color(0, 0, 20);
 	
 	@Override
@@ -84,7 +84,7 @@ public abstract class GraphicsPane implements Interfaceable {
 	 * @param button
 	 */
 	public void hover(GButton button) {
-		Color highlightColor = new Color(100, 100, 120);
+		Color highlightColor = new Color(126, 88, 30);
 		button.setFillColor(highlightColor);
 		button.setColor(Color.WHITE);
 	}
