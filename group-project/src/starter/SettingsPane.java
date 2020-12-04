@@ -8,16 +8,15 @@ import java.awt.Font;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
-import acm.graphics.GRect;
+
 
 public class SettingsPane extends GraphicsPane {
 	private MainApplication program;
 	
 	private GImage settingsBackground;
 	private GButton Back, soundButtonOn, soundButtonOff, musicButtonOn, musicButtonOff;
-	private GLabel soundLabel, musicLabel,soundStatus,musicStatus;
+	private GLabel soundLabel, musicLabel;
 	private ArrayList<GButton> sButtons = new ArrayList<GButton>();
-	private ArrayList<GLabel> slabels = new ArrayList<GLabel>();
 	
 	public static final int FEATURE_INDENT = 300;
 	public static final int BUTTON_INDENT = 780;
@@ -39,54 +38,37 @@ public class SettingsPane extends GraphicsPane {
 		musicLabel = new GLabel("Music",300,300);
 		musicLabel.setFont(new Font("elephant", Font.PLAIN,24));
 		musicLabel.setColor(Color.black);
-		
-		soundStatus = new GLabel("ON");
-		soundStatus.setLocation(810,195);
-		soundStatus.setFont(new Font("elephant", Font.PLAIN,12));
-		
-		musicStatus = new GLabel("ON");
-		musicStatus.setLocation(810, 295);
-		musicStatus.setFont(new Font("elephant", Font.PLAIN,12));
-		
+			
 		soundButtonOn = new GButton("ON",BUTTON_INDENT,165,50,50);
 		musicButtonOn = new GButton("ON",BUTTON_INDENT,265,50,50);
 		soundButtonOff = new GButton("OFF",BUTTON_INDENT,165,50,50);
 		musicButtonOff = new GButton("OFF",BUTTON_INDENT,265,50,50);
 		
-		GLabel[] labels = {soundLabel,musicLabel};
-		for(GLabel label:labels) {
-			slabels.add(label);
-		}
-		
 		GButton[] buttons = {Back, soundButtonOff, musicButtonOff, soundButtonOn, musicButtonOn};
 		for(GButton button:buttons) {
 			sButtons.add(button);
 		}
-		
 	}
-	
-	@Override
-	public void showContents() {
-		program.add(settingsBackground);
-		
-		program.add(Back);
-		
+	private void addingButtons() {
 		if (program.getSound())program.add(soundButtonOn);
 		else program.add(soundButtonOff);
 		
 		if (program.getMusic())program.add(musicButtonOn);
-		else program.add(musicButtonOff);
-		
-		for(GLabel label:slabels) {
-			program.add(label);
-		}
+		else program.add(musicButtonOff);	
+	}
+	@Override
+	public void showContents() {
+		program.add(settingsBackground);
+		program.add(Back);
+		program.add(soundLabel);
+		program.add(musicLabel);
+		addingButtons();
 	}
 
 	@Override
 	public void hideContents() {
 		program.removeAll();
 	}
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
@@ -94,7 +76,6 @@ public class SettingsPane extends GraphicsPane {
 		if (obj == Back) {
 			program.switchToMenu();
 		}
-		
 		//soundButton
 		else if(obj == soundButtonOff || obj == soundButtonOn){
 			if(program.getSound()) {//checks the status of sound and turns on/off.
@@ -110,7 +91,6 @@ public class SettingsPane extends GraphicsPane {
 			}
 		
 		}
-		
 		//musicButton
 		else if(obj == musicButtonOff || obj == musicButtonOn){
 			if(program.getMusic()) {//checks the status of music.
@@ -131,7 +111,7 @@ public class SettingsPane extends GraphicsPane {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		
+		//for hovering over buttons.
 		for(int i = 0;i < sButtons.size();i++) {
 			notHovered(sButtons.get(i));
 			if(obj == sButtons.get(i)) {
