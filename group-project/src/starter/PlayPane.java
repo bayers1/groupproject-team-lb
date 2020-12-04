@@ -16,15 +16,6 @@ import acm.graphics.GObject;
 import acm.graphics.GRect;
 import acm.util.RandomGenerator;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
- 
-
 	public class PlayPane extends GraphicsPane implements ActionListener {
 		private MainApplication program; // you will use program to get access to
 										 // all of the GraphicsProgram calls
@@ -32,6 +23,8 @@ import java.io.OutputStreamWriter;
 		private GameSetUp gameSetUp;
 		public static final int IMAGE_HEIGHT = 400;
 		public static final int IMAGE_WIDTH = 250;
+		public static final int BAR_HEIGHT = 12;
+		public static final int BAR_LOCY = 20;
 		
 		public static final int OBS_MAX = 5;
 		public static final int POWERUP_MAX = 1;
@@ -79,7 +72,8 @@ import java.io.OutputStreamWriter;
 		private GLabel pausemenuLabel;
 	    private GButton restartGame;
 	    private GButton exitGame;
-	  //  private int backgroundSpeed = 2;    
+	  //  private int backgroundSpeed = 2;
+	    
 		public PlayPane(MainApplication app) {
 			super();
 			rgen = RandomGenerator.getInstance();
@@ -101,9 +95,9 @@ import java.io.OutputStreamWriter;
 			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 18));
 			scoreDisplay.sendToFront();
 			
-			invulBar = new GRect(640, 0, 0, 25);
+			invulBar = new GRect(640, BAR_LOCY, 0, BAR_HEIGHT);
 			invulBar.setFilled(true);
-			invulBar.setFillColor(Color.YELLOW);
+			invulBar.setFillColor(BUTTON_COLOR);
 			
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
@@ -599,7 +593,7 @@ import java.io.OutputStreamWriter;
 				slowDownEndTime = totalGameTime + 4;
 			}
 			else {
-				invulBar.setSize(350, 25);
+				invulBar.setSize(350, BAR_HEIGHT);
 				invulnerable = true;
 				invulnerableEndTime = totalGameTime + 7;
 				
@@ -693,14 +687,14 @@ import java.io.OutputStreamWriter;
 				difficultyTracker = 0;
 			}
 			
-			invulBar.setSize(invulBar.getWidth() - 1, 25);
-			
 			if (difficultyTracker % 50 == 0) {
 				drawScore();
 				totalGameTime++;
+				if(invulnerable)invulBar.setSize(invulBar.getWidth() - 50, BAR_HEIGHT);
 			}
 			
-			invulBar.setLocation(640 - (invulBar.getWidth()/2), 0);
+			invulBar.setLocation(640 - (invulBar.getWidth()/2), BAR_LOCY);
+			
 			checkDurations();
 			
 			totalCount++;
