@@ -65,14 +65,14 @@ import acm.util.RandomGenerator;
 		private RandomGenerator rgen;
 		private GRect border;
 		private GImage lastDragonSelection;
-		
+	
 		private boolean gameStarted = false;
 		private boolean pause = false;
 		
 		private GLabel pausemenuLabel;
 	    private GButton restartGame;
 	    private GButton exitGame;
-	  //  private int backgroundSpeed = 2;
+	    private float backgroundSpeed = -0.5f;
 	    
 		public PlayPane(MainApplication app) {
 			super();
@@ -172,19 +172,31 @@ import acm.util.RandomGenerator;
 			scene.setSize(1600, 600);
 			program.add(scene);
 			scene.sendToBack();
+			
 		}
 		
-		/*
+		
 		public void scrollingBackground() {
 	        // Moves background image:
-	        if (scene.getX() > -1260) {
-	            scene.setLocation(scene.getX() - velX, scene.getY());
-	            //System.out.println("BACKGROUND1x: " + background1.getX());
+	        if (scene.getX() > -320) {
+	            scene.setLocation(scene.getX() + backgroundSpeed, scene.getY());
+	            System.out.println("BACKGROUND1x: " + scene.getX());  
+	        
+			}else {
+				program.add(scene);
+				scene.sendToBack();
+			}
+	       
+	        /*
+	        if (scene.getX() < -1280) {
+	        	 scene.setLocation(scene.getX() + backgroundSpeed, scene.getY());
+	            //System.out.println("BACKGROUND2x: " + background2.getX());
 	        } else {
-	            scene.setLocation(1260,scene.getY());
+	        	scene.setLocation(1280,scene.getY());
 	        }
+	        */
 		}
-		*/
+		
 		
 		
 		/**
@@ -675,6 +687,7 @@ import acm.util.RandomGenerator;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(totalCount % (obstacleSpawn * topOccurRate) == 0 && topObstacles.size()< OBS_MAX) {
+				
 				drawTopObstacle();
 			}
 			if(totalCount % obstacleSpawn == 0 && topObstacles.size()< OBS_MAX) {
@@ -685,7 +698,7 @@ import acm.util.RandomGenerator;
 			moveTopObstacles();
 			moveBottomObstacles();
 			movePowerUps();
-			
+			scrollingBackground();// new addition
 			checkCollision();
 
 			if(gotPowerUp()) {
