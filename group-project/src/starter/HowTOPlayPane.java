@@ -62,6 +62,7 @@ public class HowTOPlayPane extends GraphicsPane {
 		}
 		else if(obj == left) {
 			program.playSound("newbutton.wav",false);
+			if(page == 0) page = 6;
 			page--;
 		}
 		int pageNum = (page % 5) + 1;
