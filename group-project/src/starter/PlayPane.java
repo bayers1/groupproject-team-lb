@@ -584,13 +584,17 @@ import acm.util.RandomGenerator;
 				scoreDisplay.setColor(Color.RED);
 				times2 = 2;
 				times2EndTime = totalGameTime + 15;
+				//program.playSound("powerup.wav",false);
+				
 			}
 			else if(pUpType == PowerUpType.BONUS) {
 				score += (100 * multiplier);
+				//program.playSound("powerup.wav",false);
 			}
 			else if(pUpType == PowerUpType.SLOW) {
 				movementModifier = 0.8f;
 				slowDownEndTime = totalGameTime + 4;
+				//program.playSound("powerup.wav",false);
 			}
 			else {
 				invulBar.setSize(350, BAR_HEIGHT);
@@ -598,6 +602,8 @@ import acm.util.RandomGenerator;
 				invulnerableEndTime = totalGameTime + 7;
 				
 				program.add(invulBar);
+				//program.playSound("powerup.wav",false);
+				
 			}
 		}
 		
@@ -679,7 +685,10 @@ import acm.util.RandomGenerator;
 			
 			checkCollision();
 
-			gotPowerUp(); //just to check.
+			if(gotPowerUp()) {
+				program.playSound("newpowerup.wav",false);//just to check.
+			}
+			
 			
 			velX = -8.0f * multiplier;
 			if (difficultyTracker % 1200 == 0) {
