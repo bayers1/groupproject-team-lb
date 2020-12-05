@@ -388,6 +388,7 @@ import acm.util.RandomGenerator;
 			someObj = obj;
 			
 			if (obj == Back) {
+				program.playSound("newbutton.wav",false);
 				program.switchToMenu();
 			}
 			else if(someObj == Fire) {
@@ -403,6 +404,7 @@ import acm.util.RandomGenerator;
 				drawGame(PlayerType.AIR);
 			}
 			else if(someObj == exitGame) {
+				if(selection)return; //added because giving some null pointer exception.
 				pause = false;
 				gameLeft();
 				program.switchToMenu();
@@ -412,6 +414,7 @@ import acm.util.RandomGenerator;
 				gameLeft();
 				program.switchToPlay();
 			}
+			
 		}
 		
 		public void mouseMoved(MouseEvent e) {

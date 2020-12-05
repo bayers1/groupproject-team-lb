@@ -53,13 +53,15 @@ public class HowTOPlayPane extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == Back) {
+			program.playSound("newbutton.wav",false);
 			program.switchToMenu();
 		}
 		else if(obj == right) {
+			program.playSound("newbutton.wav",false);
 			page++;
 		}
 		else if(obj == left) {
-			if(page == 0) page = 6;
+			program.playSound("newbutton.wav",false);
 			page--;
 		}
 		int pageNum = (page % 5) + 1;

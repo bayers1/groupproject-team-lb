@@ -116,9 +116,11 @@ public class GameOverPane extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == mainMenu) {
+			program.playSound("newbutton.wav",false);
 			program.switchToMenu();
 		}
 		if(obj == playAgain) {
+			program.playSound("newbutton.wav",false);
 			program.switchToPlay();
 		}
 	}

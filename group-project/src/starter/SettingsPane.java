@@ -65,6 +65,7 @@ public class SettingsPane extends GraphicsPane {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		
 		if (obj == Back) {
+			program.playSound("newbutton.wav",false);
 			program.switchToMenu();
 		}
 		//soundButton.

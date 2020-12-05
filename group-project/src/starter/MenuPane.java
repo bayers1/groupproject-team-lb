@@ -16,7 +16,7 @@ public class MenuPane extends GraphicsPane {
 	private GImage menuBackground;
 	private ArrayList<GButton> mButtons = new ArrayList<GButton>();
 	private String[] gButtonStrings = {" P L A Y ","  SETTINGS  ","HOW TO PLAY","E X I T"};
-	
+	private boolean buttonPressed = false;;
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
@@ -52,15 +52,21 @@ public class MenuPane extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == mButtons.get(0)) {
+			program.playSound("newbutton.wav",false);
 			program.switchToPlay();
 		}
 		if (obj == mButtons.get(1)) {
+			program.playSound("newbutton.wav",false);
 			program.switchToSettings();
 		}
 		if (obj == mButtons.get(2)) {
-			program.switchToHowToPlay();
+			program.playSound("newbutton.wav",false);
+			program.switchToHowToPlay();	
 		}
 		if(obj == mButtons.get(3)) {
+			program.playSound("newbutton.wav",false);
+			try {Thread.sleep(200);
+			} catch (InterruptedException e1) {e1.printStackTrace();}
 			System.exit(0);
 		}
 	}
