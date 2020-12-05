@@ -36,12 +36,12 @@ import acm.util.RandomGenerator;
 
 		private String sceneType;
 		private GImage Fire, Water, Earth, Wind;
-		private GLabel scoreDisplay;
+		private GLabel scoreDisplay, pauseDisplay;
 		private GImage character, powerUp;
 		private GImage scene;
 		private GButton Back;
 		private Timer timer;
-		private GRect invulBar, scoreBacking;
+		private GRect invulBar, scoreBacking, pauseBacking;
 		
 		short obstacleSpawn = 50, topOccurRate = 2;
 		
@@ -90,10 +90,19 @@ import acm.util.RandomGenerator;
 			Color backing = new Color(0, 0, 0, 0.6f);
 			scoreBacking.setFillColor(backing);
 			
+			pauseBacking = new GRect(0, REG_PADDING - 5, 225, OUTSIDE_PADDING);
+			pauseBacking.setFilled(true);
+			pauseBacking.setFillColor(backing);
+			
 			scoreDisplay = new GLabel("Current Score: " + score, WINDOW_WIDTH - 225, OUTSIDE_PADDING + 5);
 			scoreDisplay.setColor(Color.WHITE);
 			scoreDisplay.setFont(new Font("Serif", Font.PLAIN, 18));
 			scoreDisplay.sendToFront();
+			
+			pauseDisplay = new GLabel("Press SPACE to pause", 15, OUTSIDE_PADDING);
+			pauseDisplay.setColor(Color.WHITE);
+			pauseDisplay.setFont(new Font("Serif", Font.PLAIN, 18));
+			
 			
 			invulBar = new GRect(640, BAR_LOCY, 0, BAR_HEIGHT);
 			invulBar.setFilled(true);
@@ -132,7 +141,11 @@ import acm.util.RandomGenerator;
 			timer.start();
 			gameStarted = true;
 			program.add(scoreBacking);
+			program.add(pauseBacking);
 			program.add(scoreDisplay);
+			program.add(pauseDisplay);
+
+			
 		}
 		
 		/**
@@ -670,6 +683,9 @@ import acm.util.RandomGenerator;
 				drawBottomObstacle();
 				drawPowerUp();
 			}
+			
+			pauseBacking.sendToFront();
+			pauseDisplay.sendToFront();
 			
 			moveTopObstacles();
 			moveBottomObstacles();
