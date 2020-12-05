@@ -11,8 +11,7 @@ public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 1280;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3","music.mp3","gameover.wav"};
-	//private static final String[] Characters = {"Fire.jpg","Water.jpg","Earth.jpg","Wind.jpg"};
+	private static final String[] SOUND_FILES = {"button.wav", "newbutton.wav", "music.mp3","gameover.wav"};
 
 	//panes
 	private PlayPane playPane;
