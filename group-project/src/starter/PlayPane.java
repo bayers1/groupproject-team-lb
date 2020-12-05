@@ -65,6 +65,7 @@ import acm.util.RandomGenerator;
 		private RandomGenerator rgen;
 		private GRect border;
 		private GImage lastDragonSelection;
+		private ArrayList<GImage> scenes;
 	
 		private boolean gameStarted = false;
 		private boolean pause = false;
@@ -72,7 +73,7 @@ import acm.util.RandomGenerator;
 		private GLabel pausemenuLabel;
 	    private GButton restartGame;
 	    private GButton exitGame;
-	    private float backgroundSpeed = -0.5f;
+	   
 	    
 		public PlayPane(MainApplication app) {
 			super();
@@ -102,6 +103,7 @@ import acm.util.RandomGenerator;
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
 			powerUps = new ArrayList<GImage>();
+			scenes = new ArrayList<GImage>();
 		}
 
 		@Override
@@ -172,18 +174,19 @@ import acm.util.RandomGenerator;
 			scene.setSize(1600, 600);
 			program.add(scene);
 			scene.sendToBack();
-			
+			scenes.add(scene);
 		}
 		
 		
 		public void scrollingBackground() {
 	        // Moves background image:
-	        if (scene.getX() > -320) {
-	            scene.setLocation(scene.getX() + backgroundSpeed, scene.getY());
-	            System.out.println("BACKGROUND1x: " + scene.getX());  
-			}else {
-				program.add(scene);
-				scene.sendToBack();
+	       for(int i  = 0;i<scenes.size();i++) {
+	    	   scenes.get(i).setLocation(scenes.get(i).getX()-0.5f,0);
+	    	   if(scenes.get(i).getX() < -1600) {
+	    		   scenes.remove(scenes.get(i));
+	    		   program.remove(scenes.get(i));
+	    		   }
+	            //System.out.println("BACKGROUND1x: " + scene.getX());  
 			}
 	        /*
 	        if (scene.getX() < -1280) {
@@ -692,7 +695,11 @@ import acm.util.RandomGenerator;
 				drawBottomObstacle();
 				drawPowerUp();
 			}
-			
+			for(int i  = 0;i<scenes.size();i++) {
+				 if(scenes.get(i).getX() < -320) {
+		    		 drawScene();
+		    }
+			}
 			moveTopObstacles();
 			moveBottomObstacles();
 			movePowerUps();
@@ -702,7 +709,6 @@ import acm.util.RandomGenerator;
 			if(gotPowerUp()) {
 				program.playSound("newpowerup.wav",false);//just to check.
 			}
-			
 			
 			velX = -8.0f * multiplier;
 			if (difficultyTracker % 1200 == 0) {
