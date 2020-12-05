@@ -181,12 +181,10 @@ import acm.util.RandomGenerator;
 	        if (scene.getX() > -320) {
 	            scene.setLocation(scene.getX() + backgroundSpeed, scene.getY());
 	            System.out.println("BACKGROUND1x: " + scene.getX());  
-	        
 			}else {
 				program.add(scene);
 				scene.sendToBack();
 			}
-	       
 	        /*
 	        if (scene.getX() < -1280) {
 	        	 scene.setLocation(scene.getX() + backgroundSpeed, scene.getY());
