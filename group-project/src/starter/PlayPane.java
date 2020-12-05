@@ -65,7 +65,6 @@ import acm.util.RandomGenerator;
 		private RandomGenerator rgen;
 		private GRect border;
 		private GImage lastDragonSelection;
-		private ArrayList<GImage> scenes;
 	
 		private boolean gameStarted = false;
 		private boolean pause = false;
@@ -103,7 +102,6 @@ import acm.util.RandomGenerator;
 			topObstacles = new ArrayList<GImage>();
 			bottomObstacles = new ArrayList<GImage>();
 			powerUps = new ArrayList<GImage>();
-			scenes = new ArrayList<GImage>();
 		}
 
 		@Override
@@ -135,7 +133,6 @@ import acm.util.RandomGenerator;
 			gameStarted = true;
 			program.add(scoreBacking);
 			program.add(scoreDisplay);
-			
 		}
 		
 		/**
@@ -174,31 +171,7 @@ import acm.util.RandomGenerator;
 			scene.setSize(1600, 600);
 			program.add(scene);
 			scene.sendToBack();
-			scenes.add(scene);
 		}
-		
-		
-		public void scrollingBackground() {
-	        // Moves background image:
-	       for(int i  = 0;i<scenes.size();i++) {
-	    	   scenes.get(i).setLocation(scenes.get(i).getX()-0.5f,0);
-	    	   if(scenes.get(i).getX() < -1600) {
-	    		   scenes.remove(scenes.get(i));
-	    		   program.remove(scenes.get(i));
-	    		   }
-	            //System.out.println("BACKGROUND1x: " + scene.getX());  
-			}
-	        /*
-	        if (scene.getX() < -1280) {
-	        	 scene.setLocation(scene.getX() + backgroundSpeed, scene.getY());
-	            //System.out.println("BACKGROUND2x: " + background2.getX());
-	        } else {
-	        	scene.setLocation(1280,scene.getY());
-	        }
-	        */
-		}
-		
-		
 		
 		/**
 		 * The method drawTopObstacle()
@@ -358,6 +331,7 @@ import acm.util.RandomGenerator;
 			gameLeft();
 			program.switchToGameOver(score);
 		}
+		
 		public void gameLeft() {
 			timer.stop();
 			
@@ -373,6 +347,7 @@ import acm.util.RandomGenerator;
 			gameSetUp.removeCache();
 			selection = true;
 		}
+		
 		/**
 		 * helper method to revert the game data(cache)
 		 * back from the start
@@ -427,7 +402,6 @@ import acm.util.RandomGenerator;
 				gameLeft();
 				program.switchToPlay();
 			}
-			
 		}
 		
 		public void mouseMoved(MouseEvent e) {
@@ -476,7 +450,6 @@ import acm.util.RandomGenerator;
 				if(pause) {
 					pauseMenu();
 					timer.stop();
-					
 				}
 				else {
 					exitpauseMenu();
@@ -503,8 +476,8 @@ import acm.util.RandomGenerator;
 			}
 		}
 
-		/*Checks what type the top obstacle 
-		 * is and moves it accordingly
+		/**
+		 * moves the top obstacles only
 		 */
 		private void moveTopObstacles(){			
 			for(int i = 0; i<topObstacles.size(); i++) {
@@ -522,6 +495,9 @@ import acm.util.RandomGenerator;
 			}
 		}
 		
+		/**
+		 * moves the bottom obstacles only
+		 */
 		private void moveBottomObstacles(){
 			for(int i = 0; i<bottomObstacles.size(); i++) {
 				int velY = 0;
@@ -538,6 +514,9 @@ import acm.util.RandomGenerator;
 			}
 		}
 		
+		/**
+		 * moves the powerUps
+		 */
 		private void movePowerUps(){
 			for(int i = 0; i < powerUps.size(); i++) {
 				powerUps.get(i).move(movementModifier*velX, 0);
@@ -637,8 +616,9 @@ import acm.util.RandomGenerator;
 		
 		private void drawScore() {
 			updateScore();
-			scoreDisplay.setLabel("Current Score: " + score);	
-			//System.out.println(score);
+			scoreDisplay.setLabel("Current Score: " + score);
+			scoreBacking.sendToFront();
+			scoreDisplay.sendToFront();
 		}
 		
 		private void checkDurations() {
@@ -672,8 +652,6 @@ import acm.util.RandomGenerator;
 	        exitGame.setFillColor(BUTTON_COLOR);
 	        program.add(exitGame);
 	        pause = true;
-	      
-	       
 	    }
 
 	    public void exitpauseMenu() {
@@ -681,29 +659,21 @@ import acm.util.RandomGenerator;
 	        program.remove(restartGame);
 	        program.remove(exitGame);
 	        pause = false;
-	       
 	    }
-
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(totalCount % (obstacleSpawn * topOccurRate) == 0 && topObstacles.size()< OBS_MAX) {
-				
 				drawTopObstacle();
 			}
 			if(totalCount % obstacleSpawn == 0 && topObstacles.size()< OBS_MAX) {
 				drawBottomObstacle();
 				drawPowerUp();
 			}
-			for(int i  = 0;i<scenes.size();i++) {
-				 if(scenes.get(i).getX() < -320) {
-		    		 drawScene();
-		    }
-			}
+			
 			moveTopObstacles();
 			moveBottomObstacles();
 			movePowerUps();
-			scrollingBackground();// new addition
 			checkCollision();
 
 			if(gotPowerUp()) {
