@@ -119,6 +119,7 @@ import acm.util.RandomGenerator;
 			program.add(scoreDisplay);
 			program.add(pauseDisplay);
 		}
+		
 		/**
 		 * This method is used to draw the player based on 
 		 * the input from character selection 
@@ -164,20 +165,20 @@ import acm.util.RandomGenerator;
 			scene2.sendToBack();
 		}
 		
-		 public void movingBackground() { // scenes moving. called in actionPerformed.
-		        if (scene.getX() > -1599) {
-		           scene.setLocation(scene.getX() + backgroundSpeed,scene.getY());  
-		        }
-		        else {
-		            scene.setLocation(1280, scene.getY()); //resetting.
-		        }
-		        if (scene2.getX() > -1599) {
-		           scene2.setLocation(scene2.getX() + backgroundSpeed,scene2.getY());  
-		        } 
-		        else {
-		            scene2.setLocation(1280,scene2.getY());
-		        }
-		    }
+		public void movingBackground() { // scenes moving. called in actionPerformed.
+			if (scene.getX() > -1599) {
+				scene.setLocation(scene.getX() + backgroundSpeed,scene.getY());  
+			}
+			else {
+				scene.setLocation(1280, scene.getY()); //resetting.
+			}
+		    if (scene2.getX() > -1599) {
+		    	scene2.setLocation(scene2.getX() + backgroundSpeed,scene2.getY());
+		    } 
+		    else {
+		    	scene2.setLocation(1280,scene2.getY());
+		    	}
+		}
 		 
 		/**
 		 * The method drawTopObstacle()
@@ -526,16 +527,9 @@ import acm.util.RandomGenerator;
 			}
 		}
 		
-		//helper method to scale points earned
-		//based on multiplier
-		private double PointsEarned() {
-			double pointsEarned = times2 * (10 * multiplier);
-			return pointsEarned;
-		}
-		
 		//helper method
 		private void updateScore() {
-			score += PointsEarned();
+			score += times2 * (10 * multiplier);
 		}
 		
 		private void drawScore() {
