@@ -15,9 +15,7 @@ public class GameSetUp {
 	RandomGenerator rgen;
 	
 	public GameSetUp(PlayerType type) {
-		player = new Player(startX, startY, PLAYER_WIDTH, PLAYER_HEIGHT, type);
-		setGame();
-		
+		player = new Player(startX, startY, PLAYER_WIDTH, PLAYER_HEIGHT, type);		
 		powerUps = new ArrayList<PowerUp>();
 	}
 
@@ -25,16 +23,8 @@ public class GameSetUp {
 		return player.move(0, y);
 	}
 	
-	public void setGame() {
-		
-	}
-	
 	public Player getPlayer() {
 		return player;
-	}
-	
-	public void moveObstacle() {
-		
 	}
 	
 	public PowerUp createPowerUp(int rNum) {

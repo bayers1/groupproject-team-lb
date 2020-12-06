@@ -151,7 +151,7 @@ import acm.util.RandomGenerator;
 		public void drawScene() {
 			String fileName = sceneType + "Background" + IMG_EXTENSION;
 			scene = new GImage(fileName, 0, 0);
-			scene.setSize(1280, 600);
+			scene.setSize(1600, 600);
 			program.add(scene);
 			scene.sendToBack();
 		}
@@ -159,19 +159,19 @@ import acm.util.RandomGenerator;
 		public void drawScene2() { // Added for background image moving effect.//called in showContents.
 			String fileName = sceneType + "Background" + IMG_EXTENSION;
 			scene2 = new GImage(fileName, 1280,0);
-			scene2.setSize(1300, 600);
+			scene2.setSize(1600, 600);
 			program.add(scene2);
 			scene2.sendToBack();
 		}
 		
 		 public void movingBackground() { // scenes moving. called in actionPerformed.
-		        if (scene.getX() > -1280) {
+		        if (scene.getX() > -1599) {
 		           scene.setLocation(scene.getX() + backgroundSpeed,scene.getY());  
 		        }
 		        else {
 		            scene.setLocation(1280, scene.getY()); //resetting.
 		        }
-		        if (scene2.getX() > -1280) {
+		        if (scene2.getX() > -1599) {
 		           scene2.setLocation(scene2.getX() + backgroundSpeed,scene2.getY());  
 		        } 
 		        else {

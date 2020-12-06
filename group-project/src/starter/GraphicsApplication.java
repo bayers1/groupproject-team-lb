@@ -50,7 +50,6 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 		if(curScreen != null) {
 			curScreen.mousePressed(e);
 		}
-		
 	}
 	
 	@Override

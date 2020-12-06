@@ -44,8 +44,4 @@ public class Obstacle extends GameObject{
 	public boolean move(double xVelocity, double yVelocity) {
 		return false;
 	}
-	
-	public void bounds() {;
-	
-	}
 }

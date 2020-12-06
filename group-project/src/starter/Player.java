@@ -24,10 +24,6 @@ public class Player extends GameObject{
 		return true;
 	}
 	
-	public boolean collision() {
-		return true;
-	}
-	
 	/**
 	 * 
 	 * @param x where the object will be moving horizontally
