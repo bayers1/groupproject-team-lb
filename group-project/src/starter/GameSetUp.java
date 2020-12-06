@@ -2,7 +2,6 @@ package starter;
 
 import java.util.ArrayList;
 
-import acm.graphics.GImage;
 import acm.util.RandomGenerator;
 
 public class GameSetUp {
@@ -12,10 +11,6 @@ public class GameSetUp {
 	private double startX = 15;
 	private double startY = 300;
 	
-	private Obstacle topObstacle;
-	private Obstacle bottomObstacle;
-	private ArrayList<Obstacle> topObs;
-	private ArrayList<Obstacle> bottomObs;
 	private ArrayList<PowerUp> powerUps;
 	RandomGenerator rgen;
 	
