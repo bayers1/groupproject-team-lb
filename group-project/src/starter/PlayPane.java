@@ -32,7 +32,7 @@ import acm.util.RandomGenerator;
 		
 		private GLabel scoreDisplay, pauseDisplay;
 		private GImage character, powerUp;
-		private GImage scene;
+		private GImage scene,scene2;
 	
 		private Timer timer;
 		private GRect invulBar, scoreBacking, pauseBacking;
@@ -63,6 +63,8 @@ import acm.util.RandomGenerator;
 		private GLabel pausemenuLabel;
 	    private GButton restartGame;
 	    private GButton exitGame;
+	    
+	    private float backgroundSpeed = -0.5f;  //new addition.
 	   
 	    private PlayerType playerType;
 		public PlayPane(MainApplication app,PlayerType playerType) {
@@ -105,6 +107,7 @@ import acm.util.RandomGenerator;
 			gameSetUp = new GameSetUp(playerType);
 			drawPlayer(playerType);
 			drawScene();
+			drawScene2();
 			//System.out.println(gameSetUp.getPlayer());
 			
 			//starts drawing the obstacles
@@ -148,11 +151,34 @@ import acm.util.RandomGenerator;
 		public void drawScene() {
 			String fileName = sceneType + "Background" + IMG_EXTENSION;
 			scene = new GImage(fileName, 0, 0);
-			scene.setSize(1600, 600);
+			scene.setSize(1280, 600);
 			program.add(scene);
 			scene.sendToBack();
 		}
 		
+		public void drawScene2() { // Added for background image moving effect.//called in showContents.
+			String fileName = sceneType + "Background" + IMG_EXTENSION;
+			scene2 = new GImage(fileName, 1280,0);
+			scene2.setSize(1300, 600);
+			program.add(scene2);
+			scene2.sendToBack();
+		}
+		
+		 public void movingBackground() { // scenes moving. called in actionPerformed.
+		        if (scene.getX() > -1280) {
+		           scene.setLocation(scene.getX() + backgroundSpeed,scene.getY());  
+		        }
+		        else {
+		            scene.setLocation(1280, scene.getY()); //resetting.
+		        }
+		        if (scene2.getX() > -1280) {
+		           scene2.setLocation(scene2.getX() + backgroundSpeed,scene2.getY());  
+		        } 
+		        else {
+		            scene2.setLocation(1280,scene2.getY());
+		        }
+		    }
+		 
 		/**
 		 * The method drawTopObstacle()
 		 * decides which obstacle type to draw
@@ -575,6 +601,7 @@ import acm.util.RandomGenerator;
 			moveTopObstacles();
 			moveBottomObstacles();
 			movePowerUps();
+			movingBackground();// new addition.For movement of background or scene.
 			checkCollision();
 
 			if(gotPowerUp()) {
