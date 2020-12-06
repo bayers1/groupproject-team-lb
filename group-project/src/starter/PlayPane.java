@@ -145,7 +145,7 @@ import acm.util.RandomGenerator;
 			fileName += "Dragon" + IMG_EXTENSION;
 			
 			character = new GImage(fileName, startX, startY);
-			character.setSize(80,40);
+			character.setSize(120,60);
 			program.add(character);
 		}
 		
@@ -201,8 +201,8 @@ import acm.util.RandomGenerator;
 			
 			else if (num < 37) {
 				fileName += "Static2";
-				height = 330;
-				width = 110;
+				height = 320;
+				width = 107;
 			}
 			
 			else {

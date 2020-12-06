@@ -6,8 +6,8 @@ import acm.util.RandomGenerator;
 
 public class GameSetUp {
 	private Player player;
-	public static final int PLAYER_HEIGHT = 80;
-	public static final int PLAYER_WIDTH = 40;
+	public static final int PLAYER_HEIGHT = 120;
+	public static final int PLAYER_WIDTH = 60;
 	private double startX = 15;
 	private double startY = 300;
 	

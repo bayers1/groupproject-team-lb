@@ -6,11 +6,11 @@ import acm.graphics.GObject;
 import acm.graphics.GRect;
 
 public class CharacterSelectionPane extends GraphicsPane {
-	public static final int IMAGE_HEIGHT = 400;
+	public static final int IMAGE_HEIGHT = 125;
 	public static final int IMAGE_WIDTH = 250;
 	
 	private MainApplication program;
-	private GImage Fire, Water, Earth, Wind;
+	private GImage Fire, Water, Earth, Air, background;
 	private GButton Back;
 	private GRect border;
 	private GImage lastDragonSelection;
@@ -20,27 +20,32 @@ public class CharacterSelectionPane extends GraphicsPane {
 		super();
 		program = app;
 		
-		Fire = new GImage("Fire.jpg", 120, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
-		Water = new GImage("Water.jpg", 120 + IMAGE_WIDTH + REG_PADDING, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
-		Earth = new GImage("Earth.jpg", 120 + (2*IMAGE_WIDTH) + (2*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
-		Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
+		background = new GImage("selectionBackground.png", 0, 0);
+		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		Fire = new GImage("fireDragon.png", 120, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
+		Fire.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
+		Water = new GImage("waterDragon.png", 120 + IMAGE_WIDTH + REG_PADDING, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
+		Water.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
+		Earth = new GImage("earthDragon.png", 120 + (2*IMAGE_WIDTH) + (2*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
+		Earth.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
+		Air = new GImage("airDragon.png", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
+		Air.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
+		
 		Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
 	}
 	
 	public void showContents() {
+		program.add(background);
 		program.add(Fire);
 		program.add(Water);
 		program.add(Earth);
-		program.add(Wind);
+		program.add(Air);
 		program.add(Back);	
 	}
 	
 	public void hideContents() {
-		program.remove(Fire);
-		program.remove(Water);
-		program.remove(Earth);
-		program.remove(Wind);
-		program.remove(Back);
+		program.removeAll();
 		if(border != null) {
 			program.remove(border);
 		}
@@ -64,7 +69,7 @@ public class CharacterSelectionPane extends GraphicsPane {
 			playerType = PlayerType.EARTH;
 			program.switchToPlay(playerType);
 		}
-		else if(obj == Wind) {
+		else if(obj == Air) {
 			playerType = PlayerType.AIR;
 			program.switchToPlay(playerType);
 		}
@@ -87,8 +92,8 @@ public class CharacterSelectionPane extends GraphicsPane {
 		else if(obj == Water) {
 			hoverImage(Water);
 		}
-		else if(obj == Wind) {
-			hoverImage(Wind);
+		else if(obj == Air) {
+			hoverImage(Air);
 		}
 		else if(obj == Earth) {
 			hoverImage(Earth);
