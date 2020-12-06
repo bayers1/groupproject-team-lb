@@ -1,12 +1,5 @@
 package starter;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.util.ArrayList;
-
-import acm.graphics.GImage;
-import acm.graphics.GObject;
-
 public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 1280;
 	public static final int WINDOW_HEIGHT = 600;
@@ -19,14 +12,13 @@ public class MainApplication extends GraphicsApplication {
 	private MenuPane menu;
 	private SettingsPane settingPane;
 	private HowTOPlayPane howtoplayPane;
+	private CharacterSelectionPane characterSelect;
 	
-	private int count;
-	//private GImage img1;
 	private AudioPlayer audio;
 	static String file;
 	private boolean isSoundOn = true;
 	private boolean isMusicOn = true;
-	//private GButton button;
+
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
@@ -34,22 +26,20 @@ public class MainApplication extends GraphicsApplication {
 	public void run() {
 		audio = AudioPlayer.getInstance();
 		menu = new MenuPane(this);
-		playPane = new PlayPane(this);
 		settingPane = new SettingsPane(this);
 		howtoplayPane = new HowTOPlayPane(this);
-		//gameOverPane = new GameOverPane(this);
+		characterSelect = new CharacterSelectionPane(this);
 		switchToMenu();
 		
 	}
 
 	public void switchToMenu() {
-		//playSound("r2d2.mp3",true);
 		playMusic("music.mp3",true);
-		count++;
 		switchToScreen(menu);
 	}
 	
-	public void switchToPlay() {
+	public void switchToPlay(PlayerType playerType) {
+		playPane = new PlayPane(this,playerType);
 		switchToScreen(playPane);
 	}
 	
@@ -65,11 +55,10 @@ public class MainApplication extends GraphicsApplication {
 		gameOverPane = new GameOverPane(this,score);
 		switchToScreen(gameOverPane);
 	}
-	
-	private void playRandomSound() {
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
+	public void switchToCharacterSelection() {
+		switchToScreen(characterSelect);
 	}
-	
+		
 	public void stopSound(String fileName) {
 		audio.stopSound(MUSIC_FOLDER,fileName);
 	}

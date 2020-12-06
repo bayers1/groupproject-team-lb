@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import javax.swing.Timer;
-
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
@@ -19,10 +17,7 @@ import acm.util.RandomGenerator;
 	public class PlayPane extends GraphicsPane implements ActionListener {
 		private MainApplication program; // you will use program to get access to
 										 // all of the GraphicsProgram calls
-		
 		private GameSetUp gameSetUp;
-		public static final int IMAGE_HEIGHT = 400;
-		public static final int IMAGE_WIDTH = 250;
 		public static final int BAR_HEIGHT = 12;
 		public static final int BAR_LOCY = 20;
 		
@@ -32,20 +27,18 @@ import acm.util.RandomGenerator;
 		public static final String IMG_EXTENSION = ".png";
 		public double startX = 15;
 		public double startY = 300;
-		private boolean selection = true;
-
+		
 		private String sceneType;
-		private GImage Fire, Water, Earth, Wind;
+		
 		private GLabel scoreDisplay, pauseDisplay;
 		private GImage character, powerUp;
 		private GImage scene;
-		private GButton Back;
+	
 		private Timer timer;
 		private GRect invulBar, scoreBacking, pauseBacking;
 		
 		short obstacleSpawn = 50, topOccurRate = 2;
 		
-		GObject someObj;
 		private int totalCount = 0;
 		private float velX = -6;
 		private float multiplier = 1.0f;
@@ -63,8 +56,6 @@ import acm.util.RandomGenerator;
 		private ArrayList<GImage> bottomObstacles;
 		private ArrayList<GImage> powerUps;
 		private RandomGenerator rgen;
-		private GRect border;
-		private GImage lastDragonSelection;
 	
 		private boolean gameStarted = false;
 		private boolean pause = false;
@@ -73,17 +64,13 @@ import acm.util.RandomGenerator;
 	    private GButton restartGame;
 	    private GButton exitGame;
 	   
-	    
-		public PlayPane(MainApplication app) {
+	    private PlayerType playerType;
+		public PlayPane(MainApplication app,PlayerType playerType) {
 			super();
 			rgen = RandomGenerator.getInstance();
 			program = app;
-			
-			Fire = new GImage("Fire.jpg", 120, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
-			Water = new GImage("Water.jpg", 120 + IMAGE_WIDTH + REG_PADDING, (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
-			Earth = new GImage("Earth.jpg", 120 + (2*IMAGE_WIDTH) + (2*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
-			Wind = new GImage("Wind.jpg", 120 + (3*IMAGE_WIDTH) + (3*REG_PADDING), (WINDOW_HEIGHT / 2) - IMAGE_HEIGHT / 2);
-			Back = new GButton("Back", LEFT_BOTTOM, BOTTOM, REG_BUTTON_WIDTH, REG_BUTTON_HEIGHT);
+			this.playerType = playerType;
+		
 			
 			scoreBacking = new GRect(WINDOW_WIDTH - 250, REG_PADDING, 250, OUTSIDE_PADDING);
 			scoreBacking.setFilled(true);
@@ -115,24 +102,8 @@ import acm.util.RandomGenerator;
 
 		@Override
 		public void showContents() {
-			program.add(Fire);
-			program.add(Water);
-			program.add(Earth);
-			program.add(Wind);
-			program.add(Back);	
-		}
-
-		/**
-		 * The drawGame method draws the objects for the game
-		 * @param type
-		 * 		the type will dictate the display or art style of objects
-		 */
-		public void drawGame(PlayerType type) {
-			selection = false;
-			hideSelection();
-			
-			gameSetUp = new GameSetUp(type);
-			drawPlayer(type);
+			gameSetUp = new GameSetUp(playerType);
+			drawPlayer(playerType);
 			drawScene();
 			//System.out.println(gameSetUp.getPlayer());
 			
@@ -144,10 +115,7 @@ import acm.util.RandomGenerator;
 			program.add(pauseBacking);
 			program.add(scoreDisplay);
 			program.add(pauseDisplay);
-
-			
 		}
-		
 		/**
 		 * This method is used to draw the player based on 
 		 * the input from character selection 
@@ -179,7 +147,6 @@ import acm.util.RandomGenerator;
 		
 		public void drawScene() {
 			String fileName = sceneType + "Background" + IMG_EXTENSION;
-			
 			scene = new GImage(fileName, 0, 0);
 			scene.setSize(1600, 600);
 			program.add(scene);
@@ -316,26 +283,10 @@ import acm.util.RandomGenerator;
 		@Override
 		public void hideContents() {
 			program.removeAll();
-		}
-		
-		/**
-		 * hides the character selection view after player chooses
-		 * character
-		 */
-		public void hideSelection() {
-			program.remove(Fire);
-			program.remove(Water);
-			program.remove(Earth);
-			program.remove(Wind);
-			program.remove(Back);
-			if(border != null) {
-				program.remove(border);
-			}
 			if(invulnerable == false) {
 				program.remove(invulBar);
 			}
 		}
-		
 		/**
 		 * Removes everything from Screen when player loses
 		 * Displays score and highest as navigations on the screen
@@ -358,7 +309,7 @@ import acm.util.RandomGenerator;
 		
 			resetData();
 			gameSetUp.removeCache();
-			selection = true;
+	
 		}
 		
 		/**
@@ -386,75 +337,25 @@ import acm.util.RandomGenerator;
 		@Override
 		public void mousePressed(MouseEvent e) {
 			GObject obj = program.getElementAt(e.getX(), e.getY());
-			someObj = obj;
-			
-			if (obj == Back) {
-				program.playSound("newbutton.wav",false);
-				program.switchToMenu();
-			}
-			else if(someObj == Fire) {
-				drawGame(PlayerType.FIRE);
-			}
-			else if(someObj == Water) {
-				drawGame(PlayerType.WATER);
-			}
-			else if(someObj == Earth) {
-				drawGame(PlayerType.EARTH);
-			}
-			else if(someObj == Wind) {
-				drawGame(PlayerType.AIR);
-			}
-			else if(someObj == exitGame) {
-				if(selection)return; //added because giving some null pointer exception.
+			if(obj == exitGame) {
 				pause = false;
 				gameLeft();
 				program.switchToMenu();
 			}
-			else if(someObj == restartGame) {
+			if(obj == restartGame) {
 				pause = false;
 				gameLeft();
-				program.switchToPlay();
+				program.switchToCharacterSelection();
 			}
 		}
 		
 		public void mouseMoved(MouseEvent e) {
-			GObject obj = program.getElementAt(e.getX(), e.getY());
-			boolean buttonHover = false;
-			if(!buttonHover) {
-				notHovered(Back);
-			}
-			if(obj == Back) {
-				hover(Back);
-			}
-			
-			if(obj==Fire) {
-				hoverImage(Fire);
-			}
-			else if(obj == Water) {
-				hoverImage(Water);
-			}
-			else if(obj == Wind) {
-				hoverImage(Wind);
-			}
-			else if(obj == Earth) {
-				hoverImage(Earth);
-			}
-			
-			if(obj == null || obj != lastDragonSelection) {
-				removeBorder();
-			}
-		
-			buttonHover = true;	
-			if(selection)return;
-			
-			
 			if(!pause) {
 				if(gameSetUp.movePlayer(e.getY())) {
 					character.setLocation(15, e.getY());
 				}
 			}				
 		}
-		
 		
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -472,23 +373,7 @@ import acm.util.RandomGenerator;
 			}
 		}
 	
-		private void removeBorder() {
-			if(border != null) {
-				program.remove(border);
-				border = null;
-				lastDragonSelection = null;
-			}
-		}
-
-		private void hoverImage(GImage img) {
-			if(border == null) {
-				border = new GRect(img.getBounds().getX()-1,img.getBounds().getY()-1,img.getBounds().getWidth()+1,img.getBounds().getHeight()+1);
-				program.add(border);
-				img.sendToFront();
-				lastDragonSelection = img;
-			}
-		}
-
+		
 		/**
 		 * moves the top obstacles only
 		 */

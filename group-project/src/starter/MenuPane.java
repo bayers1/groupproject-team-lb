@@ -107,7 +107,7 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == mButtons.get(0)) {
 			program.playSound("newbutton.wav",false);
-			program.switchToPlay();
+			program.switchToCharacterSelection();
 		}
 		if (obj == mButtons.get(1)) {
 			program.playSound("newbutton.wav",false);

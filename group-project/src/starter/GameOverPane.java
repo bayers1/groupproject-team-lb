@@ -6,15 +6,11 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
 
@@ -121,7 +117,7 @@ public class GameOverPane extends GraphicsPane {
 		}
 		if(obj == playAgain) {
 			program.playSound("newbutton.wav",false);
-			program.switchToPlay();
+			program.switchToCharacterSelection();
 		}
 	}
 	@Override
