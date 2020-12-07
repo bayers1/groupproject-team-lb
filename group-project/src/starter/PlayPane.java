@@ -64,7 +64,7 @@ import acm.util.RandomGenerator;
 	    private GButton restartGame;
 	    private GButton exitGame;
 	    
-	    private float backgroundSpeed = -0.5f;  //new addition.
+	    private float backgroundSpeed = -.05f;  //new addition.
 	   
 	    private PlayerType playerType;
 		public PlayPane(MainApplication app,PlayerType playerType) {
@@ -159,7 +159,7 @@ import acm.util.RandomGenerator;
 		
 		public void drawScene2() { // Added for background image moving effect.//called in showContents.
 			String fileName = sceneType + "Background" + IMG_EXTENSION;
-			scene2 = new GImage(fileName, 1280,0);
+			scene2 = new GImage(fileName, 1600,0);
 			scene2.setSize(1600, 600);
 			program.add(scene2);
 			scene2.sendToBack();
@@ -170,13 +170,13 @@ import acm.util.RandomGenerator;
 				scene.setLocation(scene.getX() + backgroundSpeed,scene.getY());  
 			}
 			else {
-				scene.setLocation(1280, scene.getY()); //resetting.
+				scene.setLocation(1599, scene.getY()); //resetting.
 			}
 		    if (scene2.getX() > -1599) {
 		    	scene2.setLocation(scene2.getX() + backgroundSpeed,scene2.getY());
 		    } 
 		    else {
-		    	scene2.setLocation(1280,scene2.getY());
+		    	scene2.setLocation(1599,scene2.getY());
 		    	}
 		}
 		 
