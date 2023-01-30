@@ -10,9 +10,9 @@ initialize filetype
 
 if type is one of the four types
 
-    add type to filetype
+	add type to filetype
     
-    set scene based on type
+	set scene based on type
     
 Endif
 
