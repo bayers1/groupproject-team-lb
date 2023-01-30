@@ -4,23 +4,14 @@ duplicates of the four character's images and editing their wings to be pointed 
 .GIF of the character while making next to no other alterations to the rest of the program. The change to this part of the code would be rather simple, as illustrated 
 in the psuedocode below.
 
-acquire player's selected type as prereq
-
-initialize filetype
-
-if type is one of the four types
-
-	add type to filetype
-    
-	set scene based on type
-    
-Endif
-
-add "Dragon.gif" to filetype (was originally 'add "Dragon" and image extension to filetype')
-
-generate image using completed filetype
-
-set image's size and location
-
-add image to the board
+	acquire player's selected type as prereq
+	initialize filetype
+	if type is one of the four types
+		add type to filetype  
+		set scene based on type  
+	Endif
+	add "Dragon.gif" to filetype (was originally 'add "Dragon" and image extension to filetype')
+	generate image using completed filetype
+	set image's size and location
+	add image to the board
 
