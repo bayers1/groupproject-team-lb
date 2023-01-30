@@ -5,12 +5,22 @@ duplicates of the four character's images and editing their wings to be pointed 
 in the psuedocode below.
 
 acquire player's selected type as prereq
+
 initialize filetype
+
 if type is one of the four types
+
     add type to filetype
+    
     set scene based on type
+    
 Endif
+
 add "Dragon.gif" to filetype (was originally 'add "Dragon" and image extension to filetype')
+
 generate image using completed filetype
+
 set image's size and location
+
 add image to the board
+
