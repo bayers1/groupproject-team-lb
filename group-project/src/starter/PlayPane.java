@@ -142,7 +142,7 @@ import acm.util.RandomGenerator;
 				fileName += "air";
 				sceneType = "air";
 			}
-			fileName += "Dragon" + IMG_EXTENSION;
+			fileName += "Dragon.gif;
 			
 			character = new GImage(fileName, startX, startY);
 			character.setSize(120,60);
