@@ -15,3 +15,4 @@ in the psuedocode below.
 	set image's size and location
 	add image to the board
 
+True to my expectations, I was able to implement the .gif files into the program and display them within the main gameplay. Performance within the gameplay itself was also not impeded as a result, much to my surprise. However, there was a minor issue with the visuals of the gifs themselves being a bit... distorted, which I found quite odd because the gifs themselves did not appear to be erroneous on my own system or when previewing them on GitHub or Eclipse. Nevertheless, I still consider this implementation to be a success. 
